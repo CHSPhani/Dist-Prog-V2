@@ -1,0 +1,61 @@
+I drew the blockchain approach(as in case of SLR) and proposed approach
+
+Problems
+Finding datasets and moving them to Blockchain or  Cloud
+Integrating data from multiple sources(cloud, IPFS etc) is not easy
+Conversion data (typically to smart contract) is not trivial and involves experts
+Problem of defining pairwise mappings between datasets and applications
+Serializing access details to blockchain(?) using smart contract
+Decrypting from smart contract and comparing with data is extra burden
+
+Rather we have a Knowledge Graph to make life of application dev easy
+1.finding datasets and structure
+2.naturally represent diverse datasets from a variety of domains
+3.getting req data with out serialzing and decrypting
+4.no need to move data to central locations
+5.easy to provide custom access details
+6.inbuilt trust on data (compare time stamps) and transparent management of structure of data (distributed voting for ontology)
+
+
+Create an OWL for OpenDSS Object Model (OO Modelling and Ontology modelling is different)
+
+Conflict: OpenDSS VS CMI Objet model 
+
+Why? 
+  For Reasoning
+
+Reasoner (based on description logic)
+ They classify instances to a class (in ontology). This would be useful when we creating knowledge graph. 
+
+Learning -> Ontology Modelling(done, c#) and Reasoner (Starting)
+
+Conflict (need to solve)
+
+The Distributed System list the class and properties to validate sets. 
+
+OR 
+
+Validate dataset and use reasoner to get a class for the data set and let that approved by the user who wants to upload it. If he dont like it he creates an ontology and validate the set against it. 
+
+Then we construct 
+1.knowledge graph contains (nodes and links contains properties with Ontology as organization principle)
+Users -- Generated--> dataset_Details--OfType-->OWL Link--canserve-->Purpose
+Conversions from Onto another
+Format conversions
+
+2. OWL (classes, data properties and obejct properties)
+3. Datasets (instaces of class)
+
+Now this graph can provide
+required datasets for a purpose
+related datasets of a particular dataset
+provide dataset details(location, structure, access details, size, last updated time)
+
+From here on another layer takes the control for selecting data and moving data
+
+
+
+
+
+
+

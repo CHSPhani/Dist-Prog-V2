@@ -1,0 +1,79 @@
+﻿<Window x:Class="Server.ValidateDataSet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server"
+        xmlns:mdl="clr-namespace:Server.Models"
+        mc:Ignorable="d"
+        Title="ValidateDataSet" Height="450" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.Resources>
+            <mdl:PSaveDataConverter x:Key="psConv"></mdl:PSaveDataConverter>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">Select Data Set File</TextBlock>
+        <Button Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" Content="Select" Click="Button_Click"></Button>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="10,10,10,10">Selected File Name</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Text="{Binding SelFileName}" TextWrapping="Wrap"></TextBlock>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Content="Process File" Margin="10,10,10,10" Command="{Binding PFCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="SelFileName"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="10,10,10,10">Select Pre-defined Dataset Layout</TextBlock>
+        <ComboBox Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Name="cmbDS" ItemsSource="{Binding DMClasses}" SelectedItem="{Binding SelectedCN}" SelectionChanged="CmbDS_SelectionChanged"></ComboBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Margin="10,10,10,10">Properties of Dataset Layout</TextBlock>
+        <ComboBox Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Name="cmbPR" ItemsSource="{Binding PNames}" SelectedItem="{Binding SelectedPN}"></ComboBox>
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Content="Validate" Margin="10,10,10,10" Command="{Binding VCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding ElementName="cmbDS" Path="SelectedItem"></Binding>
+                        <Binding Path="PResult"></Binding>
+                        <Binding Path="CurrentDbInstance"></Binding>
+                        <Binding Path="AcceptDefValues"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <CheckBox Content="Persist Dataset Details" Margin="20,20,10,10" IsChecked="{Binding PerDetails}"></CheckBox>
+            <CheckBox Content="Accept default values" Margin="20,20,10,10" IsChecked="{Binding AcceptDefValues}"></CheckBox>
+        </StackPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="6" Margin="10,10,10,10">Validation Result</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding ValdiationResult}" TextWrapping="Wrap"></TextBlock>
+
+        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
+            <TextBlock Text="{Binding CurrentUserName}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Content="Exit" Name ="Exit" Click="Exit_Click" Margin="10,10,10,10"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

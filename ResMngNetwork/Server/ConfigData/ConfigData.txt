@@ -1,0 +1,4 @@
+WorkingDir=C:\WorkRelated-Offline\Dist Prog V2\ConfigFolder
+DataDir=C:\WorkRelated-Offline\Dist Prog V2\InitialDB\InitialDB.dat
+NoOfUsers=5
+InitSetup=1

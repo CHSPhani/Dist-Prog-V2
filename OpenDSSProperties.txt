@@ -1,0 +1,60 @@
+hour int [>= 0 , <= 24]
+t(sec) double [>= 0 , <= 3540]
+V1 decimal
+VAngle1 decimal
+V2 decimal
+VAngle2 decimal
+V3 decimal
+VAngle3 decimal
+V4 decimal
+VAngle4 decimal
+I1 decimal
+IAngle1 decimal
+I2 decimal
+IAngle2 decimal
+I3 decimal
+IAngle3 decimal
+I4 decimal
+IAngle4 decimal
+
+S1 (kVA) decimal
+Ang1 decimal
+S2 (kVA) decimal
+Ang2 decimal
+S3 (kVA) decimal
+Ang3 decimal
+S4 (kVA) decimal
+Ang4 decimal
+
+Tap (pu)
+
+
+
+
+Data Property Layout
+--------------------
+http://www.w3.org/2002/07/owl
+FunctionalProperty
+rdf:type
+
+http://www.bristol.ac.uk/sles/v1/opendsst1
+Class Name
+rdfs:domain
+
+http://www.w3.org/2001/XMLSchema
+DAta Type Name
+rdfs:range
+
+http://www.w3.org/2001/XMLSchema
+DAta Type Name
+owl:onDatatype
+
+http://www.w3.org/2001/XMLSchema
+string
+1
+"xsd:minLength"
+
+http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43
+C2
+owl:equivalentClass
+C1 (SPl Value)

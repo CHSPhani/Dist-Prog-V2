@@ -1,0 +1,905 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.bristol.ac.uk/sles/v1/opendsst1#"
+     xml:base="http://www.bristol.ac.uk/sles/v1/opendsst1"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#bus_to_bus -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#bus_to_bus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#bus_to_load -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#bus_to_load">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#bus_to_winding -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#bus_to_winding">
+        <owl:inverseOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#winding_to_bus"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#load_contains_loadshape -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#load_contains_loadshape">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#load_to_bus -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#load_to_bus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#primary_bus_to_source -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#primary_bus_to_source">
+        <owl:inverseOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#source_to_primary_bus"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#pv_contains_loadshape -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#pv_contains_loadshape">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#source_to_primary_bus -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#source_to_primary_bus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#transformer_contains_winding -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#transformer_contains_winding">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#winding_to_bus -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#winding_to_bus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#winding_to_regulator -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#winding_to_regulator">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Action -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Action">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:minLength rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</xsd:minLength>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Band -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Band">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#BaseKV -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#BaseKV">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Bus -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#BusSlNo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#BusSlNo">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#CTPrim -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#CTPrim">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#CVRWatts -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#CVRWatts">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#CVRvars -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#CVRvars">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#DebugTrace -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#DebugTrace">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Delay -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Delay">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#EmergHkva -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#EmergHkva">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Enabled -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Enabled">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Id -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Id">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Line"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Irradiance -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Irradiance">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Latitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Latitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Length -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Length">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Line"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#LineUnit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#LineUnit">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Line"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Longitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Longitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#MInterval -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#MInterval">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#MaxTap -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#MaxTap">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#MinTap -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#MinTap">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Model -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Model">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#MonitoredObj -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#MonitoredObj">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#MonitoredTerm -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#MonitoredTerm">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Mult -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Mult">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#NPTS -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#NPTS">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Name">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#No -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#No">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#NoOfWindings -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#NoOfWindings">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PF -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PF">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PTRation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PTRation">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PU -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PU">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PerNoLoadLoss -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PerNoLoadLoss">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PerRS1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PerRS1">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PerRS2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PerRS2">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PercentageR -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PercentageR">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Phases -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Phases">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Pmpp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Pmpp">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#R0 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#R0">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#R1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#R1">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Ratedcurrent -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Ratedcurrent">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Switch -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Switch">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Line"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#TransformerName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#TransformerName">
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Type -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Type">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#VReg -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#VReg">
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Vmaxpu -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Vmaxpu">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Vminpu -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Vminpu">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#WindingConnType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#WindingConnType">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#X0 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#X0">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#X1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#X1">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Xhl -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Xhl">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#kv -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#kv">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#kvA -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#kvA">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#kvar -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#kvar">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#kw -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#kw">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#kwh -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#kwh">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#status -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#status">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#sub -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#sub">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#xfkVA -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#xfkVA">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Bus -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Line -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Line"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Load -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst1#Winding -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Bus"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Capacitor"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Circuit"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Fuse"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Line"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Load"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#LoadShape"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#PVSystem"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Regulator"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Transformer"/>
+            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst1#Winding"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#"
+     xml:base="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P1">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</xsd:minInclusive>
+                    </rdf:Description>
+                    <rdf:Description>
+                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:maxInclusive>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P2">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.5</xsd:minInclusive>
+                    </rdf:Description>
+                    <rdf:Description>
+                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">99.9</xsd:maxInclusive>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P3 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P3">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:minLength rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</xsd:minLength>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P4 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P4">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:minExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</xsd:minExclusive>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P5 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#P5">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#long">10</xsd:maxExclusive>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C1">
+        <owl:equivalentClass rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C2"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C2 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-43#C2"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

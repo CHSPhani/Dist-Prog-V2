@@ -1,0 +1,55 @@
+﻿<Window x:Class="Server.UploadOntology"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server"
+        xmlns:md="clr-namespace:Server.Models"
+        mc:Ignorable="d"
+        Title="Upload Ontology" Height="450" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <md:PSaveDataConverter x:Key="psConv"></md:PSaveDataConverter>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0">Here Users can upload OWL files and we read them and get content. The OWL parser is limited in functionality as this is a PoC.</TextBlock>
+        
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <Button Name="btnBrowse" Click="BtnBrowse_Click" Width="100" Margin="10,10,10,10" Content="Browse"></Button>
+            <TextBlock Text="{Binding OFilePath}" Margin="5,5,5,5" Width="530"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <Button Name="btnUpload" Width="100" Margin="10,10,10,10" Content="Upload" Click="BtnUpload_Click"></Button>
+            <TextBlock Text="{Binding OUploadStatus}" Margin="5,5,5,5" Width="530"></TextBlock>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Name="btnExit" Click="BtnExit_Click" Width="100" Margin="10,10,10,10" Content="Exit"></Button>
+            <Button Name="btnSave" Width="100" Margin="10,10,10,10" Content="Save" IsEnabled="{Binding ProposalState}" Command="{Binding SnoCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CSUser"></Binding>
+                        <Binding Path="ODetails"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button Name="btnPropose" Width="100" Margin="10,10,10,10" Content="Propose" IsEnabled="{Binding ProposalState1}" Command="{Binding PnoCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CSUser"></Binding>
+                        <Binding Path="ODetails"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <TextBlock Text="{Binding CSUser}" Margin="5,5,5,5" Width="300"></TextBlock>
+            <TextBlock Text="Loggedin User" Margin="5,5,5,5"></TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

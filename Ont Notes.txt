@@ -1,0 +1,137 @@
+Classes
+=======
+Bus
+Circuit
+Transformer
+Winding
+Regulator
+Capacitor
+Load
+LoadShape
+PVSystem
+CircuitBreaker
+Fuse
+Switch
+Line
+
+Data Properties
+================
+PU Domain Circuit Range xsd:double Functional yes //1.05f;
+BaseKv Domain Circuit Range xsd:int Functional yes  //230;
+R0  Domain Circuit Range xsd:double Functional yes //4.07f;
+R1  Domain Circuit Range xsd:double Functional yes //0.63f;
+X0  Domain Circuit Range xsd:double Functional yes //15.55f;
+X1  Domain Circuit Range xsd:double Functional yes //6.72f;
+BusSlNo Domain Bus Range xsd:int Functional yes //1;
+NoOfWindings Domain Transformer Range xsd:int Functional yes //2;
+Winding1 Domain Transformer Range = BaseIRI:Winding Functional yes
+Winding2 Domain Transformer Range = BaseIRI:Winding Functional yes
+PerNoLoadLoss Domain Transformer Range xsd:double Functional yes //0.18f;
+PerRS1 Domain Transformer Range xsd:double Functional yes //0.12f;
+PerRS2 Domain Transformer Range xsd:double Functional yes //0.12f;
+sub Domain Transformer Range xsd:string Functional yes //"yes";
+MinTap Domain Transformer Range xsd:double Functional yes //0.9f;
+MaxTap Domain Transformer Range xsd:double Functional yes //1.1f;
+EmergHkva Domain Transformer Range xsd:long Functional yes //75000;
+Xhl Domain Transformer Range xsd:double Functional yes //10.63f;
+No Domain Winding Range xsd:int Functional yes //1
+PercentageR  Domain  Winding Range xsd:int Functional yes //
+
+Id Domain Line Range xsd:string Functional yes //"l1";
+Length Domain Line Range xsd:double Functional yes //"l1";
+
+NPTS Domain LoadShape Range xsd:long Functional yes //"";
+MInterval  Domain LoadShape Range xsd:int Functional yes //"";
+Mult  Domain LoadShape Range xsd:string Functional yes //"";
+Action  Domain LoadShape Range xsd:string Functional yes //"";
+
+TransformerName Domain Regulator Range xsd:string Functional yes //"";
+VReg Domain Regulator Range xsd:double Functional yes //"";
+Band Domain Regulator Range xsd:int Functional yes //"";
+PTRation Domain Regulator Range xsd:int Functional yes //"";
+CTPrim Domain Regulator Range xsd:int Functional yes //"";
+R  Domain Regulator Range xsd:double Functional yes //"";
+X  Domain Regulator Range xsd:double Functional yes //"";
+DebugTrace  Domain Regulator Range xsd:string Functional yes //"";
+Delay  Domain Regulator Range xsd:int Functional yes //"";
+
+Phases Domain Transformer,Load,PVSystem,Capacitor Range xsd:int Functional yes //3;
+Enabled  Domain Regulator,Capacitor  Range xsd:boolean Functional yes //"";
+WindingConnType Domain Winding,Load,Capacitor  Range xsd:string Functional yes //Wye Delta 
+kv Domain Winding,Load,PVSystem,Capacitor    Range xsd:double Functional yes //
+kvar Domain Load,Capacitor   Range xsd:double Functional yes //
+Bus Domain Circuit,Winding,Load,PVSystem,Capacitor Range xsd:string Functional yes //"SourceBus";
+
+Irradiance Domain PVSystem Range xsd:int Functional yes //"";
+kvA Domain Winding,Load,PVSystem  Range xsd:double Functional yes //
+PF Domain Load,PVSystem Range xsd:double Functional yes //
+Pmpp Domain PVSystem Range xsd:double Functional yes //"";
+kw Domain Load Range xsd:double Functional yes //
+kwh Domain Load Range xsd:double Functional yes //
+xfkVA Domain Load Range xsd:double Functional yes //
+Model Domain Load Range xsd:int Functional yes //
+CVRWatts Domain Load Range xsd:double Functional yes //
+CVRvars Domain Load Range xsd:double Functional yes //
+Vminpu Domain Load Range xsd:double Functional yes //
+Vmaxpu Domain Load Range xsd:double Functional yes //
+status Domain Load Range xsd:string Functional yes //"";
+
+
+Name Domain Circuit,Transformer Range, Fuse xsd:string Functional yes //"ckt24";
+Type Domain Circuit,Transformer Range xsd:string Functional yes //"Substation,Transformer";
+Longitude  Domain Bus,Transformer Range xsd:double Functional yes //-78.948237;
+Latitude   Domain Bus,Transformer Range xsd:double Functional yes //35.929673;
+
+MonitoredObj Domain Fuse Range xsd:string Functional yes //"";
+MonitoredTerm Domain Fuse Range xsd:string Functional yes //"";
+Ratedcurrent  Domain Fuse Range xsd:double Functional yes //"";
+
+
+Object Properties
+=================
+source_to_primary_bus Domain Circuit Range Bus 
+primary_bus_to_source Domain Bus Range Circuit
+bus_to_winding Domain Bus Range Winding
+winding_to_bus Domain Winding Range Bus
+winding_to_regulator Domain Winding Range Bus  (No Inverse)
+bus_to_load Domain bus Range Bus
+load_to_bus Domain bus Range Bus
+load_contains_loadshape Domain load Range Loadshape (No Inverse)
+pv_contains_loadshape Domain PVSystem Range LoadShape (No Inverse)
+
+Functional yes
+Inverse Functional yes
+Symmetric No
+Anti Symmetric yes
+Reflexive No
+Irreflexive yes
+Transitive No
+
+transformer_contains_winding
+Functional no (multiple value)
+Inverse Functional (multiple values)
+Symmetric No
+Anti Symmetric yes
+Reflexive No
+Irreflexive yes
+Transitive No
+
+
+bus_to_bus Domain Bus Range Bus
+Functional yes
+Inverse Functional yes
+Symmetric Yes
+Anti Symmetric No
+Reflexive No
+Irreflexive yes
+Transitive No
+
+Recloser ? Later will be added
+Switched Obj 
+Switched Term 
+Num Fast 
+Shots 
+Phase 
+TDPhFast 
+TDPhDelayed 
+Reclose intervals

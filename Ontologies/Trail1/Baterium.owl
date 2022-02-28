@@ -1,0 +1,480 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#"
+     xml:base="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:untitled-ontology-35="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_grouping -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_grouping">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#is_grouping_of"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#is_shape_of"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#is_grouping_of -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#is_grouping_of">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#is_shape_of -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#is_shape_of">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_positive -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_positive">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+<!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_neo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_neo">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#nb_colonies -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#nb_colonies">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Ballicus -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Ballicus">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Coccus -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Coccus">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InChain"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InCluster"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Pairs"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InChain -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InChain">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Long"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Small"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InCluster -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InCluster">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Long -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Long">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InChain"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Small"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Pairs -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Pairs">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Psuedo -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Psuedo">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Ballicus"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_grouping"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Pairs"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_positive"/>
+                        <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</owl:hasValue>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Pairs"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_positive"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Rod"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Small -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Small">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InChain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Strap -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Strap">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_grouping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InCluster"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_positive"/>
+                        <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasValue>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Strep -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Strep">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_grouping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Small"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_grouping"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated"/>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#has_shape"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#gram_positive"/>
+                        <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasValue>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#in_cluster1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#in_cluster1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InCluster"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#round1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#round1"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#round2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#round2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Round"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#unknown_bacterium -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#unknown_bacterium">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+        <has_grouping rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#in_cluster1"/>
+        <has_shape rdf:resource="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#round2"/>
+        <gram_positive rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</gram_positive>
+        <nb_colonies rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</nb_colonies>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Bacterium"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Grouping"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Shape"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InChain"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#InCluster"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Isolated"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/sc18092/ontologies/2022/1/untitled-ontology-35#Pairs"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

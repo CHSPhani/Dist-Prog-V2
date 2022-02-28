@@ -1,0 +1,62 @@
+﻿<Window x:Class="Server.CreatePkg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server"
+        xmlns:md="clr-namespace:Server.Models"
+        mc:Ignorable="d"
+        Title="CreatePkg"  Height="250" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Resources>
+            <md:PSaveDataConverter x:Key="psConv"></md:PSaveDataConverter>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0">Package Name</TextBlock>
+        <TextBox Name="txtPN" Grid.Column="1" FontSize="15" Grid.Row="0" Width="500" Margin="0,10,0,10" Text="{Binding Path=ETName}"></TextBox>
+        <TextBlock Grid.Column="0" Grid.Row="1">Package Namespace</TextBlock>
+        <TextBox Name="txtEtUri" Grid.Column="1" FontSize="15" Grid.Row="1" Width="500" Margin="0,10,0,10" Text="{Binding Path=ETURI}"></TextBox>
+        <TextBlock Grid.Column="0" Grid.Row="2">Package Help Notes</TextBlock>
+        <TextBox Name="txtNotes" Grid.Column="1" FontSize="15" Grid.Row="2" Width="500" Margin="0,10,0,10" Text="{Binding Path=ETNotes}"></TextBox>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
+            <TextBlock Text="{Binding CurrentUserName}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Name="btnExit" Click="BtnExit_Click" Width="100" Margin="10,10,10,10" Content="Exit"></Button>
+            <Button Name="btnSave" Width="100" Margin="10,10,10,10" Content="Save" Command="{Binding SPCommand}" IsEnabled="{Binding ProposalState}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CurrentUserName"></Binding>
+                        <Binding ElementName="txtPN" Path="Text"></Binding>
+                        <Binding ElementName="txtEtUri" Path="Text"></Binding>
+                        <Binding ElementName="txtNotes" Path="Text"></Binding>
+                        <Binding Path="CurrentDbInstance"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button Name="btnPropose" Width="100" Margin="10,10,10,10" Content="Propose" Command="{Binding PPCommand}" IsEnabled="{Binding ProposalState1}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CurrentUserName"></Binding>
+                        <Binding ElementName="txtPN" Path="Text"></Binding>
+                        <Binding ElementName="txtEtUri" Path="Text"></Binding>
+                        <Binding ElementName="txtNotes" Path="Text"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <TextBlock Text="{Binding ProposalStatus}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
+            <TextBlock Text="Proposal State" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

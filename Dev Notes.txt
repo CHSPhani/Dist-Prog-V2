@@ -1,0 +1,26 @@
+Data for each process
+we have a database where resources are available
+we have text files where Ontology is available using the resources.
+
+Task1: Creating a consensus for modifying resources
+
+Task2: Creating (completing) a validate data set for a data set
+
+Task 1: Erlang is used as the problem is in distributed setup. we create processes using erlang communicate using messages...
+
+1.Each process can do: Validate Data Set, Participate in Voting if Eligible For Voting. Participate means Executing Test Cases and sending result. Also the process Update Resources to create new version.
+
+2.Each process maintain: Set of Resources. Base Set is obtained from MySQL with V 1.0. Then onward update resources update corresponding resources to newer version. 
+
+First Version
+
+1. Process Specification -> Process Name. 
+
+2. Reading Initial Data
+
+3. State Machine functions (Update Data)
+
+4. Communicate with other process (decide which can be communicated with what)
+
+5. Create a master process that maintain the communication details. 
+

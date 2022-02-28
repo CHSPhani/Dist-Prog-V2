@@ -1,0 +1,69 @@
+﻿<Window x:Class="Server.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server"
+        xmlns:ps="clr-namespace:Server.Models"
+        mc:Ignorable="d"
+        Title="Resource Management Network - Supervision Module" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Resources>
+            <ps:SStartDataConverter x:Key="ssConv">
+            </ps:SStartDataConverter>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="No Of Users" Margin="10,10,10,10"></TextBlock>
+            <TextBlock Text="{Binding NoOfUser}"  Margin="10,10,10,10" Width="200"></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="Status Message:" Margin="10,10,10,10"></TextBlock>
+            <TextBlock Text="{Binding SysStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,10" Width="300"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">
+            <Button Width="100" Height="50" Margin="10,10,10,10">Add New User</Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Button Width="100" Height="50" Margin="10,10,10,10" Command="{Binding SSCommand}" Content="Start System">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource ssConv}">
+                        <Binding Path="WorkingDir"></Binding>
+                        <Binding Path="DataDir"></Binding>
+                        <Binding Path="NoOfUser"></Binding>
+                        <Binding Path="InitSetupDone"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3">
+            <Button Width="100" Height="50" Margin="10,10,10,10" Command="{Binding KGrCommand}" Content="Knowledge Graph">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource ssConv}">
+                        <Binding Path="ActiveNodes"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Margin="10,10,10,10" Click="Button_Click">Exit</Button>
+            <Button Margin="10,10,10,10">Stop Network</Button>
+        </StackPanel>
+    </Grid>
+</Window>
+
+    

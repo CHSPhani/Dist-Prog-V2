@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+  <Rule>
+    <Cause>NewPackage</Cause>
+    <Type>Voting</Type>
+    <Conditions>
+      NonEmpty
+      Unique
+    </Conditions>
+  </Rule>
+  <Rule>
+    <Cause>NewClass</Cause>
+    <Type>Voting</Type>
+    <Conditions>
+      NonEmpty
+      Unique
+    </Conditions>
+  </Rule>
+  <Rule>
+    <Cause>NewProperty</Cause>
+    <Type>Voting</Type>
+    <Conditions>
+      NonEmpty
+      Unique
+    </Conditions>
+  </Rule>
+</ContentRules>

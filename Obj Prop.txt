@@ -1,0 +1,43 @@
+CNBaseURI: "http://www.bristol.ac.uk/sles/v1/opendsst1"
+    CNName: "winding_to_bus"
+    CNSpecialValue: ""
+    CNType: "owl:inverseOf"
+
+    CNBaseURI: "http://www.w3.org/2002/07/owl"
+    CNName: "FunctionalProperty"
+    CNSpecialValue: ""
+    CNType: "rdf:type"
+
+    CNBaseURI: "http://www.w3.org/2002/07/owl"
+    CNName: "InverseFunctionalProperty"
+    CNSpecialValue: ""
+    CNType: "rdf:type"
+
+   CNBaseURI: "http://www.w3.org/2002/07/owl"
+    CNName: "AsymmetricProperty"
+    CNSpecialValue: ""
+    CNType: "rdf:type"
+
+    CNBaseURI: "http://www.w3.org/2002/07/owl"
+    CNName: "IrreflexiveProperty"
+    CNSpecialValue: ""
+    CNType: "rdf:type"
+
+    CNBaseURI: "http://www.bristol.ac.uk/sles/v1/opendsst1"
+    CNName: "Bus"
+    CNSpecialValue: ""
+    CNType: "rdfs:domain"
+
+    CNBaseURI: "http://www.bristol.ac.uk/sles/v1/opendsst1"
+    CNName: "Winding"
+    CNSpecialValue: ""
+    CNType: "rdfs:range"
+
+
+
+                    //Create new Class Node with 
+                    //oC.CChildNodes.Add(ocNode);
+                    //ocNode.CNSpecialValue = selectedCN;
+                    //OClass ocNew = new OClass(ncName);
+                    //Add this new class. 
+                    //this.initData.OwlData.OWLClasses.Add(ocNew);
