@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\DebugOuts\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="DataSerailizer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CIM Class Lib\Version2\Assembly\DataSerailizer.dll</HintPath>
+      <HintPath>..\..\DebugOuts\DataSerailizer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.GLEE">
       <HintPath>..\..\..\..\Program Files (x86)\Microsoft Research\GLEE\bin\Microsoft.GLEE.dll</HintPath>
@@ -51,6 +51,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,14 +73,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddNewConv.xaml.cs">
+      <DependentUpon>AddNewConv.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddNewDP.xaml.cs">
       <DependentUpon>AddNewDP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddNewDtoDP.xaml.cs">
+      <DependentUpon>AddNewDtoDP.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddNewOC.xaml.cs">
       <DependentUpon>AddNewOC.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddNewOP.xaml.cs">
       <DependentUpon>AddNewOP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddNewRestri.xaml.cs">
+      <DependentUpon>AddNewRestri.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChangeRules\AdaptRules.cs" />
     <Compile Include="ChangeRules\ReadConditionRules.cs" />
@@ -98,9 +110,12 @@
     <Compile Include="KnowledgeGraph\KnowledgeGraph.designer.cs">
       <DependentUpon>KnowledgeGraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddNewConversion.cs" />
     <Compile Include="Models\AddNewDPModel.cs" />
+    <Compile Include="Models\AddNewDToDP.cs" />
     <Compile Include="Models\AddNewOCModel.cs" />
     <Compile Include="Models\AddNewOPModel.cs" />
+    <Compile Include="Models\AddNewRstr.cs" />
     <Compile Include="Models\InsertCls.cs" />
     <Compile Include="Models\InsertProperty.cs" />
     <Compile Include="Models\MOPModel.cs" />
@@ -112,6 +127,13 @@
       <DependentUpon>ModifyOP.xaml</DependentUpon>
     </Compile>
     <Compile Include="PBReasoner\PBReasoner.cs" />
+    <Compile Include="RDFGraphWindow\FormRDFGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDFGraphWindow\FormRDFGraph.Designer.cs">
+      <DependentUpon>FormRDFGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDFGraphWindow\RDFG.cs" />
     <Compile Include="ShowResources.xaml.cs">
       <DependentUpon>ShowResources.xaml</DependentUpon>
     </Compile>
@@ -121,10 +143,19 @@
     <Compile Include="ValidateDataSet.xaml.cs">
       <DependentUpon>ValidateDataSet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationService\ValidateFiles.cs" />
     <Compile Include="VDView.xaml.cs">
       <DependentUpon>VDView.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddNewConv.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddNewDP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddNewDtoDP.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddNewOP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddNewRestri.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +251,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="RDFGraphWindow\FormRDFGraph.resx">
+      <DependentUpon>FormRDFGraph.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="OntologySpecs\opendsst1.owl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -232,5 +270,11 @@
     <Resource Include="ConfigData\Rules.xml" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ContractDataModels\ContractDataModels.csproj">
+      <Project>{368c2bff-6167-4c07-aa63-80c171cf2159}</Project>
+      <Name>ContractDataModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

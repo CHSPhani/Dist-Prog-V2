@@ -28,7 +28,7 @@ namespace Server.Models
         {
             var values = (object[])parameter;
 
-            string p0, p1, p2, p3,p4, p5 = string.Empty;
+            string p0, p1, p2, p3,p4  = string.Empty;
 
 
             if (values[0] != null)
@@ -56,11 +56,7 @@ namespace Server.Models
             else
                 p4 = string.Empty;
 
-            if (values[5] != null)
-                p5 = values[5].ToString();
-            else
-                p5 = string.Empty;
-
+            
             if (string.IsNullOrEmpty(p0))
             {
                 EventHandler handler = EventCompleted;
@@ -73,25 +69,28 @@ namespace Server.Models
                 handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "NewPropertyName" });
                 return;
             }
-            else if (string.IsNullOrEmpty(p2))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "NewClassName" });
-                return;
-            }
-            else if (string.IsNullOrEmpty(p3))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "ExistingClassName" });
-                return;
-            }
+
+            /*
+            //else if (string.IsNullOrEmpty(p2))
+            //{
+            //    EventHandler handler = EventCompleted;
+            //    handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "NewClassName" });
+            //    return;
+            //}
+            //else if (string.IsNullOrEmpty(p3))
+            //{
+            //    EventHandler handler = EventCompleted;
+            //    handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "ExistingClassName" });
+            //    return;
+            //}
+            */
 
             NodeMesaage nMessage = new NodeMesaage();
             nMessage.ProposedUser = p0;
             nMessage.PCause = ProposalCause.NewObjectProperty;
             nMessage.PTYpe = ProposalType.Transition;
             List<string> sItems = new List<string>();
-            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); sItems.Add(p5);
+            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4);
             nMessage.DataItems = sItems;
             RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
         }
@@ -115,7 +114,7 @@ namespace Server.Models
         {
             var values = (object[])parameter;
 
-            string p0, p1, p2 = string.Empty;
+            string p0  = string.Empty;
 
             if (values[0] != null)
                 p0 = values[0].ToString();
@@ -356,15 +355,17 @@ namespace Server.Models
             this.curDbInstance = dbData;
             this.IsEquiv = false;
             List<string> clsNames = new List<string>();
-            foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
+            foreach (KeyValuePair<string, SemanticStructure> kvp in this.curDbInstance.OwlData.RDFG.NODetails)
             {
-                clsNames.Add(oCls.CName);
+                if (kvp.Value.SSType == SStrType.Class)
+                    clsNames.Add(kvp.Value.SSName);
             }
             this.DMClasses = clsNames;
             List<string> ips = new List<string>();
-            foreach(OObjectProperty oP in this.curDbInstance.OwlData.OWLObjProperties)
+            foreach (KeyValuePair<string, SemanticStructure> kvp in this.curDbInstance.OwlData.RDFG.NODetails)
             {
-                ips.Add(oP.OProperty);
+                if (kvp.Value.SSType == SStrType.ObjectProperty)
+                    ips.Add(kvp.Value.SSName);
             }
             this.InProps = ips;
         }

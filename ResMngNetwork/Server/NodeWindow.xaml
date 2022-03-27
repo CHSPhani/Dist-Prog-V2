@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Server"
         xmlns:md="clr-namespace:Server.Models"
         mc:Ignorable="d"
-        Title="Client Terminal"  Height="550" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="Client Terminal"  Height="550" Width="999" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.Resources>
             <md:PSaveDataConverter x:Key="psConv"></md:PSaveDataConverter>
@@ -20,8 +20,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal"  FlowDirection="LeftToRight">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal"  FlowDirection="LeftToRight">
             <TextBlock Text="Logged-in User" Margin="10,10,10,10"></TextBlock>
             <TextBlock Text="{Binding UserName}" Width="200" Margin="10,10,10,10"></TextBlock>
             <TextBlock Text="User Role" Margin="10,10,10,10"></TextBlock>
@@ -34,6 +35,7 @@
             <TextBlock Text="{Binding Status}" Margin="10,10,10,10"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+            <TextBlock Text="Resource Managagement" TextAlignment="Center" Margin="10,10,10,10"></TextBlock>
             <Button  Width="300" Margin="10,10,10,10" Content="See Resources"  Command="{Binding SRWindow}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
@@ -74,7 +76,10 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button Width="300" Margin="10,10,10,10" Content="Propose New Class for Ontology" Command="{Binding NewOCCommand}">
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+            <TextBlock Text="Ontology Managagement" TextAlignment="Center" Margin="10,10,10,10"></TextBlock>
+            <Button Width="300" Margin="16,10,15,10" Content="Propose New Class for Ontology" Command="{Binding NewOCCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
                         <Binding Path="UserName"></Binding>
@@ -90,7 +95,7 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button  Width="300" Margin="10,10,10,10" Content="Propose NEW Object Property" Command="{Binding NewOPCommand}">
+            <Button  Width="300" Margin="10,10,10,10" Content="Add Domain to a Data Property" Command="{Binding NewDCmd}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
                         <Binding Path="UserName"></Binding>
@@ -98,7 +103,7 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button  Width="300" Margin="10,10,10,10" Content="Propose to Modify Data Property of Ontology" Command="{Binding MOPCommand}">
+            <Button  Width="300" Margin="10,10,10,10" Content="Propose NEW Object Property for Ontology" Command="{Binding NewOPCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
                         <Binding Path="UserName"></Binding>
@@ -106,9 +111,33 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button  Width="300" Margin="10,10,10,10" Content="Propose to Modify Object Property of Ontology"></Button>
+            <Button  Width="300" Margin="10,10,10,10" Content="Propose New Restrictions to a Class in Ontology" Command="{Binding AddNewRt}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="UserName"></Binding>
+                        <Binding Path="DataInstance"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button  Width="300" Margin="10,10,10,10" Content="Propose Range for Data Property of Ontology" Command="{Binding MOPCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="UserName"></Binding>
+                        <Binding Path="DataInstance"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button  Width="300" Margin="10,10,10,10" Content="Propose Conversion for Eng Unit in Ontology" Command="{Binding AddNewCnv}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="UserName"></Binding>
+                        <Binding Path="DataInstance"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" >
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
+            <TextBlock Text="Dataset Validation" TextAlignment="Center" Margin="10,10,10,10"></TextBlock>
             <Button Width="300"  Margin="10,10,10,10" Content="Validate" Command="{Binding ValidateDatasetCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
@@ -126,7 +155,7 @@
                 </Button.CommandParameter>
             </Button>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal"  FlowDirection="RightToLeft">
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal"  FlowDirection="RightToLeft">
             <Button Content="Exit" Margin="10,10,10,10" Click="Button_Click"></Button>
         </StackPanel>
     </Grid>

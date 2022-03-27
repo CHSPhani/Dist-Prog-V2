@@ -29,7 +29,7 @@ namespace Server.DSystem
 
         public List<string> DataItems { get; set; }
 
-        public OWLData OwlData { get; set; }
+        public OWLDataG OwlDatag { get; set; }
         
         public ODataProperty OldDP { get; set; }
 
@@ -39,7 +39,7 @@ namespace Server.DSystem
             PTYpe = ProposalType.None;
             PCause = ProposalCause.None;
             DataItems = new List<string>();
-            OwlData = new OWLData();
+            OwlDatag = new OWLDataG();
             OldDP = null;
         }
     }
@@ -253,6 +253,13 @@ namespace Server.DSystem
                         else
                             return false;
                     }));
+                    dsNode.Incidents.Add(nodes.Find((n) =>
+                    {
+                        if (n.UserName == "AUser")
+                            return true;
+                        else
+                            return false;
+                    }));
                 }
                 if (dsNode.UserName == "User5")
                 {
@@ -266,6 +273,16 @@ namespace Server.DSystem
                     dsNode.Incidents.Add(nodes.Find((n) =>
                     {
                         if (n.UserName == "User3")
+                            return true;
+                        else
+                            return false;
+                    }));
+                }
+                if(dsNode.UserName == "AUser")
+                {
+                    dsNode.Incidents.Add(nodes.Find((n) =>
+                    {
+                        if (n.UserName == "User4")
                             return true;
                         else
                             return false;

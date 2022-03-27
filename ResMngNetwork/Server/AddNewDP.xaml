@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Server"
         xmlns:mdl="clr-namespace:Server.Models"
         mc:Ignorable="d"
-        Title="Add New Data Property to Existing Ontology"  Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Add New Data Property to Existing Ontology"  Height="400" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <mdl:PSaveDataConverter x:Key="psConv"></mdl:PSaveDataConverter>
@@ -17,7 +17,7 @@
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
+            <!--<RowDefinition Height="60"></RowDefinition>-->
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -38,14 +38,14 @@
         <TextBlock Text="Data Type (Range)" Grid.Row="3" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
         <ComboBox Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Name="cmbDT" ItemsSource="{Binding ODataTypes}" SelectedItem="{Binding SelectedDT}"></ComboBox>
 
-        <TextBlock Text="Data Range Expression" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
-        <TextBox Text="{Binding DtExpression}" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10" TextAlignment="Left"></TextBox>
+        <!--<TextBlock Text="Data Range Expression" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
+        <TextBox Text="{Binding DtExpression}" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10" TextAlignment="Left"></TextBox>-->
 
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
             <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
             <TextBlock Text="{Binding CurrentUserName}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Content="Exit" Name ="Exit" Click="Exit_Click" Margin="10,10,10,10"></Button>
             <Button Content="Save" Name="save" Margin="10,10,10,10" IsEnabled="{Binding ProposalState}" Command="{Binding SDpCommand}">
                 <Button.CommandParameter>
@@ -55,7 +55,7 @@
                         <Binding Path="SelectedCN"></Binding>
                         <Binding Path="FunctionalProp"></Binding>
                         <Binding Path="SelectedDT"></Binding>
-                        <Binding Path="DtExpression"></Binding>
+                        <!--<Binding Path="DtExpression"></Binding>-->
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
@@ -67,7 +67,7 @@
                         <Binding Path="SelectedCN"></Binding>
                         <Binding Path="FunctionalProp"></Binding>
                         <Binding Path="SelectedDT"></Binding>
-                        <Binding Path="DtExpression"></Binding>
+                        <!--<Binding Path="DtExpression"></Binding>-->
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>

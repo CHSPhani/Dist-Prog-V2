@@ -1,0 +1,39 @@
+Clear
+
+New Circuit.ckt24 bus1=SourceBus pu=1.05  basekV=230 R1=0.63 X1=6.72 R0=4.07 X0=15.55
+
+!Base Config Files that are required. 
+Redirect  Wiredata_ckt24.dss
+Redirect  Linegeometry_ckt24.dss
+Redirect  LineCodes_ckt24.dss
+Redirect  TriplexLineCodes_ckt24.dss
+
+!Substation Transformer
+New Transformer.SubXFMR Phases=3 Windings=2 Xhl=10.63 wdg=1 conn=delta bus=SourceBus kV=230 kVA=45000 wdg=2 conn=wye bus=SubXfmr_LSB kV=34.5 kVA=45000  
+~ mintap=0.9 maxtap=1.1 sub=yes
+~ %noloadloss=0.18 !assumed
+~ %Rs = (0.12,0.12)
+~ emergHkva = 75000
+
+New Monitor.SubXFMR_10-02-2022_VI_t1 element=Transformer.SubXFMR terminal=1 mode=0 enabled = yes
+New Monitor.SubXFMR_10-02-2022_PQ_t1 element=Transformer.SubXFMR terminal=1 mode=1 enabled = yes
+New Monitor.SubXFMR_10-02-2022_Tap_t1 element=Transformer.SubXFMR terminal=1 mode=2 enabled = yes
+New Monitor.SubXFMR_10-02-2022_VI_t2 element=Transformer.SubXFMR terminal=2 mode=0 enabled = yes
+New Monitor.SubXFMR_10-02-2022_PQ_t2 element=Transformer.SubXFMR terminal=2 mode=1 enabled = yes
+New Monitor.SubXFMR_10-02-2022_Tap_t2 element=Transformer.SubXFMR terminal=2 mode=2 enabled = yes
+New monitor.SubXFMR_taps element=Transformer.SubXFMR terminal=2 mode=2
+
+
+New Regcontrol.SubXFMR_Regulator  transformer=SubXFMR  winding=2   vreg=122.0 band=3 ptratio=166 ctprim=2000 R=7 X=0 enabled=True debugtrace=no delay=45 
+
+!New line.fdr_05422 bus1=SubXfmr_LSB bus2=05422 linecode=busbar phases=3 length=100 units=ft  !will stub this out later
+New line.fdr_05410 bus1=SubXfmr_LSB bus2=05410 linecode=busbar phases=3 length=1 units=ft
+
+! Let OpenDSS define the voltage bases
+Set voltagebases=[230,34.5,13.2,0.48,0.415,0.208]   ! Allowable voltage bases for this problem
+Calcvoltagebases
+
+Export
+
+solve
+

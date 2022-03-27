@@ -44,12 +44,20 @@
                         <Binding Path="DataDir"></Binding>
                         <Binding Path="NoOfUser"></Binding>
                         <Binding Path="InitSetupDone"></Binding>
+                        <Binding Path="NoOfAUser"></Binding>
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3">
+            <Button Width="100" Height="50" Margin="10,10,10,10" Command="{Binding RGrCommand}" Content="RDF Graph">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource ssConv}">
+                        <Binding Path="ActiveNodes"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
             <Button Width="100" Height="50" Margin="10,10,10,10" Command="{Binding KGrCommand}" Content="Knowledge Graph">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource ssConv}">

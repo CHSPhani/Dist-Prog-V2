@@ -26,7 +26,7 @@ namespace Server.Models
         {
             var values = (object[])parameter;
 
-            string p0, p1 = string.Empty;
+            string p0, p1, p2 = string.Empty;
 
 
             if (values[0] != null)
@@ -39,12 +39,18 @@ namespace Server.Models
             else
                 p1 = string.Empty;
 
+            if (values[2] != null)
+                p2 = values[2].ToString();
+            else
+                p2 = string.Empty;
+
             NodeMesaage nMessage = new NodeMesaage();
             nMessage.PCause = ProposalCause.NewOClass;
             nMessage.PTYpe = ProposalType.Voting;
             List<string> sItems = new List<string>();
             nMessage.ProposedUser = p0;
             sItems.Add(p1);
+            sItems.Add(p2);
             nMessage.DataItems = sItems;
             RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
         }
@@ -67,7 +73,7 @@ namespace Server.Models
         {
             var values = (object[])parameter;
 
-            string p0, p1 = string.Empty;
+            string p0, p1, p2 = string.Empty;
 
 
             if (values[0] != null)
@@ -80,12 +86,18 @@ namespace Server.Models
             else
                 p1 = string.Empty;
 
+            if (values[2] != null)
+                p2 = values[2].ToString();
+            else
+                p2 = string.Empty;
+
             NodeMesaage nMessage = new NodeMesaage();
             nMessage.PCause = ProposalCause.NewOClass;
             nMessage.PTYpe = ProposalType.Transition;
             List<string> sItems = new List<string>();
             nMessage.ProposedUser = p0;
             sItems.Add(p1);
+            sItems.Add(p2);
             nMessage.DataItems = sItems;
             RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
         }
@@ -176,6 +188,33 @@ namespace Server.Models
             }
         }
 
+        List<string> baseClasses;
+        public List<string> BaseClasses
+        {
+            get
+            {
+                return this.baseClasses;
+            }
+            set
+            {
+                this.baseClasses = value;
+            }
+        }
+
+        string sbClass;
+        public string SBClass
+        {
+            get
+            {
+                return this.sbClass;
+            }
+            set
+            {
+                this.sbClass = value;
+                OnPropertyChanged("SBClass");
+            }
+        }
+
         ProposeOCCommand pocCommand;
         public ProposeOCCommand POcCommand
         {
@@ -221,6 +260,18 @@ namespace Server.Models
             this.ProposalState = false;
             this.CurrentUserName = uName;
             this.curDbInstance = dbData;
+            this.BaseClasses = GetBaseClasses();
+        }
+
+        List<string> GetBaseClasses()
+        {
+            List<string> bc = new List<string>();
+            foreach(KeyValuePair<string, SemanticStructure> kvp in this.curDbInstance.OwlData.RDFG.NODetails)
+            {
+                if (kvp.Value.SSType == SStrType.Class)
+                    bc.Add(kvp.Value.SSName);
+            }
+            return bc;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

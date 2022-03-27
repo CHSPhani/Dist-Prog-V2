@@ -68,8 +68,8 @@ namespace Server
         {
             try
             {
-                OntologyReader oReader = new OntologyReader();
-                OWLData oData = oReader.ReadAndCreateOWLData(uoFile.OFilePath);
+                OntologyReaderG oReader = new OntologyReaderG();
+                OWLDataG oData = oReader.ReadAndCreateOWLData(uoFile.OFilePath);
                 uoFile.ODetails = oData;
                 uoFile.OUploadStatus = "Upload Done";
             }

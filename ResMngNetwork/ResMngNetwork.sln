@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{908064DD-4230-42FA-BB85-1460ADB507FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{835E310A-2963-4114-8ADB-F050C2BF4977} = {835E310A-2963-4114-8ADB-F050C2BF4977}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSerailizer", "..\..\CIM Class Lib\Version2\DataSerailizer\DataSerailizer.csproj", "{835E310A-2963-4114-8ADB-F050C2BF4977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractDataModels", "ContractDataModels\ContractDataModels.csproj", "{368C2BFF-6167-4C07-AA63-80C171CF2159}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{835E310A-2963-4114-8ADB-F050C2BF4977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{835E310A-2963-4114-8ADB-F050C2BF4977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{835E310A-2963-4114-8ADB-F050C2BF4977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368C2BFF-6167-4C07-AA63-80C171CF2159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368C2BFF-6167-4C07-AA63-80C171CF2159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368C2BFF-6167-4C07-AA63-80C171CF2159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368C2BFF-6167-4C07-AA63-80C171CF2159}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

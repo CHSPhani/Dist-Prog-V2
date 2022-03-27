@@ -27,8 +27,8 @@ namespace Server.Models
         {
             var values = (object[])parameter;
 
-            string p0, p1, p2, p3, p4, p5 = string.Empty;
-            
+            string p0, p1, p2, p3, p4 = string.Empty; //, p5 
+
 
             if (values[0] != null)
                 p0 = values[0].ToString();
@@ -55,10 +55,10 @@ namespace Server.Models
             else
                 p4 = string.Empty;
 
-            if (values[5] != null)
-                p5 = values[5].ToString();
-            else
-                p5 = string.Empty;
+            //if (values[5] != null)
+            //    p5 = values[5].ToString();
+            //else
+            //    p5 = string.Empty;
 
             if (string.IsNullOrEmpty(p0))
             {
@@ -103,7 +103,7 @@ namespace Server.Models
             nMessage.PCause = ProposalCause.NewDataProperty;
             nMessage.PTYpe = ProposalType.Transition;
             List<string> sItems = new List<string>();
-            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); sItems.Add(p5);
+            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); //sItems.Add(p5);
             nMessage.DataItems = sItems;
             RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
         }
@@ -127,7 +127,7 @@ namespace Server.Models
         {
             var values = (object[])parameter;
 
-            string p0, p1, p2, p3, p4, p5 = string.Empty;
+            string p0, p1, p2, p3, p4  = string.Empty; //,p5
             
 
             if (values[0] != null)
@@ -155,10 +155,10 @@ namespace Server.Models
             else
                 p4 = string.Empty;
 
-            if (values[5] != null)
-                p5 = values[5].ToString();
-            else
-                p5 = string.Empty;
+            //if (values[5] != null)
+            //    p5 = values[5].ToString();
+            //else
+            //    p5 = string.Empty;
             
 
             if (string.IsNullOrEmpty(p0))
@@ -203,7 +203,7 @@ namespace Server.Models
             nMessage.PCause = ProposalCause.NewDataProperty;
             nMessage.PTYpe = ProposalType.Voting;
             List<string> sItems = new List<string>();
-            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); sItems.Add(p5);
+            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); //sItems.Add(p5);
             nMessage.DataItems = sItems;
             RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
         }
@@ -435,9 +435,10 @@ namespace Server.Models
             this.PName = string.Empty;
             this.SelectedDT = string.Empty;
             List<string> clsNames = new List<string>();
-            foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
+            foreach (KeyValuePair<string, SemanticStructure> kvp in this.curDbInstance.OwlData.RDFG.NODetails)
             {
-                clsNames.Add(oCls.CName);
+                if (kvp.Value.SSType == SStrType.Class)
+                    clsNames.Add(kvp.Value.SSName);
             }
             this.DMClasses = clsNames;
             FillDataTypes();
@@ -446,20 +447,20 @@ namespace Server.Models
         void FillDataTypes()
         {
             List<string> dT = new List<string>();
-            dT.Add("xsd:byte");
-            dT.Add("xsd:boolean");
-            dT.Add("xsd:int");
-            dT.Add("xsd:integer");
-            dT.Add("xsd:long");
-            dT.Add("xsd:short");
-            dT.Add("xsd:string");
-            dT.Add("xsd:double");
-            dT.Add("xsd:decimal");
-            dT.Add("xsd:float");
-            dT.Add("xsd:unsignedByte");
-            dT.Add("xsd:unsignedInt");
-            dT.Add("xsd:unsignedLong");
-            dT.Add("xsd:unsignedShort");
+            dT.Add("byte");
+            dT.Add("boolean");
+            dT.Add("int");
+            dT.Add("integer");
+            dT.Add("long");
+            dT.Add("short");
+            dT.Add("string");
+            dT.Add("double");
+            dT.Add("decimal");
+            dT.Add("float");
+            dT.Add("unsignedByte");
+            dT.Add("unsignedInt");
+            dT.Add("unsignedLong");
+            dT.Add("unsignedShort");
             this.ODataTypes = dT;
         }
         public event PropertyChangedEventHandler PropertyChanged;

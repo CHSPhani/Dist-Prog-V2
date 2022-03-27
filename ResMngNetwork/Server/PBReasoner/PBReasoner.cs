@@ -35,20 +35,20 @@ namespace Server.Reasoner
             {
                 string coName = colValues[0].Trim();
                 colValues.Add(s.Split(',')[propCount]);
-                ODataProperty oDP =  dbData.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Trim().ToLower().Equals(coName.ToLower())) { return true; } else { return false; } });
+                //ODataProperty oDP =  dbData.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Trim().ToLower().Equals(coName.ToLower())) { return true; } else { return false; } });
 
-                foreach (OChildNode ocNode in oDP.DPChildNodes)
-                {
-                    if (ocNode.CNType.Equals("rdfs:domain"))
-                    {
-                        //class name
-                    }
-                    if (ocNode.CNType.Equals("rdfs:range") || ocNode.CNType.Equals("owl:onDatatype"))
-                    {
-                        //Type
+                //foreach (OChildNode ocNode in oDP.DPChildNodes)
+                //{
+                //    if (ocNode.CNType.Equals("rdfs:domain"))
+                //    {
+                //        //class name
+                //    }
+                //    if (ocNode.CNType.Equals("rdfs:range") || ocNode.CNType.Equals("owl:onDatatype"))
+                //    {
+                //        //Type
 
-                    }
-                }
+                //    }
+                //}
             }
 
             return null;

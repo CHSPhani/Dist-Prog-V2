@@ -406,6 +406,124 @@ namespace Server.DSystem
             RaiseProposal4?.Invoke(sender, e);
         }
     }
+
+    public class AddNewDcommand:ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public event RaiseProposeEventHandler RaiseProposal4;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var values = (object[])parameter;
+
+            string p1 = string.Empty;
+            DBData dbData = null;
+
+            if (values[0] != null)
+                p1 = values[0].ToString();
+            else
+                p1 = string.Empty;
+
+            if (values[1] != null)
+                dbData = values[1] as DBData;
+            else
+                dbData = null;
+
+            AddNewDtoDP addnewd = new AddNewDtoDP();
+            addnewd.RaiseProposal3 += Addnewd_RaiseProposal3;
+            addnewd.Show();
+        }
+
+        private void Addnewd_RaiseProposal3(object sender, ProposeEventArgs e)
+        {
+            RaiseProposal4?.Invoke(sender, e);
+        }
+    }
+
+    public class AddNewRestr:ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public event RaiseProposeEventHandler RaiseProposal4;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var values = (object[])parameter;
+
+            string p1 = string.Empty;
+            DBData dbData = null;
+
+            if (values[0] != null)
+                p1 = values[0].ToString();
+            else
+                p1 = string.Empty;
+
+            if (values[1] != null)
+                dbData = values[1] as DBData;
+            else
+                dbData = null;
+
+            AddNewRestri addnewr = new AddNewRestri();
+            addnewr.RaiseProposal3 += Addnewr_RaiseProposal3;
+            addnewr.Show();
+        }
+
+        private void Addnewr_RaiseProposal3(object sender, ProposeEventArgs e)
+        {
+            RaiseProposal4?.Invoke(sender, e);
+        }
+    }
+
+    public class AddNewCnvr : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public event RaiseProposeEventHandler RaiseProposal4;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var values = (object[])parameter;
+
+            string p1 = string.Empty;
+            DBData dbData = null;
+
+            if (values[0] != null)
+                p1 = values[0].ToString();
+            else
+                p1 = string.Empty;
+
+            if (values[1] != null)
+                dbData = values[1] as DBData;
+            else
+                dbData = null;
+
+            AddNewConv addnewc = new AddNewConv();
+            addnewc.RaiseProposal3 += Addnewr_RaiseProposal3;
+            addnewc.Show();
+        }
+
+        private void Addnewr_RaiseProposal3(object sender, ProposeEventArgs e)
+        {
+            RaiseProposal4?.Invoke(sender, e);
+        }
+    }
+
     public class DSNode : IEquatable<DSNode>, INotifyPropertyChanged
     {
         public string UserName { get; set; }
@@ -639,6 +757,52 @@ namespace Server.DSystem
                 return aNocCommand;
             }
         }
+
+        AddNewDcommand addNewDCmd;
+
+        public ICommand NewDCmd
+        {
+            get
+            {
+                if(addNewDCmd == null)
+                {
+                    addNewDCmd = new AddNewDcommand();
+                    addNewDCmd.RaiseProposal4 += SpWindow_RaiseProposal4;
+                }
+                return addNewDCmd;
+            }
+        }
+
+        AddNewRestr addNewRt;
+
+        public ICommand AddNewRt
+        {
+            get
+            {
+                if(addNewRt == null)
+                {
+                    addNewRt = new AddNewRestr();
+                    addNewRt.RaiseProposal4 += SpWindow_RaiseProposal4;
+                }
+                return addNewRt;
+            }
+        }
+
+        AddNewCnvr anCnv;
+               
+        public ICommand AddNewCnv
+        {
+            get
+            {
+                if(anCnv == null)
+                {
+                    anCnv = new AddNewCnvr();
+                    anCnv.RaiseProposal4 += SpWindow_RaiseProposal4;
+                }
+                return anCnv;
+            }
+        }
+
         public string VoteResult
         {
             get
@@ -849,25 +1013,25 @@ namespace Server.DSystem
                 }
                 if(nMsg.PCause == ProposalCause.NewOntology)
                 {
-                    NodeMesaage nMsg1 = tQueue.Dequeue();
-                    OWLData oD = nMsg1.OwlData;
-                    foreach(OClass oC in oD.OWLClasses)
-                    {
-                        this.initData.OwlData.OWLClasses.Add(oC);
-                    }
-                    foreach(ODataProperty oDP in oD.OWLDataProperties)
-                    {
-                        this.initData.OwlData.OWLDataProperties.Add(oDP);
-                    }
-                    foreach(OObjectProperty oOP in oD.OWLObjProperties)
-                    {
-                        this.initData.OwlData.OWLObjProperties.Add(oOP);
-                    }
-                    foreach(KeyValuePair<string,string> nSP in oD.OWLNameSpaces)
-                    {
-                        if (!oD.OWLNameSpaces.ContainsKey(nSP.Key))
-                            this.initData.OwlData.OWLNameSpaces.Add(nSP.Key, nSP.Value);
-                    }
+                    //NodeMesaage nMsg1 = tQueue.Dequeue();
+                    //OWLData oD = nMsg1.OwlData;
+                    //foreach(OClass oC in oD.OWLClasses)
+                    //{
+                    //    this.initData.OwlData.OWLClasses.Add(oC);
+                    //}
+                    //foreach(ODataProperty oDP in oD.OWLDataProperties)
+                    //{
+                    //    this.initData.OwlData.OWLDataProperties.Add(oDP);
+                    //}
+                    //foreach(OObjectProperty oOP in oD.OWLObjProperties)
+                    //{
+                    //    this.initData.OwlData.OWLObjProperties.Add(oOP);
+                    //}
+                    //foreach(KeyValuePair<string,string> nSP in oD.OWLNameSpaces)
+                    //{
+                    //    if (!oD.OWLNameSpaces.ContainsKey(nSP.Key))
+                    //        this.initData.OwlData.OWLNameSpaces.Add(nSP.Key, nSP.Value);
+                    //}
                 }
                 if(nMsg.PCause == ProposalCause.NewDataProperty)
                 {
@@ -880,158 +1044,130 @@ namespace Server.DSystem
                     else
                         functional = false;
                     string selectedDT = nMsg1.DataItems[3];
-                    string expr = nMsg1.DataItems[4];
+                    //string expr = nMsg1.DataItems[4];
 
                     //Start creating Data Property
-                    ODataProperty oDp = new ODataProperty();
-                    oDp.DProperty = propName;
+                    //http://www.bristol.ac.uk/sles/v1/opendsst2 is XML URI
+                    SemanticStructure ss = new SemanticStructure() { SSName = propName, SSType = SStrType.DatatypeProperty, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                    if (initData.OwlData.RDFG.AddNode(ss.ToString()))
+                        initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
+                    //1.
+                    SemanticStructure ss2 = new SemanticStructure() { SSName = "FunctionalProperty", SSType = SStrType.Type, XMLURI = "http://www.w3.org/2002/07/owl" };
+                    string edKey = string.Format("{0}-{1}", ss.SSName, ss2.SSName);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                        initData.OwlData.RDFG.EdgeData[edKey] = ss2.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(ss.ToString(), ss2.ToString());
 
-                    OChildNode ocNode = new OChildNode(); //Domain
-                    ocNode.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode.CNName = selectedCN;
-                    ocNode.CNType = "rdfs:domain";
-                    oDp.DPChildNodes.Add(ocNode);
+                    //2.
+                    SemanticStructure ss3 = new SemanticStructure() { SSName = propName, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                    string edKey1 = string.Format("{0}-{1}", ss.SSName, selectedCN);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                        initData.OwlData.RDFG.EdgeData[edKey1] = ss3.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(ss.ToString(), ss3.ToString());
 
-                    if (functional) //Add functional
-                    {
-                        OChildNode ocNode1 = new OChildNode();
-                        ocNode1.CNBaseURI = "http://www.w3.org/2002/07/owl";
-                        ocNode1.CNName = "FunctionalProperty";
-                        ocNode1.CNType = "rdf:type";
-                        oDp.DPChildNodes.Add(ocNode1);
-                    }
-
-                    if (string.IsNullOrEmpty(expr))
-                    {
-                        OChildNode ocNode2 = new OChildNode(); //Range
-                        ocNode2.CNBaseURI = "http://www.w3.org/2001/XMLSchema";
-                        ocNode2.CNName = selectedDT;
-                        ocNode2.CNType = "rdfs:range";
-                        oDp.DPChildNodes.Add(ocNode2);
-                    }
-                    else
-                    {
-                        ValidateRules.CreateChildNodesForExpr(expr, selectedDT, ref oDp);
-                        OChildNode ocNode3 = new OChildNode(); //Range
-                        ocNode3.CNBaseURI = "http://www.w3.org/2001/XMLSchema";
-                        ocNode3.CNName = selectedDT;
-                        ocNode3.CNType = "owl:onDatatype";
-                        oDp.DPChildNodes.Add(ocNode3);
-                    }
-                    //Save Data Property to OWLFile
-                    this.initData.OwlData.OWLDataProperties.Add(oDp);
+                    //3.
+                    SemanticStructure ss4 = new SemanticStructure() { SSName = selectedDT, SSType = SStrType.Range, XMLURI = "http://www.w3.org/2001/XMLSchema" };
+                    string edKey2 = string.Format("{0}-{1}", ss.SSName, ss4.SSName);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                        initData.OwlData.RDFG.EdgeData[edKey2] = ss3.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(ss.ToString(), ss4.ToString());
                 }
                 if (nMsg.PCause == ProposalCause.NewObjectProperty)
                 {
                     NodeMesaage nMsg1 = tQueue.Dequeue();
-                    bool isEquiv = false;
+                    
                     string npName = nMsg1.DataItems[0];
                     
                     string sName = nMsg1.DataItems[1];
-                    OClass sC = this.initData.OwlData.OWLClasses.Find((c) => { if (c.CName.Equals(sName)) { return true; } else { return false; } });
 
                     string tName = nMsg1.DataItems[2];
-                    OClass tC = this.initData.OwlData.OWLClasses.Find((c) => { if (c.CName.Equals(tName)) { return true; } else { return false; } });
-
-                    string inverseProp = nMsg1.DataItems[4];
-
-                    if (nMsg1.DataItems[3].ToString().ToLower().Equals("true"))
-                        isEquiv = true;
-
-                    OObjectProperty oProp = new OObjectProperty(npName);
-
-                    //Create Child Nodes
-                    OChildNode ocNode1 = new OChildNode(); //Domain
-                    ocNode1.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode1.CNName = sC.CName;
-                    ocNode1.CNType = "rdfs:domain";
-                    oProp.OPChildNodes.Add(ocNode1);
-
-                    OChildNode ocNode2 = new OChildNode(); //Range
-                    ocNode2.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode2.CNName = tC.CName;
-                    ocNode2.CNType = "rdfs:range";
-                    oProp.OPChildNodes.Add(ocNode2);
-
-                    OChildNode ocNode4 = new OChildNode(); //Functional Prop
-                    ocNode4.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode4.CNName = "FunctionalProperty";
-                    ocNode4.CNType = "rdf:type";
-                    oProp.OPChildNodes.Add(ocNode4);
-
-                    OChildNode ocNode5 = new OChildNode(); //Inverse Functional Prop
-                    ocNode5.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode5.CNName = "InverseFunctionalProperty";
-                    ocNode5.CNType = "rdf:type";
-                    oProp.OPChildNodes.Add(ocNode5);
-
-                    OChildNode ocNode6 = new OChildNode(); //ASymmetric
-                    ocNode6.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode6.CNName = "AsymmetricProperty";
-                    ocNode6.CNType = "rdf:type";
-                    oProp.OPChildNodes.Add(ocNode6);
-
-                    OChildNode ocNode7 = new OChildNode(); //Irreflexive Property
-                    ocNode7.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                    ocNode7.CNName = "IrreflexiveProperty";
-                    ocNode7.CNType = "rdf:type";
-                    oProp.OPChildNodes.Add(ocNode7);
-
-                    if (isEquiv)
-                    {
-                        OChildNode ocNode3 = new OChildNode(); //Equivalent
-                        ocNode3.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                        ocNode3.CNName = sC.CName;
-                        ocNode3.CNType = "owl:equivalentClass";
-                        ocNode3.CNSpecialValue = tC.CName;
-                        oProp.OPChildNodes.Add(ocNode3);
-                    }
-
-                    if(!string.IsNullOrEmpty(inverseProp))
-                    {
-                        OChildNode ocNode8 = new OChildNode(); //Irreflexive Property
-                        ocNode8.CNBaseURI = "http://www.bristol.ac.uk/sles/v1/opendsst1";
-                        ocNode8.CNName = inverseProp;
-                        ocNode8.CNType = "owl:inverseOf";
-                        oProp.OPChildNodes.Add(ocNode8);
-                    }
-
-                    //add this to  Object properties collection
-                    this.initData.OwlData.OWLObjProperties.Add(oProp);
                     
+                    string inverseProp = nMsg1.DataItems[3];
+
+                    //Start creating Object Property
+                    //http://www.bristol.ac.uk/sles/v1/opendsst2 is XML URI
+                    SemanticStructure ss = new SemanticStructure() { SSName = npName, SSType = SStrType.ObjectProperty, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                    if (initData.OwlData.RDFG.AddNode(ss.ToString()))
+                        initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
+
+                    //1.
+                    SemanticStructure ss2 = new SemanticStructure() { SSName = "topObjectProperty", SSType = SStrType.subPropertyOf, XMLURI = "http://www.w3.org/2002/07/owl" };
+                    string edKey = string.Format("{0}-{1}", ss.SSName, ss2.SSName);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                        initData.OwlData.RDFG.EdgeData[edKey] = ss2.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(ss.ToString(), ss2.ToString());
+
+                    //2.Inverse Prop
+                    if (!string.IsNullOrEmpty(inverseProp))
+                    {
+                        SemanticStructure ss3 = new SemanticStructure() { SSName = inverseProp, SSType = SStrType.inverseOf, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                        string edKey1 = string.Format("{0}-{1}", ss.SSName, ss2.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                            initData.OwlData.RDFG.EdgeData[edKey1] = ss3.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(ss.ToString(), ss3.ToString());
+                    }
+                    //3. Set Domain
+                    if (!string.IsNullOrEmpty(sName))
+                    {
+                        SemanticStructure ss4 = new SemanticStructure() { SSName = sName, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                        string edKey4 = string.Format("{0}-{1}", ss.SSName, sName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey4))
+                            initData.OwlData.RDFG.EdgeData[edKey4] = ss4.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(ss.ToString(), ss4.ToString());
+                    }
+
+                    //3. Set Range
+                    if (!string.IsNullOrEmpty(tName))
+                    {
+                        SemanticStructure ss5 = new SemanticStructure() { SSName = tName, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                        string edKey5 = string.Format("{0}-{1}", ss.SSName, tName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey5))
+                            initData.OwlData.RDFG.EdgeData[edKey5] = ss5.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(ss.ToString(), ss5.ToString());
+                    }
                 }
                 if (nMsg.PCause ==  ProposalCause.ModifyDataProperty)
                 {
-                    NodeMesaage nMsg1 = tQueue.Dequeue();
-                    string newRange = nMsg1.DataItems[0];
-                    string newExpr = nMsg1.DataItems[1];
-                    ODataProperty oldDP = nMsg1.OldDP;
+                    //NodeMesaage nMsg1 = tQueue.Dequeue();
+                    //string newRange = nMsg1.DataItems[0];
+                    //string newExpr = nMsg1.DataItems[1];
+                    //ODataProperty oldDP = nMsg1.OldDP;
 
-                    ODataProperty oNDp = this.initData.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Equals(oldDP.DProperty)) return true; else return false; });
-                    ValidateRules.UpdateChildNodesForExpr(newExpr, newRange, ref oNDp);
+                    //ODataProperty oNDp = this.initData.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Equals(oldDP.DProperty)) return true; else return false; });
+                    //ValidateRules.UpdateChildNodesForExpr(newExpr, newRange, ref oNDp);
 
-                    foreach (OChildNode ocNode in oNDp.DPChildNodes)
-                    {
-                        if(ocNode.CNType.Equals("rdfs:range") || ocNode.CNType.Equals("owl:onDatatype"))
-                        {
-                            if (!ocNode.CNName.Equals(newRange))
-                                ocNode.CNName = newRange;
-                        }
-                    }
+                    //foreach (OChildNode ocNode in oNDp.DPChildNodes)
+                    //{
+                    //    if(ocNode.CNType.Equals("rdfs:range") || ocNode.CNType.Equals("owl:onDatatype"))
+                    //    {
+                    //        if (!ocNode.CNName.Equals(newRange))
+                    //            ocNode.CNName = newRange;
+                    //    }
+                    //}
                 }
                 if(nMsg.PCause == ProposalCause.NewOClass)
                 {
                     NodeMesaage nMsg1 = tQueue.Dequeue();
                     string newCls = nMsg1.DataItems[0];
+                    string newBaseCls = nMsg1.DataItems[1];
 
-                    OClass oCl = new OClass(newCls);
-                    var oc = this.initData.OwlData.OWLClasses.Find((o) => { if (o.CName.Equals(newCls)) { return true; } else { return false; } });
+                    //http://www.bristol.ac.uk/sles/v1/opendsst2 is XML URI
+                    SemanticStructure ss = new SemanticStructure() { SSName = newCls, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                    if (initData.OwlData.RDFG.AddNode(ss.ToString()))
+                        initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
 
-                    if (oc == null)
-                    {
-                        this.initData.OwlData.OWLClasses.Add(oCl);
-                        this.initData.OwlData.DisjointClasses.Add(newCls);
-                    }
+                    string edKey = string.Format("{0}-{1}", ss.SSName, newBaseCls);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                        initData.OwlData.RDFG.EdgeData[edKey] = SStrType.SubClassOf.ToString();
+
+                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}",newBaseCls,SStrType.Class), newCls);   
                 }
                 NetworkFunctions.CollectTransition(NetworkFunctions.SpTree, this);
             }
@@ -1074,7 +1210,7 @@ namespace Server.DSystem
             
             try
             {
-                initData = dSerializer.DeSerialize(@"C:\WorkRelated-Offline\Dist Prog V2\InitialDB\InitialDB.dat");
+                initData = dSerializer.DeSerialize(@"C:\WorkRelated-Offline\Dist_Prog_V2\InitialDB\InitialDB.dat");
             }
             catch (SerializationException e)
             {

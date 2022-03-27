@@ -1,0 +1,32 @@
+New	Line.05410_339569OH1	bus1=05410.1.2.3	bus2=N283575.1.2.3	geometry=OH3P_FR8_N56_OH_477_AAC_OH_477_AAC_ABCN	phases=3	length=140.1192	units=ft
+
+New	Line.05410_339564OH2	bus1=N283575.1.2.3	bus2=N283602.1.2.3	geometry=OH3P_FR8_N56_OH_477_AAC_OH_477_AAC_ABCN	switch=n	phases=3	length=746.1523	units=ft
+New	Line.05410_339564OH3_1	bus1=N283575.1.2.3	bus2=N292548.1.2.3	geometry=OH3P_FR8_N56_OH_477_AAC_OH_477_AAC_ABCN	switch=y			phases=3	length=746.1523	units=ft
+New	Line.05410_339564OH4	bus1=N283575.1.2.3	bus2=N292535.1.2.3	geometry=OH3P_FR8_N56_OH_477_AAC_OH_477_AAC_ABCN	switch=n			phases=3	length=746.1523	units=ft
+New	Line.05410_3735821UG_1	bus1=N283575.1.2.3	bus2=N292529.1.2.3	linecode=UG_1/0_Al_XLPE_35kV				switch=y			phases=3	length=193.018	units=ft
+New	Line.05410_339564OH3	bus1=N283602.1.2.3	bus2=N292548.1.2.3	geometry=OH3P_FR8_N56_OH_477_AAC_OH_477_AAC_ABCN	switch=n			phases=3	length=746.1523	units=ft
+New	Line.05410_3735821UG	bus1=N292535.1.2.3	bus2=N292529.1.2.3	linecode=UG_1/0_Al_XLPE_35kV				switch=n			phases=3	length=193.018	units=ft
+
+New	Line.05410_672903OH1	bus1=N283602.3	bus2=N284020.3	geometry=OH3P_ARMLPIN_N30_OH_1/0_AAAC_6201_OH_1/0_AAAC_6201_CN	phases=1	length=98.401
+New	Line.05410_672903OH2	bus1=N284020.3	bus2=N284031.3	geometry=OH3P_ARMLPIN_N30_OH_1/0_AAAC_6201_OH_1/0_AAAC_6201_CN	phases=1	length=98.401	units=ft	units=ft
+New	Line.05410_672903OH3	bus1=N284031.3	bus2=N300492.3	geometry=OH3P_ARMLPIN_N30_OH_1/0_AAAC_6201_OH_1/0_AAAC_6201_CN	phases=1	length=98.401	units=ft	units=ft
+New	Line.05410_672903OH4	bus1=N284020.3	bus2=N300497.3	geometry=OH3P_ARMLPIN_N30_OH_1/0_AAAC_6201_OH_1/0_AAAC_6201_CN	phases=1	length=98.401
+New	Line.05410_10000339601OH	bus1=N284031.3	bus2=N284033_lo.3	geometry=OH3P_FR8_N56_OH_1/0_AAAC_6201_OH_1/0_AAAC_6201_CN	phases=1	length=22.9889	units=ft
+
+New	Line.05410_107748UG1	bus1=N292548.2	bus2=N300587.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=276.7722	units=ft
+New	Line.05410_107749UG2	bus1=N300587.2	bus2=N300566.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=399.3826	units=ft
+New	Line.05410_107750UG	bus1=N300566.2	bus2=N300555.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=171.806	units=ft
+New	Line.05410_107749UG3	bus1=N300566.2	bus2=N300558.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=399.3826	units=ft
+New	Line.05410_107750UG1	bus1=N300555.2	bus2=N300481.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=171.806	units=ft
+
+New	Line.05410_107827UG	bus1=N292535.1	bus2=N312566.1	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=308.6422	units=ft
+New	Line.05410_107828UG	bus1=N312566.1	bus2=N312602.1	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=346.4753	units=ft
+New	Line.05410_107829UG	bus1=N312602.1	bus2=N312606.1	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=17.9808	units=ft
+New	Line.05410_107828UG1	bus1=N312602.1	bus2=N300510.1	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=346.4753	units=ft
+New	Line.05410_107829UG2	bus1=N312606.1	bus2=N300463.1	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=17.9808	units=ft
+
+New	Line.05410_107831UG	bus1=N292529.2	bus2=N312599.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=164	units=ft
+New	Line.05410_107832UG	bus1=N312599.2	bus2=N312625.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=84.9689	units=ft
+New	Line.05410_107833UG	bus1=N312625.2	bus2=N300653.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=410.6636	units=ft
+New	Line.05410_107832UG1	bus1=N312625.2	bus2=N300469.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=84.9689	units=ft
+New	Line.05410_107833UG1	bus1=N300653.2	bus2=N300452.2	linecode=UG_1/0_Al_XLPE_35kV_1_Phase	phases=1	length=410.6636	units=ft

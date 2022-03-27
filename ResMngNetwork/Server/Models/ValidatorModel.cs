@@ -1,6 +1,7 @@
 ﻿using DataSerailizer;
 using Server.DataFileProcess;
 using Server.DSystem;
+using Server.ValidationService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -96,19 +97,20 @@ namespace Server.Models
             DBData dbData = values[2] as DBData;
             bool adValue = false;
             Boolean.TryParse(values[3].ToString(), out adValue);
-            if (string.IsNullOrEmpty(dataSet))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "PredefinedDS" });
-                return;
-            }
-            else if (fpResult == null)
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "ResultNull" });
-                return;
-            }
-            else if (dbData == null)
+            //if (string.IsNullOrEmpty(dataSet))
+            //{
+            //    EventHandler handler = EventCompleted;
+            //    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "PredefinedDS" });
+            //    return;
+            //}
+            //else if (fpResult == null)
+            //{
+            //    EventHandler handler = EventCompleted;
+            //    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "ResultNull" });
+            //    return;
+            //}
+            //else 
+            if (dbData == null)
             {
                 EventHandler handler = EventCompleted;
                 handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "DBData" });
@@ -119,9 +121,11 @@ namespace Server.Models
                 //Process and Return Validation result
                 if (fpResult.FileType == AllowedFileTypes.csv)
                 {
-                    ValidationResult vR = ValidateDataSets.ValidateCSVDataSet(dbData, fpResult, dataSet, adValue);
-                    EventHandler handler = EventCompleted;
-                    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Processed", VResult = vR });
+                    ValidateFiles vfile = new ValidateFiles();
+                    vfile.ValidateFiless();
+                    //ValidationResult vR = ValidateDataSets.ValidateCSVDataSet(dbData, fpResult, dataSet, adValue);
+                    //EventHandler handler = EventCompleted;
+                    //handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Processed", VResult = vR });
                     return;
                 }
             }
@@ -418,25 +422,25 @@ namespace Server.Models
             this.ConsiderSubSet = true;
             PResult = null;
             List<string> clsNames = new List<string>();
-            foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
-            {
-                clsNames.Add(oCls.CName);
-            }
+            //foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
+            //{
+            //    clsNames.Add(oCls.CName);
+            //}
             this.DMClasses = clsNames;
         }
 
         public void FillProperties()
         {
             List<string> pNs = new List<string>();
-            foreach (ODataProperty odpProp in this.curDbInstance.OwlData.OWLDataProperties)
-            {
-                var slProps = odpProp.DPChildNodes.FindAll((p) => { if (p.CNType.Equals("rdfs:domain")) return true; else return false; });
-                foreach (OChildNode ocNode in slProps)
-                {
-                    if (ocNode.CNName.Equals(this.SelectedCN))
-                        pNs.Add(odpProp.DProperty);
-                }
-            }
+            //foreach (ODataProperty odpProp in this.curDbInstance.OwlData.OWLDataProperties)
+            //{
+            //    var slProps = odpProp.DPChildNodes.FindAll((p) => { if (p.CNType.Equals("rdfs:domain")) return true; else return false; });
+            //    foreach (OChildNode ocNode in slProps)
+            //    {
+            //        if (ocNode.CNName.Equals(this.SelectedCN))
+            //            pNs.Add(odpProp.DProperty);
+            //    }
+            //}
             this.PNames = pNs;
         }
 

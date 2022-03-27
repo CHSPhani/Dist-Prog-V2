@@ -25,7 +25,7 @@ namespace Server.ChangeRules
 
         static ReadConditionRules()
         {
-            string rfName = @"C:\WorkRelated-Offline\Dist Prog V2\ResMngNetwork\Server\ConfigData\Rules.xml";
+            string rfName = @"C:\WorkRelated-Offline\Dist_Prog_V2\ResMngNetwork\Server\ConfigData\Rules.xml";
             XmlSerializer xs = new XmlSerializer(typeof(ContentRules));
             var result = ((ContentRules)xs.Deserialize(new FileStream(rfName, FileMode.OpenOrCreate)));
             ContentRules = result as ContentRules;

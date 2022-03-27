@@ -50,6 +50,8 @@ namespace Server.DSystem
 
         public int noOfUsers;
 
+        public int noOfAUSers;
+
         public bool initSetupDone;
 
         public ServerStates sStatus;
@@ -62,17 +64,18 @@ namespace Server.DSystem
         public StartSystem()
         {
             workingDir = dataDir = string.Empty;
-            noOfUsers = 0;
+            noOfUsers = noOfAUSers = 0;
             initSetupDone = false;
             sStatus = ServerStates.SystemNotStarted;
             dsNodeList = new List<DSNode>();
         }
 
-        public StartSystem(string wDir, string dDir, int noUsers, bool initSetup) : this()
+        public StartSystem(string wDir, string dDir, int noUsers, int noAUser, bool initSetup) : this()
         {
             workingDir = wDir;
             dataDir = dDir;
             noOfUsers = noUsers;
+            noOfAUSers = noAUser;
             initSetupDone = initSetup;
         }
 
@@ -89,18 +92,38 @@ namespace Server.DSystem
                     foreach(string s in dirs)
                     {
                         DirectoryInfo di = new DirectoryInfo(s);
-                        int counter = Int32.Parse(di.Name);
-                        DSNode clSystem = new DSNode();
-                        CreateClientSystems(counter, ref clSystem);
-                        if(clSystem != null)
+                        int counter = 0;
+                        Int32.TryParse(di.Name, out counter);
+                        if (counter != 0)
                         {
-                            string pathString = string.Format("{0}\\{1}", workingDir, counter);
-                            string dataPathString = string.Format("{0}\\{1}", pathString, "InitialDB.dat");
-                            clSystem.WorkingDir = pathString;
-                            clSystem.DataDir = dataPathString;
-                            clSystem.DeSerializeInitData(dataPathString);
-                            clSystem.Status = "Initialized";
-                            dsNodeList.Add(clSystem);
+                            DSNode clSystem = new DSNode();
+                            CreateClientSystems(counter, ref clSystem);
+                            if (clSystem != null)
+                            {
+                                string pathString = string.Format("{0}\\{1}", workingDir, counter);
+                                string dataPathString = string.Format("{0}\\{1}", pathString, "InitialDB.dat");
+                                clSystem.WorkingDir = pathString;
+                                clSystem.DataDir = dataPathString;
+                                clSystem.DeSerializeInitData(dataPathString);
+                                clSystem.Status = "Initialized";
+                                dsNodeList.Add(clSystem);
+                            }
+                        }
+                        else
+                        {
+                            DSNode clSystem = new DSNode();
+                            clSystem.UserName = "AUser";
+                            clSystem.UserRole = MemberRole.NonVotingMember;
+                            if (clSystem != null)
+                            {
+                                string pathString = string.Format("{0}\\{1}", workingDir, di.Name);
+                                string dataPathString = string.Format("{0}\\{1}", pathString, "InitialDB.dat");
+                                clSystem.WorkingDir = pathString;
+                                clSystem.DataDir = dataPathString;
+                                clSystem.DeSerializeInitData(dataPathString);
+                                clSystem.Status = "Initialized";
+                                dsNodeList.Add(clSystem);
+                            }
                         }
                     }
                 }
@@ -131,6 +154,31 @@ namespace Server.DSystem
                     counter++;
                     dsNodeList.Add(clSystem);
                 }
+                counter = 1; //reset for anonymoususers
+                while (counter <= noOfAUSers)
+                {
+                    DSNode clSystem = new DSNode();
+                    clSystem.UserName = "AUser";
+                    clSystem.UserRole = MemberRole.NonVotingMember;
+                    string folderName = string.Format("AU{0}", counter);
+                    if (clSystem != null)
+                    {
+                        string pathString = string.Format("{0}\\{1}", workingDir, folderName);
+                        string dataPathString = string.Format("{0}\\{1}", pathString, "InitialDB.dat");
+                        if (!System.IO.Directory.Exists(pathString))
+                        {
+                            System.IO.Directory.CreateDirectory(pathString);
+                            System.IO.File.Copy(dataDir, dataPathString, true);
+                        }
+                        clSystem.WorkingDir = pathString;
+                        clSystem.DataDir = dataPathString;
+                        clSystem.DeSerializeInitData(dataPathString);
+                    }
+                    clSystem.Status = "Initialized";
+                    counter++;
+                    dsNodeList.Add(clSystem);
+                }
+
                 initSetupDone = true;
                 IsuEventHandler?.Invoke(this, new InitSetupEventArgs() { InitArgs = "true" });
             }
@@ -140,6 +188,8 @@ namespace Server.DSystem
             //3. Create Visual Forms for each DSNode
             foreach (DSNode clSystem in dsNodeList)
             {
+                if (clSystem.UserName.Equals("AUser")) //Dont want to show screen for anonymous users
+                    continue;
                 NodeWindow clWinow = new NodeWindow(clSystem);
                 clWinow.Show();
             }
@@ -223,6 +273,9 @@ namespace Server.DSystem
         NewOntology,
         NewOClass,
         NewDataProperty,
+        NewDomainToDP,
+        NewRstr,
+        NewConversion,
         ModifyDataProperty,
         NewObjectProperty,
         ModifyObjectProperty,

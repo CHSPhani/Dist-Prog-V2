@@ -28,7 +28,7 @@ namespace Server.Models
             var values = (object[])parameter;
 
             string p1 = string.Empty;
-            OWLData oDet;
+            OWLDataG oDet;
 
             if (values[0] != null)
                 p1 = values[0].ToString();
@@ -36,7 +36,7 @@ namespace Server.Models
                 p1 = string.Empty;
 
             if (values[1] != null)
-                oDet = values[1] as OWLData;
+                oDet = values[1] as OWLDataG;
             else
                 oDet = null;
 
@@ -58,7 +58,7 @@ namespace Server.Models
             nMessage.ProposedUser = p1;
             nMessage.PCause = ProposalCause.NewOntology;
             nMessage.PTYpe = ProposalType.Transition;
-            nMessage.OwlData = oDet;
+            nMessage.OwlDatag = oDet;
             List<string> sItems = new List<string>();
             sItems.Add(p1);
             nMessage.DataItems = sItems;
@@ -90,9 +90,9 @@ namespace Server.Models
             else
                 p1 = string.Empty;
 
-            OWLData oDet;
+            OWLDataG oDet;
             if (values[1] != null)
-               oDet = values[1] as OWLData;
+               oDet = values[1] as OWLDataG;
             else
                 oDet = null;
 
@@ -207,8 +207,8 @@ namespace Server.Models
             }
         }
 
-        OWLData oDetails;
-        public OWLData ODetails
+        OWLDataG oDetails;
+        public OWLDataG ODetails
         {
             get
             {

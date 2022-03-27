@@ -28,7 +28,7 @@ namespace Server.DataFileProcess
             CSVFileProcessResult csvFPResult = pResult as CSVFileProcessResult;
             Dictionary<string, bool> foundNames = new Dictionary<string, bool>();
             List<DPropDetails> colNamesExprs = new List<DPropDetails>();
-            List<ODataProperty> dmDPs = dbData.OwlData.OWLDataProperties;
+            List<ODataProperty> dmDPs = new List<ODataProperty>(); //dbData.OwlData.OWLDataProperties;
             List<ODataProperty> selectedDPs = new List<ODataProperty>();
 
             //Step1:-Select the corrent data set from all datasets obtained from ontologies

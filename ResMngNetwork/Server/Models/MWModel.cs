@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Glee.Drawing;
+using Microsoft.Win32;
 using Server.DSystem;
 using Server.KnowledgeGraph;
+using Server.RDFGraph;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,6 +48,7 @@ namespace Server.Models
 
             string p1, p2 = string.Empty;
             int p3 = 0;
+            int p5 = 0;
             bool p4 = false;
 
             if (values[0] != null)
@@ -66,8 +69,10 @@ namespace Server.Models
                     p4 = false;
                 else
                     p4 = true;
+            if (values[4] != null)
+                p5 = Int32.Parse(values[4].ToString());
 
-            StartSystem sSystem = new StartSystem(p1, p2, p3, p4);
+            StartSystem sSystem = new StartSystem(p1, p2, p3, p5, p4);
             sSystem.SsEventHandler += SSystem_isEventHandler;
             sSystem.IsuEventHandler += SSystem_IsuEventHandler;
             sSystem.SystemStart();
@@ -123,6 +128,45 @@ namespace Server.Models
         }
     }
 
+    public class RDFGCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var values = (object[])parameter;
+            List<DSNode> ANodes = new List<DSNode>();
+
+            if (values[0] != null)
+                ANodes = values[0] as List<DSNode>;
+
+            if (ANodes == null | ANodes.Count == 0)
+            {
+
+            }
+            else
+            {
+                try
+                {
+                    RDFG rdfgCls = new RDFG(ANodes);
+
+                    FormRDFGraph fRdfGr = new FormRDFGraph(rdfgCls.RDFSymbGraph);
+
+                    fRdfGr.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
+    }
+
     public class MWModel :INotifyPropertyChanged
     {
         public string WorkingDir { get; set; }
@@ -131,8 +175,8 @@ namespace Server.Models
         
         public int NoOfUser { get; set; }
 
+        public int NoOfAUser { get; set; }
         public bool InitSetupDone { get; set; }
-
 
         public string sysStatus;
 
@@ -150,6 +194,7 @@ namespace Server.Models
         }
 
         public List<DSNode> aNodes;
+
         public List<DSNode> ActiveNodes
         {
             get
@@ -193,6 +238,21 @@ namespace Server.Models
             }
         }
 
+        RDFGCommand rgrCommand;
+
+        public ICommand RGrCommand
+        {
+            get
+            {
+                if(rgrCommand == null)
+                {
+                    rgrCommand = new RDFGCommand();
+                }
+                return rgrCommand;
+            }
+        }
+        public object ValidateFile { get; private set; }
+
         private void SsCommand_isEventHandler(object sender, InitSetupEventArgs e)
         {
             string isVal = e.InitArgs as string; 
@@ -211,12 +271,16 @@ namespace Server.Models
             this.ActiveNodes = e.ActiveNodes;
             string statusMsg = string.Format("System Status: {0} With Number of Nodes {1}", e.StatusMessage.ToString(),ActiveNodes.Count);
             this.SysStatus = statusMsg;
+            DSNode dsn = this.ActiveNodes.Find((a) => { if (a.UserName.Equals("AUser")) { return true; } else { return false; } });
+            if (dsn != null)
+                Server.ValidationService.ValidateFiles.dbData = dsn.DataInstance;
         }
 
         public MWModel()
         {
             this.SysStatus = "NotStarted";
             this.ActiveNodes = null;
+            this.ActiveNodes = new List<DSNode>(); 
             LoadSMSettings();
         }
            
@@ -228,7 +292,7 @@ namespace Server.Models
 
         void LoadSMSettings()
         {
-            string configDataFolder = @"C:\WorkRelated-Offline\Dist Prog V2\ResMngNetwork\Server\ConfigData\ConfigData.txt";
+            string configDataFolder = @"C:\WorkRelated-Offline\Dist_Prog_V2\ResMngNetwork\Server\ConfigData\ConfigData.txt";
             string[] lines = System.IO.File.ReadAllLines(configDataFolder);
 
             foreach (string line in lines)
@@ -246,6 +310,10 @@ namespace Server.Models
                 {
                     this.NoOfUser = Int32.Parse(smData[1]);
                 }
+                else if (smData[0].ToLower().Equals("noofauser"))
+                {
+                    this.NoOfAUser = Int32.Parse(smData[1]);
+                }
                 else if (smData[0].ToLower().Equals("initsetup"))
                 {
                     if (Int32.Parse(smData[1]) == 0)
@@ -261,7 +329,7 @@ namespace Server.Models
         }
         public void SaveSMSettings()
         {
-            string configDataFolder = @"C:\WorkRelated-Offline\Dist Prog V2\ResMngNetwork\Server\ConfigData\ConfigData.txt";
+            string configDataFolder = @"C:\WorkRelated-Offline\Dist_Prog_V2\ResMngNetwork\Server\ConfigData\ConfigData.txt";
 
             if (File.Exists(configDataFolder))
                 File.Delete(configDataFolder);
@@ -271,6 +339,7 @@ namespace Server.Models
                 tw.WriteLine(string.Format("WorkingDir={0}", this.WorkingDir));
                 tw.WriteLine(string.Format("DataDir={0}", this.DataDir));
                 tw.WriteLine(string.Format("NoOfUsers={0}", this.NoOfUser));
+                tw.WriteLine(string.Format("NoOfAUser={0}", this.NoOfAUser));
                 if (this.InitSetupDone)
                     tw.WriteLine(string.Format("InitSetup={0}", 1));
                 else

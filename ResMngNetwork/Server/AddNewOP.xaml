@@ -6,13 +6,12 @@
         xmlns:local="clr-namespace:Server"
         xmlns:mdl="clr-namespace:Server.Models"
         mc:Ignorable="d"
-        Title="Add New Object Property to Existing Ontology Class" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Add New Object Property to Existing Ontology Class" Height="400" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <mdl:PSaveDataConverter x:Key="psConv"></mdl:PSaveDataConverter>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
@@ -37,15 +36,15 @@
         <TextBlock Text="Invers of Prop" Grid.Row="3" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
         <ComboBox Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Name="cmbIP" ItemsSource="{Binding InProps}" SelectedItem="{Binding InverseProp}"></ComboBox>
 
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
-            <CheckBox Content="Is Equivalent" IsChecked="{Binding IsEquiv}" Margin="10,10,10,10"></CheckBox>
-        </StackPanel>
+        <!--<StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            --><!--<CheckBox Content="Is Equivalent" IsChecked="{Binding IsEquiv}" Margin="10,10,10,10"></CheckBox>--><!--
+        </StackPanel>-->
 
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
             <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
             <TextBlock Text="{Binding CurrentUserName}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Content="Exit" Name ="Exit" Click="Exit_Click" Margin="10,10,10,10"></Button>
             <Button Content="Save" Name="save" Margin="10,10,10,10" IsEnabled="{Binding ProposalState}" Command="{Binding SOpCommand}">
                 <Button.CommandParameter>
@@ -54,7 +53,6 @@
                         <Binding Path="OPName"></Binding>
                         <Binding Path="NCName"></Binding>
                         <Binding Path="SelectedCN"></Binding>
-                        <Binding Path="IsEquiv"></Binding>
                         <Binding Path="InverseProp"></Binding>
                     </MultiBinding>
                 </Button.CommandParameter>

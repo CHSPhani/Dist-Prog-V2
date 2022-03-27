@@ -357,25 +357,25 @@ namespace Server.Models
             this.CurrentUserName = uName;
             this.curDbInstance = dbData;
             List<string> clsNames = new List<string>();
-            foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
-            {
-                clsNames.Add(oCls.CName);
-            }
+            //foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
+            //{
+            //    clsNames.Add(oCls.CName);
+            //}
             this.DMClasses = clsNames;
         }
 
         public void FillProperties()
         {
             List<string> pNs = new List<string>();
-            foreach(ODataProperty odpProp in this.curDbInstance.OwlData.OWLDataProperties)
-            {
-                var slProp = odpProp.DPChildNodes.Find((p) => { if (p.CNType.Equals("rdfs:domain") && (p.CNName.Equals(this.SelectedCN))) return true; else return false; });
-                if (slProp != null)
-                {
-                    pNs.Add(odpProp.DProperty);
-                }
+            //foreach(ODataProperty odpProp in this.curDbInstance.OwlData.OWLDataProperties)
+            //{
+            //    var slProp = odpProp.DPChildNodes.Find((p) => { if (p.CNType.Equals("rdfs:domain") && (p.CNName.Equals(this.SelectedCN))) return true; else return false; });
+            //    if (slProp != null)
+            //    {
+            //        pNs.Add(odpProp.DProperty);
+            //    }
                 
-            }
+            //}
             this.PNames = pNs;
         }
 
@@ -395,7 +395,7 @@ namespace Server.Models
         }
         public void GetPropertyDetails()
         {
-            ODataProperty pDetail = this.curDbInstance.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Equals(this.SelectedPN)) return true; else return false; });
+            ODataProperty pDetail = new ODataProperty();//this.curDbInstance.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Equals(this.SelectedPN)) return true; else return false; });
             this.OldDP = pDetail;
 
             StringBuilder sBuilder = new StringBuilder();

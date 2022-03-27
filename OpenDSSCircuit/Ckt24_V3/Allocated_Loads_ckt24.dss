@@ -1,0 +1,65 @@
+New	load.208450100	phases=3	kV=0.48	bus1=N283602.1.2.3	xfkVA=22	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.209450100	phases=3	kV=0.48	bus1=N283602.1.2.3	xfkVA=9.15	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.210450100	phases=3	kV=0.48	bus1=N283602.1.2.3	xfkVA=12.25	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.211450100	phases=3	kV=0.48	bus1=N283602.1.2.3	xfkVA=15.04	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+
+New	load.212450100	phases=3	kV=0.48	bus1=N292548.1.2.3	xfkVA=0	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.213450100	phases=3	kV=0.48	bus1=N292548.1.2.3	xfkVA=3.86	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.216450100	phases=3	kV=0.48	bus1=N292548.1.2.3	xfkVA=25.51	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.231019089	phases=3	kV=0.48	bus1=N292548.1.2.3	xfkVA=17.72	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+
+New	load.208450101	phases=3	kV=0.48	bus1=N292535.1.2.3	xfkVA=22	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.209450101	phases=3	kV=0.48	bus1=N292535.1.2.3	xfkVA=9.15	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.210450112	phases=3	kV=0.48	bus1=N292535.1.2.3	xfkVA=12.25	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.211450111	phases=3	kV=0.48	bus1=N292535.1.2.3	xfkVA=15.04	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+
+New	load.212450101	phases=3	kV=0.48	bus1=N292529.1.2.3	xfkVA=0	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.213450101	phases=3	kV=0.48	bus1=N292529.1.2.3	xfkVA=3.86	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.216450101	phases=3	kV=0.48	bus1=N292529.1.2.3	xfkVA=25.51	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+New	load.231019081	phases=3	kV=0.48	bus1=N292529.1.2.3	xfkVA=17.72	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_ThreePhase		!	Phase	ABC
+
+New	load.109614539	phases=1	kV=0.24	bus1=N300510.1	xfkVA=4.07041594	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.138468953	phases=1	kV=0.24	bus1=N300510.1	xfkVA=5.62661917	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.313055646	phases=1	kV=0.24	bus1=N312566.1	xfkVA=2.74359527	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.318979782	phases=1	kV=0.24	bus1=N312566.1	xfkVA=3.03594559	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.438429982	phases=1	kV=0.24	bus1=N312602.1	xfkVA=3.1056599	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.527508382	phases=1	kV=0.24	bus1=N312602.1	xfkVA=2.39052605	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.589583049	phases=1	kV=0.24	bus1=N312602.1	xfkVA=2.92125431	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.665149786	phases=1	kV=0.24	bus1=N312606.1	xfkVA=4.10864637	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	Phase	1
+New	load.679416869	phases=1	kV=0.24	bus1=N312606.1	xfkVA=2.95273819	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseA		!	P
+New	load.374998000	phases=1	kV=0.24	bus1=N300463.1	xfkVA=5.49897762	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	3
+New	load.577350100	phases=1	kV=0.24	bus1=N300463.1	xfkVA=4.3785082	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+
+New	load.113450100	phases=1	kV=0.24	bus1=N284033_lo.3	xfkVA=5.39723661	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.171450100	phases=1	kV=0.24	bus1=N284033_lo.3	xfkVA=2.45328937	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.206350100	phases=1	kV=0.24	bus1=N284020.3	xfkVA=4.37176165	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.207350100	phases=1	kV=0.24	bus1=N284020.3	xfkVA=2.92125431	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.208350100	phases=1	kV=0.24	bus1=N284031.3	xfkVA=0.25636873	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.209350100	phases=1	kV=0.24	bus1=N284031.3	xfkVA=6.2855318	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.189720633	phases=1	kV=0.24	bus1=N284031.3	xfkVA=6.28560935	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.183350100	phases=1	kV=0.24	bus1=N300497.3	xfkVA=3.28781663	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.184350100	phases=1	kV=0.24	bus1=N300497.3	xfkVA=4.30654504	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.10350100	phases=1	kV=0.24	bus1=N300492.3	xfkVA=4.1978507	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+New	load.160450100	phases=1	kV=0.24	bus1=N300492.3	xfkVA=2.81106073	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3
+
+New	load.135350100	phases=1	kV=0.24	bus1=N312599.2	xfkVA=2.7818257	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.136350100	phases=1	kV=0.24	bus1=N312599.2	xfkVA=3.50820379	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.137350100	phases=1	kV=0.24	bus1=N312625.2	xfkVA=6.06739349	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.138350100	phases=1	kV=0.24	bus1=N312625.2	xfkVA=3.45872913	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.139350100	phases=1	kV=0.24	bus1=N300653.2	xfkVA=6.49242587	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.140350100	phases=1	kV=0.24	bus1=N300653.2	xfkVA=5.38149467	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.141350100	phases=1	kV=0.24	bus1=N300469.2	xfkVA=8.32523747	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.118350100	phases=1	kV=0.24	bus1=N300469.2	xfkVA=3.1056599	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.133350100	phases=1	kV=0.24	bus1=N300452.2	xfkVA=4.6101396	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.134350100	phases=1	kV=0.24	bus1=N300452.2	xfkVA=1.65290371	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+
+New	load.142350100	phases=1	kV=0.24	bus1=N300587.2	xfkVA=5.43996473	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.143350100	phases=1	kV=0.24	bus1=N300587.2	xfkVA=5.24656375	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.144350100	phases=1	kV=0.24	bus1=N300566.2	xfkVA=3.46097797	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.575350100	phases=1	kV=0.24	bus1=N300566.2	xfkVA=5.4849417	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.576350100	phases=1	kV=0.24	bus1=N300555.2	xfkVA=5.33426885	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	2
+New	load.307998000	phases=1	kV=0.24	bus1=N300555.2	xfkVA=5.16695451	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	3
+New	load.324998000	phases=1	kV=0.24	bus1=N300558.2	xfkVA=3.48541546	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	3
+New	load.326998000	phases=1	kV=0.24	bus1=N300558.2	xfkVA=6.16724237	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	3
+New	load.329998000	phases=1	kV=0.24	bus1=N300481.2	xfkVA=2.13904274	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	3
+New	load.331998000	phases=1	kV=0.24	bus1=N300481.2	xfkVA=5.12427292	pf=0.98	status=variable	model=4 CVRwatts=0.8	CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseB		!	Phase	3

@@ -51,71 +51,18 @@ namespace Server.KnowledgeGraph
         public Graph CreateSymbolicGraph()
         {
             Graph gph = new Graph("KnowledgeGraph");
-            List<string> gNodes = new List<string>();
-            Dictionary<string, List<string>> gEdges = new Dictionary<string, List<string>>();
-
-            foreach (PGNode pgn in this.KGraph.GetAllNodes())
-            {
-                gNodes.Add(pgn.PGNName);
-                LinkedList<PGNode> edges = this.KGraph.GetEdgesForNode(pgn);
-                List<string> edgeNames = new List<string>();
-                foreach(PGNode ed in edges)
-                {
-                    edgeNames.Add(ed.PGNName);
-                }
-                gEdges[pgn.PGNName] = edgeNames;
-            }
-            
-            foreach(string s in gNodes)
-            {
-                gph.AddNode(s);
-            }
-            foreach (KeyValuePair<string,List<string>> kvP in gEdges)
-            {
-                string sourceStr = kvP.Key;
-                foreach(String s in kvP.Value)
-                {
-                    gph.AddEdge(sourceStr, s);
-                }
-            }
-            int count = 1;
-            foreach (List<NodeData> nD in this.nodeData.Values)
-            {
-                foreach (NodeData nData in nD)
-                {
-                    string sNode = string.Format("DF-{0}", count++);
-                    string tNode = gNodes.Find((g) => { if (g.Equals(nData.VerifiedDataSet)) { return true; } else { return false; } });
-                    gph.AddEdge(sNode, tNode);
-                }
-                //count = 1;
-            }
+           
             return gph;
         }
 
         public void CreateKG()
         {
             kgDS = new KGraphDS();
-            foreach (OClass oCls in systemData.OwlData.OWLClasses)
-            {
-                kgDS.AddNode(new PGNode(oCls.CName));
-            }
-            foreach (OObjectProperty ooP in systemData.OwlData.OWLObjProperties)
-            {
-                PGNode targetN = null;
-                PGNode sourceN = null;
-                foreach (OChildNode ocNode in ooP.OPChildNodes)
-                {
-                    if (ocNode.CNType.Equals("rdfs:range"))
-                    {
-                        targetN = kgDS.GetNodeByName(ocNode.CNName);
-                    }
-                    if (ocNode.CNType.Equals("rdfs:domain"))
-                    {
-                        sourceN = kgDS.GetNodeByName(ocNode.CNName);
-                    }
-                }
-                kgDS.AddDirectedEdge(sourceN, targetN);
-            }
+            //foreach (OClass oCls in systemData.OwlData.OWLClasses)
+            //{
+            //    kgDS.AddNode(new PGNode(oCls.CName));
+            //}
+
         }
     }
 
@@ -290,7 +237,6 @@ namespace Server.KnowledgeGraph
             return new KGraphDS(this.knowledgeGraph);
         }
     }
-
     /// <summary>
     /// This is Property Graph Node
     /// </summary>
@@ -311,10 +257,76 @@ namespace Server.KnowledgeGraph
             return this.PGNName;
         }
     }
+
     public interface KGNodeData { }
 
     public interface KGEdgeData { }
-
 }
+
+/*
+ *  kgDS = new KGraphDS();
+            foreach (OClass oCls in systemData.OwlData.OWLClasses)
+            {
+                kgDS.AddNode(new PGNode(oCls.CName));
+            }
+            foreach (OObjectProperty ooP in systemData.OwlData.OWLObjProperties)
+            {
+                PGNode targetN = null;
+                PGNode sourceN = null;
+                foreach (OChildNode ocNode in ooP.OPChildNodes)
+                {
+                    if (ocNode.CNType.Equals("rdfs:range"))
+                    {
+                        targetN = kgDS.GetNodeByName(ocNode.CNName);
+                    }
+                    if (ocNode.CNType.Equals("rdfs:domain"))
+                    {
+                        sourceN = kgDS.GetNodeByName(ocNode.CNName);
+                    }
+                }
+                kgDS.AddDirectedEdge(sourceN, targetN);
+            }
+ * 
+ * 
+ *  List<string> gNodes = new List<string>();
+            Dictionary<string, List<string>> gEdges = new Dictionary<string, List<string>>();
+
+            foreach (PGNode pgn in this.KGraph.GetAllNodes())
+            {
+                gNodes.Add(pgn.PGNName);
+                LinkedList<PGNode> edges = this.KGraph.GetEdgesForNode(pgn);
+                List<string> edgeNames = new List<string>();
+                foreach(PGNode ed in edges)
+                {
+                    edgeNames.Add(ed.PGNName);
+                }
+                gEdges[pgn.PGNName] = edgeNames;
+            }
+            
+            foreach(string s in gNodes)
+            {
+                gph.AddNode(s);
+            }
+            foreach (KeyValuePair<string,List<string>> kvP in gEdges)
+            {
+                string sourceStr = kvP.Key;
+                foreach(String s in kvP.Value)
+                {
+                    gph.AddEdge(sourceStr, s);
+                }
+            }
+            int count = 1;
+            foreach (List<NodeData> nD in this.nodeData.Values)
+            {
+                foreach (NodeData nData in nD)
+                {
+                    string sNode = string.Format("DF-{0}", count++);
+                    string tNode = gNodes.Find((g) => { if (g.Equals(nData.VerifiedDataSet)) { return true; } else { return false; } });
+                    gph.AddEdge(sNode, tNode);
+                }
+                //count = 1;
+            }
+ * 
+ * */
 
 
