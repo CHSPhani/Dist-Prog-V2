@@ -279,6 +279,7 @@ namespace Server.DSystem
         ModifyDataProperty,
         NewObjectProperty,
         ModifyObjectProperty,
+        UploadInd,
         None
     }
 

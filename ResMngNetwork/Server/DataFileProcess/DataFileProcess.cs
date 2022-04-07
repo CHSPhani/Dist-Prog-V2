@@ -224,6 +224,7 @@ namespace Server.DataFileProcess
         public bool Validated;
         public string Reason { get; set; }
         public string OClassName { get; set; }
+        public string InstName { get; set; }
         public string Details { get; set; }
 
         public ValidationResult()
@@ -231,6 +232,7 @@ namespace Server.DataFileProcess
             Validated = false;
             Reason = string.Empty;
             OClassName = string.Empty;
+            InstName = string.Empty;
             Details = string.Empty;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataSerailizer;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,60 +8,6 @@ using System.Threading.Tasks;
 
 namespace UoB.ToolUtilities.OpenDSSParser
 {
-    public class CircuitEntry
-    {
-        public string CEType { get; set; }
-        public string CEName { get; set; }
-
-        public List<string> CEEntries { get; set; }
-
-        public CircuitEntry()
-        {
-            CEType = CEName = string.Empty;
-            CEEntries = new List<string>();
-        }
-    }
-    public enum NodeType
-    {
-        NA,
-        Substation,
-        Transformer,
-        Bus,
-        Load,
-        PVPanel
-    }
-
-    public enum ECTypes
-    {
-        Transformer,
-        Line,
-        PVPanel,
-        Load,
-        PrimaryBus,
-        SecondaryBus
-    }
-
-    public enum EdgeType
-    {
-        NA,
-        NonExec,
-        Exec
-    }
-
-    public enum GraphTypes
-    {
-        Detailed,
-        Symbolic,
-        NA
-    }
-
-    public enum LineUnit
-    {
-        m,
-        ft,
-        NA
-    }
-
     /// <summary>
     /// Base class for all Nodes in the Graph
     /// The NodeType is NA for all Nodes that are extracted from File
@@ -82,7 +29,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
 
         }
     }
-    
     /// <summary>
     /// Base class for all edges in the graph.
     /// </summary>

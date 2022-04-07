@@ -59,6 +59,10 @@ namespace Server
         {
             vModel.FillProperties();
         }
-        
+
+        private void CmbIND_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

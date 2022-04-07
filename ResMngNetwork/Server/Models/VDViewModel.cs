@@ -81,7 +81,7 @@ namespace Server.Models
                 List<string> vs = new List<string>();
                 foreach (NodeData nd in this.CurrentDbInstance.NodeData)
                 {
-                    vs.Add(string.Format("{0} File of type {1} with {2} Columns and {3} rows is validated against {4}", nd.FileName, nd.FileType, nd.NoOfCols, nd.NoOfRows, nd.VerifiedDataSet));// nd.VerifiedDataSet.CName));
+                    vs.Add(string.Format("{0} File of type {1} with {2} Columns and {3} rows is validated against {4} and attached to Instance {5}", nd.FileName, nd.FileType, nd.NoOfCols, nd.NoOfRows, nd.VerifiedDataSet, nd.AttachedInstance));// nd.VerifiedDataSet.CName));
                 }
                 this.VDs = vs;
             }

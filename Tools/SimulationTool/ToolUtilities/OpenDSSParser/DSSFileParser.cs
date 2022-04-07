@@ -1,8 +1,11 @@
-﻿using Microsoft.Glee.Drawing;
+﻿using ContractDataModels;
+using DataSerailizer;
+using Microsoft.Glee.Drawing;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -75,7 +78,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
                 CreateSymbolicGraph();
             }
         }
-
         void CreateGraphDS()
         {
             var rootNode = this.CEntries.Find((ce) => { if (ce.CEType.Equals("Circuit")) { return true; } else { return false; } });
@@ -121,7 +123,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
             List<CircuitEntry> loads = this.CEntries.FindAll((ce) => { if (ce.CEType.Trim().ToLower().Equals("load")) { return true; } else { return false; } }).ToList<CircuitEntry>();
             ProcessLoads(loads);
         }
-
         void ProcessLoads(List<CircuitEntry> loads)
         {
             foreach(CircuitEntry ce in loads)
@@ -221,7 +222,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
                 }
             }
         }
-
         void ProcessLines(List<CircuitEntry> lines)
         {
             foreach (CircuitEntry ce in lines)
@@ -250,7 +250,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
                 }
             }
         }
-
         bool ParseDSSConfig()
         {
             //1.Read the master_ckt24.dss file. This is the starting file. 
@@ -260,7 +259,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
                 return ParseDSSFile(masterFilePath);
             return false;
         }
-
         bool ParseDSSFile(string mFilePath)
         {
             try
@@ -306,7 +304,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
             }
             return true;
         }
-        
         void ProcessorNEWEntry(string pLine, bool append)
         {
             CircuitEntry cEntry = null;
@@ -336,7 +333,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
             if (!append)
                 CEntries.Add(cEntry);
         }
-
         void AddToNodeData(string gNodeName, NodeType nType = NodeType.NA)
         {
             if (!NodeData.ContainsKey(gNodeName))
@@ -344,7 +340,6 @@ namespace UoB.ToolUtilities.OpenDSSParser
                 NodeData.Add(gNodeName, new GraphNode() { Name = gNodeName, NType = nType }); //Adding a new Bus Object
             }
         }
-        
         void CreateSymbolicGraph()
         {
             symbGraph.CleanNodes();
@@ -505,6 +500,147 @@ namespace UoB.ToolUtilities.OpenDSSParser
                 }
             }
         }
-    }
 
+
+        Dictionary<SemanticStructure, SemanticDetails> founds = new Dictionary<SemanticStructure, SemanticDetails>();
+        List<string> notFounds = new List<string>();
+        /// <summary>
+        /// Not so good logic for Operational branching.
+        /// </summary>
+        /// <param name="sStrs"></param>
+        public void GetOperationalState(List<SemanticStructure> sStrs)
+        {
+            //Step1: Processing Nodes first
+            foreach (string s in nodes)
+            {
+                string id = symbNodes[s].ToString();
+                Node n = symbGraph.FindNode(id);
+                if (n != null)
+                {
+                    GraphNode uD = n.UserData as GraphNode;
+                    if (uD != null)
+                    {
+                        var reSS = sStrs.Find((p) => { if (p.SSName.ToLower().Equals(uD.Name.ToLower()) || p.XMLURI.ToLower().Equals(uD.Name.ToLower())) { return true; } else { return false; } });
+                        if (reSS != null)
+                        {
+                            SemanticDetails sd = null;
+                            if (reSS.SSName.Contains(':'))
+                                sd = GetSSDetails(reSS.SSName.Split(':')[0]);
+                            else
+                                sd = GetSSDetails(reSS.SSName);
+                            founds[reSS] = sd;
+                        }
+                        else
+                        {
+                            notFounds.Add(uD.Name);
+                        }
+                    }
+                }
+            }
+            //Step2: Try to get information from semantic details to see can we find notFounds?
+            Dictionary<string, SemanticStructure> lineNames = new Dictionary<string, SemanticStructure>();
+            //Step3: Process Edge Data.
+            foreach (KeyValuePair<string, GraphEdge> ge in EdgeData)
+            {
+                CircuitEntry ce = ge.Value.UserData as CircuitEntry;
+                if(ce != null)
+                {
+                    string lineName = ce.CEName;
+                    SemanticDetails sd = GetSSDetails(lineName);
+                    founds[sd.ActialSS] = sd;
+                    lineNames[lineName] = sd.ActialSS;
+                    //get from linename
+                    foreach (string s in ce.CEEntries)
+                    {
+                        if (s.Contains("bus"))
+                            if (notFounds.Contains(s.Split('=')[1]))
+                            {
+                                notFounds.Remove(s.Split('=')[1]);
+                            }
+                    }
+                }
+            }
+            //Step4: Getting Line status
+            Dictionary<string, string> lineStatus = new Dictionary<string, string>();
+            foreach(string lName in lineNames.Keys)
+            {
+                SemanticDetails sd = founds[lineNames[lName]];
+                foreach(string s in sd.Incoming)
+                {
+
+                }
+                foreach(string s2 in sd.Outgoing)
+                {
+                    if (s2.Split('-')[1].Split(':')[0].ToLower().Contains("switch"))
+                    {
+                        string tbSearch = s2.Split('-')[1];
+                        SemanticStructure ss = GetSSDataForInst(tbSearch);
+                        lineStatus[lName] = ss.XMLURI;
+                    }
+                }
+            }
+
+            //Step5: Now go through graph and check edge status.
+            //Update status Green for connected Red for dis-connected
+            foreach(Edge e in symbGraph.Edges)
+            {
+                //EdgeAttr.Color== Color.Red
+                string lName = (((e.UserData as GraphEdge).UserData as CircuitEntry).CEName);
+                if (lineStatus.ContainsKey(lName))
+                    if (lineStatus[lName].Equals("y"))
+                        e.EdgeAttr.Color = Color.Red;
+                    else
+                        e.EdgeAttr.Color = Color.Green;
+            }
+        }
+        public SemanticDetails GetSSDetails(string ssName)
+        {
+            //Operational Branching.
+            SemanticDetails sDets = new SemanticDetails();
+            try
+            {
+                string uri = "net.tcp://localhost:6565/ObtainSSdetails";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IObtainSSDetails>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                sDets = proxy.ObtainSD(ssName);
+            }
+            catch (Exception ex)
+            {
+                string eDet = "Not able to Obtain Individuals from Knowledge Graph. Exception is " + ex.Message;
+            }
+            if (sDets == null)
+            {
+                string eDet = "Not able to obtain circuit entities";
+                return null;
+            }
+            return sDets;
+        }
+
+        public SemanticStructure GetSSDataForInst(string ssName)
+        {
+            SemanticStructure sStr = new SemanticStructure();
+            try
+            {
+                string uri = "net.tcp://localhost:6565/ObtainSSForInstn";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IObtainSSForInst>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                sStr = proxy.ObtainSSForInst(ssName);
+            }
+            catch(Exception ex)
+            {
+                string sDet = "Not able to obtain semantic str" + ex.Message;
+            }
+            if(sStr == null)
+            {
+                return null;
+            }
+            return sStr;
+        }
+    }
 }

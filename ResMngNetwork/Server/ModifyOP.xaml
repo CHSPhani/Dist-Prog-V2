@@ -6,13 +6,12 @@
         xmlns:local="clr-namespace:Server"
           xmlns:mdl="clr-namespace:Server.Models"
         mc:Ignorable="d"
-        Title="Modify Ontology Property" Height="550" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Add Range Expression to a Semantic Structure" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <mdl:PSaveDataConverter x:Key="psConv"></mdl:PSaveDataConverter>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
@@ -31,30 +30,35 @@
         <TextBlock Grid.Column="0" Grid.Row="1" Margin="10,10,10,10">Select an Existing Property</TextBlock>
         <ComboBox Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Name="cmbPT" ItemsSource="{Binding PNames}" SelectedItem="{Binding SelectedPN}" SelectionChanged="CmbPT_SelectionChanged_1"></ComboBox>
         
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="10,10,10,10">Property Domain (Can't Edit)</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Text="{Binding DPDomain}"></TextBlock>
+        <!--<TextBlock Grid.Column="0" Grid.Row="2" Margin="10,10,10,10">Property Domain (Can't Edit)</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Text="{Binding DPDomain}"></TextBlock>-->
 
-        <TextBlock Grid.Column="0" Grid.Row="3" Margin="10,10,10,10">Property Range</TextBlock>
-        <TextBlock Name="txtRange" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Text="{Binding DPRange}" LostFocus="TxtRange_LostFocus"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="10,10,10,10">Property Range</TextBlock>
+        <TextBlock Name="txtRange" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Text="{Binding DPRange}" LostFocus="TxtRange_LostFocus"></TextBlock>
 
-        <TextBlock Grid.Column="0" Grid.Row="4" Margin="10,10,10,10">Property Range Expr</TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Text="{Binding RExpr}"></TextBox>
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="10,10,10,10">Property Range Expr</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Text="{Binding RExpr}"></TextBox>
+        
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
             <CheckBox Content="Ignore Col Absense" IsChecked="{Binding IgnoreCAbsense}" ToolTip="Some times a data set can be divided into different sets and hence col names may not appear in all cols" Margin="10,10,10,10"></CheckBox>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+        
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
             <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
             <TextBlock Text="{Binding CurrentUserName}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Content="Exit" Name ="Exit" Click="Exit_Click" Margin="10,10,10,10"></Button>
             <Button Content="Save" Name="save" Margin="10,10,10,10" IsEnabled="{Binding ProposalState}" Command="{Binding SaveOPCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
                         <Binding Path="CurrentUserName"></Binding>
+                        <Binding Path="SelectedCN"></Binding>
+                        <Binding Path="SelectedPN"></Binding>
                         <Binding Path="DPRange"></Binding>
                         <Binding Path="RExpr"></Binding>
+                        <Binding Path="IgnoreCAbsense"></Binding>
                         <Binding Path="OldDP"></Binding>
                     </MultiBinding>
                 </Button.CommandParameter>
@@ -63,9 +67,10 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
                         <Binding Path="CurrentUserName"></Binding>
+                        <Binding Path="SelectedCN"></Binding>
+                        <Binding Path="SelectedPN"></Binding>
                         <Binding Path="DPRange"></Binding>
                         <Binding Path="RExpr"></Binding>
-                        <Binding Path="DPDomain"></Binding>
                         <Binding Path="IgnoreCAbsense"></Binding>
                         <Binding Path="OldDP"></Binding>
                     </MultiBinding>

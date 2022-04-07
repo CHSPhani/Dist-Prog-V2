@@ -93,24 +93,34 @@ namespace Server.Models
             var values = (object[])parameter;
 
             string dataSet = values[0] as string;
-            IFileProcessResult fpResult = values[1] as IFileProcessResult;
-            DBData dbData = values[2] as DBData;
+            string indVal = values[1] as string;
+            IFileProcessResult fpResult = values[2] as IFileProcessResult;
+            DBData dbData = values[3] as DBData;
             bool adValue = false;
-            Boolean.TryParse(values[3].ToString(), out adValue);
-            //if (string.IsNullOrEmpty(dataSet))
+            Boolean.TryParse(values[4].ToString(), out adValue);
+            bool iCols = false;
+            Boolean.TryParse(values[5].ToString(), out iCols);
+
+            //if (string.IsNullOrEmpty(dataSet) && string.IsNullOrEmpty(indVal))
             //{
             //    EventHandler handler = EventCompleted;
-            //    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "PredefinedDS" });
-            //    return;
-            //}
-            //else if (fpResult == null)
-            //{
-            //    EventHandler handler = EventCompleted;
-            //    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "ResultNull" });
+            //    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "PredefinedDS or Individual" });
             //    return;
             //}
             //else 
-            if (dbData == null)
+            if (fpResult == null)
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "ResultNull" });
+                return;
+            }
+            else if (fpResult.ProcesState.Contains("The process cannot access the file"))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Can not access file" });
+                return;
+            }
+            else if (dbData == null)
             {
                 EventHandler handler = EventCompleted;
                 handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "DBData" });
@@ -121,11 +131,9 @@ namespace Server.Models
                 //Process and Return Validation result
                 if (fpResult.FileType == AllowedFileTypes.csv)
                 {
-                    ValidateFiles vfile = new ValidateFiles();
-                    vfile.ValidateFiless();
-                    //ValidationResult vR = ValidateDataSets.ValidateCSVDataSet(dbData, fpResult, dataSet, adValue);
-                    //EventHandler handler = EventCompleted;
-                    //handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Processed", VResult = vR });
+                    ValidationResult vR = ValidateDataSets.ValidateCSVDataSet(dbData, indVal, fpResult, dataSet, adValue, iCols);
+                    EventHandler handler = EventCompleted;
+                    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Processed", VResult = vR });
                     return;
                 }
             }
@@ -173,6 +181,20 @@ namespace Server.Models
             {
                 this.acceptDValues = value;
                 OnPropertyChanged("AcceptDefValues");
+            }
+        }
+
+        bool integratedColNames;
+        public bool IntegratedColNames
+        {
+            get
+            {
+                return this.integratedColNames;
+            }
+            set
+            {
+                this.integratedColNames = value;
+                OnPropertyChanged("IntegratedColNames");
             }
         }
 
@@ -286,6 +308,21 @@ namespace Server.Models
             }
         }
 
+        List<string> indies;
+
+        public List<string> Indies
+        {
+            get
+            {
+                return this.indies;
+            }
+            set
+            {
+                this.indies = value;
+                OnPropertyChanged("Indies");
+            }
+        }
+
         IFileProcessResult pResult;
         public IFileProcessResult PResult
         {
@@ -392,6 +429,7 @@ namespace Server.Models
                         nData.NoOfRows = ((CSVFileProcessResult)PResult).NoOfRows;
                         nData.ProcessResult = ((CSVFileProcessResult)PResult).ProcessResult;
                         nData.VerifiedDataSet = res.OClassName;
+                        nData.AttachedInstance = res.InstName;
                         if (curDbInstance.NodeData == null)
                         {
                             curDbInstance.NodeData = new List<NodeData>();
@@ -422,26 +460,92 @@ namespace Server.Models
             this.ConsiderSubSet = true;
             PResult = null;
             List<string> clsNames = new List<string>();
-            //foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
-            //{
-            //    clsNames.Add(oCls.CName);
-            //}
+            foreach (SemanticStructure ss in this.curDbInstance.OwlData.RDFG.NODetails.Values)
+            {
+                if (ss.SSType == SStrType.Class)
+                    clsNames.Add(ss.SSName);
+            }
             this.DMClasses = clsNames;
         }
 
         public void FillProperties()
         {
             List<string> pNs = new List<string>();
-            //foreach (ODataProperty odpProp in this.curDbInstance.OwlData.OWLDataProperties)
-            //{
-            //    var slProps = odpProp.DPChildNodes.FindAll((p) => { if (p.CNType.Equals("rdfs:domain")) return true; else return false; });
-            //    foreach (OChildNode ocNode in slProps)
-            //    {
-            //        if (ocNode.CNName.Equals(this.SelectedCN))
-            //            pNs.Add(odpProp.DProperty);
-            //    }
-            //}
+            List<string> indS = new List<string>();
+
+            //Step2: Get outgoing and incoming edges for selected class name
+            string nName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(this.SelectedCN);
+
+            List<string> outgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(nName);
+            List<string> incoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(nName);
+            List<string> classHierarchy = new List<string>();
+
+            //sorting outgoing list because i added number whle adding outgoing properties.
+            SortedList<int, string> nsList = new SortedList<int, string>();
+            foreach (string s in outgoing)
+            {
+                nsList[Int32.Parse(s.Split('-')[0])] = s.Split('-')[1];
+            }
+            List<string> nOutgoing = new List<string>();
+            foreach (KeyValuePair<int, string> kvp in nsList)
+            {
+                nOutgoing.Add(string.Format("{0}-{1}", kvp.Key, kvp.Value));
+            }
+            //sorting done
+
+            int counter = 0;
+            while (counter <= nOutgoing.Count - 1)
+            {
+                string ots = nOutgoing[counter];
+                string[] reqParts = ots.Split('-')[1].Split(':');
+                if (reqParts[1].ToLower().Equals("class"))
+                {
+                    //Step3: Calculating data properties up in hierarchies 
+                    //Seems like not required to get all properties
+                    #region Good Recursive Code for getting up hierarchies
+                    string relation = string.Empty;
+                    if (this.curDbInstance.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])))
+                        relation = this.curDbInstance.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])];
+
+                    //if sub class I want to add all data properties gathered from all base classes till owl:Thing
+                    if (relation.ToLower().Equals("subclassof"))
+                    {
+                        string source = ots.Split('-')[1];
+                        //classHierarchy.Add(source);
+                        while (!source.ToLower().Equals("owl:thing"))
+                        {
+                            classHierarchy.Add(source);
+                            List<string> og = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(source);
+                            List<string> ic = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(source);
+                            foreach (string ics in ic)
+                            {
+                                if (ics.Split(':')[1].Equals("DatatypeProperty"))
+                                    incoming.Add(ics);
+                            }
+                            foreach (string sst in og) //must be one only
+                                source = sst.Split('-')[1];
+                        }
+                        classHierarchy.Add(source);
+                    }
+                    #endregion
+                }
+                counter++;
+            }
+
+            foreach (string s in incoming)
+            {
+                pNs.Add(s);
+            }
+            
+            foreach(string s in nOutgoing)
+            {
+                if (s.Split(':')[1].ToLower().Contains("instance"))
+                    indS.Add(s); //instance
+                else
+                    pNs.Add(s);
+            }
             this.PNames = pNs;
+            this.Indies = indS;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -451,16 +555,3 @@ namespace Server.Models
         }
     }
 }
-
-
-//public IEnumerable<string> Datasets
-//{
-//    get
-//    {
-//        foreach (DMClass dmC in this.dmClasses)
-//        {
-//            if (!string.IsNullOrEmpty(dmC.BaseClassName))
-//                yield return dmC.CName;
-//        }
-//    }
-//}

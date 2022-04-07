@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{908064DD-4230-42FA-BB85-1460ADB507FE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{835E310A-2963-4114-8ADB-F050C2BF4977} = {835E310A-2963-4114-8ADB-F050C2BF4977}
+		{368C2BFF-6167-4C07-AA63-80C171CF2159} = {368C2BFF-6167-4C07-AA63-80C171CF2159}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSerailizer", "..\..\CIM Class Lib\Version2\DataSerailizer\DataSerailizer.csproj", "{835E310A-2963-4114-8ADB-F050C2BF4977}"

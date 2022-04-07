@@ -17,126 +17,130 @@ namespace Server.ChangeRules
             ReadConditionRules rcRules = new ReadConditionRules();// @"C:\WorkRelated-Offline\Dist Prog V1\ResMngNetwork\Server\ConfigData\Rules.xml");
             if (nMsg.PCause == ProposalCause.ModifyDataProperty)
             {
-                ////Need to write modify property
-                ////    DMDataProperty oldDMProp = nMsg.OldDmDP;
-                //string newRange = nMsg.DataItems[0];
-                //string newExpr = nMsg.DataItems[1];
+                //Need to write modify property
+                //    DMDataProperty oldDMProp = nMsg.OldDmDP;
+                string clsName = nMsg.DataItems[0];
+                string newRange = nMsg.DataItems[1];
+                string pDT = nMsg.DataItems[2];
+                string newExpr = nMsg.DataItems[3];
+
                 //string oldClsName = nMsg.DataItems[2];
-                //bool igCols = true;
-                //if (nMsg.DataItems[3].ToLower().Equals("true"))
-                //    igCols = true;
-                //else
-                //    igCols = false;
-                //ODataProperty oldDP = nMsg.OldDP;
+                bool igCols = true;
+                if (nMsg.DataItems[4].ToLower().Equals("true"))
+                    igCols = true;
+                else
+                    igCols = false;
 
-                //string oldExpr = string.Empty;
-                //string colName = string.Empty;
+                ODataProperty oldDP = nMsg.OldDP;
 
-                //bool relevantDataFound = false;
-                //if (nData.NodeData == null || nData.NodeData.Count == 0)
-                //{
-                //    //No data in the Node So this node can not evaluate the new expr and hence it says no-objection to change 
-                //    return VoteType.NoObjection;
-                //}
-                //else
-                //{
-                //    foreach (NodeData ndData in nData.NodeData)
-                //    {
-                //        string dmc = ndData.VerifiedDataSet;
-                //        if (!dmc.Trim().ToLower().Equals(oldClsName.Trim().ToLower()))
-                //            continue;
-                //        List<ODataProperty> selectedDPs = new List<ODataProperty>();
-                //        foreach (ODataProperty dp in nData.OwlData.OWLDataProperties)
-                //        {
-                //            var res = dp.DPChildNodes.FindAll((p) => { if ((p.CNType.Equals("rdfs:domain")) && (p.CNName.Equals(dmc))) { return true; } else { return false; } });
-                //            foreach (OChildNode ocNode in res)
-                //            {
-                //                selectedDPs.Add(dp);
-                //            }
-                //        }
-                //        var reqData = selectedDPs.Find((s) => { if (s.DProperty == oldDP.DProperty) return true; else return false; });
+                string oldExpr = string.Empty;
+                string colName = string.Empty;
 
-                //        if (reqData != null)
-                //        {
-                //            relevantDataFound = true;
-                //            colName = reqData.DProperty;
-                            
-                //            //Let us start
-                //            //req data : ndData, colName, oldDMProp, nData, newExpr
-                            
-                //            //0. Validation result let me hope that i get a result
-                //            ValidationResult vResult = new ValidationResult();
-                            
-                //            //1. Load CSV and prepare a table as do
-                //            string fileLocation = ndData.AbsLocation;
-                //            DataFilesProcess dfProcess = new DataFilesProcess(fileLocation);
-                //            IFileProcessResult pRes = dfProcess.ProcessFile();
-                            
-                //            //2.Load CSV data
-                //            CSVFileProcessResult csvFPResult = pRes as CSVFileProcessResult;
-                //            List<String> colValues = new List<string>();
-                //            int propCount = 0;
-                //            bool propFound = false;
-                //            foreach (string cV in csvFPResult.FileContent[0].Split(',')) //kind of primitive code to get com number of desired col
-                //            {
-                //                if (cV.Trim().ToLower().Equals(colName.Trim().ToLower()))
-                //                {
-                //                    propFound = true;
-                //                    break;
-                //                }
-                //                propCount++;
-                //            }
-                //            if (!propFound)
-                //            {
-                //                if (!igCols)
-                //                {
-                //                    vResult.Reason = string.Format("Validation Failed. Reason: Column Name {0} is not found in File {1}.", colName, ndData.AbsLocation);
-                //                    //Validattion failed because col name is not present in the dataset being validated Ex: Ontology contains Second as name and Dataset contains t(Sec)
-                //                    //Need to abort as this is a structural difference.
-                //                    return VoteType.Abort;
-                //                }
-                //                else
-                //                {
-                //                    //return no objection
-                //                    return VoteType.NoObjection;
-                //                }
-                //            }
+                bool relevantDataFound = false;
+                if (nData.NodeData == null || nData.NodeData.Count == 0)
+                {
+                    //No data in the Node So this node can not evaluate the new expr and hence it says no-objection to change 
+                    return VoteType.NoObjection;
+                }
+                else
+                {
+                    //foreach (NodeData ndData in nData.NodeData)
+                    //{
+                    //    string dmc = ndData.VerifiedDataSet;
+                    //    if (!dmc.Trim().ToLower().Equals(oldClsName.Trim().ToLower()))
+                    //        continue;
+                    //    List<ODataProperty> selectedDPs = new List<ODataProperty>();
+                    //    foreach (ODataProperty dp in nData.OwlData.OWLDataProperties)
+                    //    {
+                    //        var res = dp.DPChildNodes.FindAll((p) => { if ((p.CNType.Equals("rdfs:domain")) && (p.CNName.Equals(dmc))) { return true; } else { return false; } });
+                    //        foreach (OChildNode ocNode in res)
+                    //        {
+                    //            selectedDPs.Add(dp);
+                    //        }
+                    //    }
+                    //    var reqData = selectedDPs.Find((s) => { if (s.DProperty == oldDP.DProperty) return true; else return false; });
 
-                //            //3.Fill col values
-                //            foreach (string s1 in csvFPResult.FileContent) // Loading col name and values
-                //            {
-                //                colValues.Add(s1.Split(',')[propCount]);
-                //            }
+                    //    if (reqData != null)
+                    //    {
+                    //        relevantDataFound = true;
+                    //        colName = reqData.DProperty;
 
-                //            //4. now we have the col name and values. let us get proerty type.
-                //            string propType = string.Empty;
-                //            foreach (OChildNode ocN in reqData.DPChildNodes)
-                //            {
-                //                if (ocN.CNType.Equals("owl:onDatatype") || ocN.CNType.Equals("rdfs:range"))
-                //                    propType = ocN.CNName;
-                //            }
-                            
-                //            //5. Validate ColValues 
-                //            vResult.Validated = ValidateDataSets.ValidatedExpr(colValues, newExpr, propType, true); //adValue provided as true this is to accept default value.
-                //            if (!vResult.Validated)
-                //            {
-                //                vResult.Reason = string.Format("Validation Failed. Reason: Column Name {0} is not as per the expression specified in Ontology {1}.", colValues[0], newExpr);
-                //                //Validattion falied
-                //                return VoteType.NotAccepted;
-                //            }
-                //            else
-                //            {
-                //                vResult.Reason = string.Format("Validation Success. Column Name {0} is validated as per the expression specified in Change {1}.", colValues[0], newExpr);
-                //                return VoteType.Accepted;
-                //            }
-                //        }
-                //        if (!relevantDataFound)
-                //        {
-                //            //Node has local data but no relevant data set found in the context of modification. hence say no objection
-                //            return VoteType.NoObjection;
-                //        }
-                //    }
-                //}
+                    //        //Let us start
+                    //        //req data : ndData, colName, oldDMProp, nData, newExpr
+
+                    //        //0. Validation result let me hope that i get a result
+                    //        ValidationResult vResult = new ValidationResult();
+
+                    //        //1. Load CSV and prepare a table as do
+                    //        string fileLocation = ndData.AbsLocation;
+                    //        DataFilesProcess dfProcess = new DataFilesProcess(fileLocation);
+                    //        IFileProcessResult pRes = dfProcess.ProcessFile();
+
+                    //        //2.Load CSV data
+                    //        CSVFileProcessResult csvFPResult = pRes as CSVFileProcessResult;
+                    //        List<String> colValues = new List<string>();
+                    //        int propCount = 0;
+                    //        bool propFound = false;
+                    //        foreach (string cV in csvFPResult.FileContent[0].Split(',')) //kind of primitive code to get com number of desired col
+                    //        {
+                    //            if (cV.Trim().ToLower().Equals(colName.Trim().ToLower()))
+                    //            {
+                    //                propFound = true;
+                    //                break;
+                    //            }
+                    //            propCount++;
+                    //        }
+                    //        if (!propFound)
+                    //        {
+                    //            if (!igCols)
+                    //            {
+                    //                vResult.Reason = string.Format("Validation Failed. Reason: Column Name {0} is not found in File {1}.", colName, ndData.AbsLocation);
+                    //                //Validattion failed because col name is not present in the dataset being validated Ex: Ontology contains Second as name and Dataset contains t(Sec)
+                    //                //Need to abort as this is a structural difference.
+                    //                return VoteType.Abort;
+                    //            }
+                    //            else
+                    //            {
+                    //                //return no objection
+                    //                return VoteType.NoObjection;
+                    //            }
+                    //        }
+
+                    //        //3.Fill col values
+                    //        foreach (string s1 in csvFPResult.FileContent) // Loading col name and values
+                    //        {
+                    //            colValues.Add(s1.Split(',')[propCount]);
+                    //        }
+
+                    //        //4. now we have the col name and values. let us get proerty type.
+                    //        string propType = string.Empty;
+                    //        foreach (OChildNode ocN in reqData.DPChildNodes)
+                    //        {
+                    //            if (ocN.CNType.Equals("owl:onDatatype") || ocN.CNType.Equals("rdfs:range"))
+                    //                propType = ocN.CNName;
+                    //        }
+
+                    //        //5. Validate ColValues 
+                    //        vResult.Validated = ValidateDataSets.ValidatedExpr(colValues, newExpr, propType, true); //adValue provided as true this is to accept default value.
+                    //        if (!vResult.Validated)
+                    //        {
+                    //            vResult.Reason = string.Format("Validation Failed. Reason: Column Name {0} is not as per the expression specified in Ontology {1}.", colValues[0], newExpr);
+                    //            //Validattion falied
+                    //            return VoteType.NotAccepted;
+                    //        }
+                    //        else
+                    //        {
+                    //            vResult.Reason = string.Format("Validation Success. Column Name {0} is validated as per the expression specified in Change {1}.", colValues[0], newExpr);
+                    //            return VoteType.Accepted;
+                    //        }
+                    //    }
+                    //    if (!relevantDataFound)
+                    //    {
+                    //        //Node has local data but no relevant data set found in the context of modification. hence say no objection
+                    //        return VoteType.NoObjection;
+                    //    }
+                    //}
+                }
             }
             else if (nMsg.PCause == ProposalCause.NewOntology)
             {
@@ -149,6 +153,10 @@ namespace Server.ChangeRules
             else if (nMsg.PCause == ProposalCause.NewObjectProperty)
             {
                 return VoteType.Accepted;//What needs to be validated when some one wants to add an equivalent object property for an class in an ontology? Thats why just say yes.
+            }
+            else if (nMsg.PCause == ProposalCause.UploadInd)
+            {
+                return VoteType.Accepted;//What needs to be validated when some one wants to add individuals to ontology? Just say yes
             }
             else if (nMsg.PCause == ProposalCause.NewOClass)
             {

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ContractDataModels;
+using DataSerailizer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -62,6 +65,34 @@ namespace SimulationTool
         private void button4_Click(object sender, EventArgs e)
         {
             //Operational Branching.
+            List<SemanticStructure> sStrs = new List<SemanticStructure>();
+            try
+            {
+                string uri = "net.tcp://localhost:6565/ObtainAllIndividuals";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IObtainAllIndividuals>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                sStrs = proxy.ObtainAllIndividuals(); //Obtain all Indies.
+            }
+            catch(Exception ex)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Not able to Obtain Individuals from Knowledge Graph. Exception is " + ex.Message;
+            }
+            if (sStrs.Count==0)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Not able to obtain circuit entities";
+            }
+            else
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Obtained Details about Circuit Entities.";
+
+                dssFileParser.GetOperationalState(sStrs);
+            }
         }
     }
 }

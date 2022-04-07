@@ -26,79 +26,8 @@ namespace Server.Models
         public void Execute(object parameter)
         {
             var values = (object[])parameter;
-            
-            string p0, p1, p2 = string.Empty;
-            ODataProperty oldDP = null;
 
-
-            if (values[0] != null)
-                p0 = values[0].ToString();
-            else
-                p0 = string.Empty;
-
-            if (values[1] != null)
-                p1 = values[1].ToString();
-            else
-                p1 = string.Empty;
-
-            if (values[2] != null)
-                p2 = values[2].ToString();
-            else
-                p2 = string.Empty;
-
-            if (values[3] != null)
-                oldDP = values[3] as ODataProperty;
-            else
-                oldDP = null;
-
-            if (string.IsNullOrEmpty(p0))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "UserName" });
-                return;
-            }
-            else if (string.IsNullOrEmpty(p1))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Range" });
-                return;
-            }
-            else if (string.IsNullOrEmpty(p2))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Expression" });
-                return;
-            }
-
-            NodeMesaage nMessage = new NodeMesaage();
-            nMessage.ProposedUser = p0;
-            nMessage.PCause = ProposalCause.ModifyDataProperty;
-            nMessage.PTYpe = ProposalType.Transition;
-            List<string> sItems = new List<string>();
-            sItems.Add(p1); sItems.Add(p2);
-            nMessage.OldDP = oldDP;
-            nMessage.DataItems = sItems;
-            RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
-        }
-    }
-    public class ProposeOPCommand : ICommand
-    {
-        public event EventHandler CanExecuteChanged;
-
-        public event EventHandler EventCompleted;
-
-        public event RaiseProposeEventHandler RaisePropose;
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            var values = (object[])parameter;
-
-            string p0, p1, p2, p3,p4 = string.Empty;
+            string p0, p1, p2, p3, p4, p5, p6 = string.Empty;
             ODataProperty oldDP = null;
 
 
@@ -128,7 +57,119 @@ namespace Server.Models
                 p4 = string.Empty;
 
             if (values[5] != null)
-                oldDP = values[5] as ODataProperty;
+                p5 = values[5].ToString();
+            else
+                p5 = string.Empty;
+
+            if (values[4] != null)
+                oldDP = values[4] as ODataProperty;
+            else
+                oldDP = null;
+
+            if (string.IsNullOrEmpty(p0))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "UserName" });
+                return;
+            }
+            else if (string.IsNullOrEmpty(p1))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Class Name" });
+                return;
+            }
+            else if (string.IsNullOrEmpty(p2))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Name" });
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(p3))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Range" });
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(p4))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Expression" });
+                return;
+            }
+
+            //else if (string.IsNullOrEmpty(p4))
+            //{
+            //    EventHandler handler = EventCompleted;
+            //    handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Old Domain Name" });
+            //    return;
+            //}
+
+            NodeMesaage nMessage = new NodeMesaage();
+            nMessage.ProposedUser = p0;
+            nMessage.PCause = ProposalCause.ModifyDataProperty;
+            nMessage.PTYpe = ProposalType.Transition;
+            List<string> sItems = new List<string>();
+            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); sItems.Add(p5);
+            nMessage.OldDP = oldDP;
+            nMessage.DataItems = sItems;
+            RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
+        }
+    }
+    public class ProposeOPCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public event EventHandler EventCompleted;
+
+        public event RaiseProposeEventHandler RaisePropose;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var values = (object[])parameter;
+
+            string p0, p1, p2, p3, p4, p5, p6 = string.Empty;
+            ODataProperty oldDP = null;
+
+
+            if (values[0] != null)
+                p0 = values[0].ToString();
+            else
+                p0 = string.Empty;
+
+            if (values[1] != null)
+                p1 = values[1].ToString();
+            else
+                p1 = string.Empty;
+
+            if (values[2] != null)
+                p2 = values[2].ToString();
+            else
+                p2 = string.Empty;
+
+            if (values[3] != null)
+                p3 = values[3].ToString();
+            else
+                p3 = string.Empty;
+
+            if (values[4] != null)
+                p4 = values[4].ToString();
+            else
+                p4 = string.Empty;
+
+            if (values[5] != null)
+                p5 = values[5].ToString();
+            else
+                p5 = string.Empty;
+   
+            if (values[4] != null)
+                oldDP = values[4] as ODataProperty;
             else
                 oldDP = null; 
             
@@ -141,28 +182,43 @@ namespace Server.Models
             else if (string.IsNullOrEmpty(p1))
             {
                 EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Range" });
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Class Name" });
                 return;
             }
             else if (string.IsNullOrEmpty(p2))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Name" });
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(p3))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Range" });
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(p4))
             {
                 EventHandler handler = EventCompleted;
                 handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Property Expression" });
                 return;
             }
-            else if (string.IsNullOrEmpty(p2))
-            {
-                EventHandler handler = EventCompleted;
-                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Old Domain Name" });
-                return;
-            }
+
+            //else if (string.IsNullOrEmpty(p4))
+            //{
+            //    EventHandler handler = EventCompleted;
+            //    handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "Old Domain Name" });
+            //    return;
+            //}
 
             NodeMesaage nMessage = new NodeMesaage();
             nMessage.ProposedUser = p0;
             nMessage.PCause = ProposalCause.ModifyDataProperty;
             nMessage.PTYpe = ProposalType.Voting;
             List<string> sItems = new List<string>();
-            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4);
+            sItems.Add(p1); sItems.Add(p2); sItems.Add(p3); sItems.Add(p4); sItems.Add(p5);
             nMessage.OldDP = oldDP;
             nMessage.DataItems = sItems;
             RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
@@ -351,31 +407,96 @@ namespace Server.Models
 
         public MOPModel(string uName, DBData dbData)
         {
+            FillDT();
             this.ProposalStatus = "Changes not proposed";
             this.ProposalState = false;
             this.IgnoreCAbsense = true;
             this.CurrentUserName = uName;
             this.curDbInstance = dbData;
             List<string> clsNames = new List<string>();
-            //foreach (OClass oCls in this.curDbInstance.OwlData.OWLClasses)
-            //{
-            //    clsNames.Add(oCls.CName);
-            //}
+            foreach (SemanticStructure ss in this.curDbInstance.OwlData.RDFG.NODetails.Values)
+            {
+                if (ss.SSType == SStrType.Class)
+                    clsNames.Add(ss.SSName);
+            }
             this.DMClasses = clsNames;
         }
 
         public void FillProperties()
         {
             List<string> pNs = new List<string>();
-            //foreach(ODataProperty odpProp in this.curDbInstance.OwlData.OWLDataProperties)
+            
+            //Step2: Get outgoing and incoming edges for selected class name
+            string nName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(this.SelectedCN);
+
+            List<string> outgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(nName);
+            List<string> incoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(nName);
+            List<string> classHierarchy = new List<string>();
+
+            //sorting outgoing list because i added number whle adding outgoing properties.
+            SortedList<int, string> nsList = new SortedList<int, string>();
+            foreach (string s in outgoing)
+            {
+                nsList[Int32.Parse(s.Split('-')[0])] = s.Split('-')[1];
+            }
+            List<string> nOutgoing = new List<string>();
+            foreach (KeyValuePair<int, string> kvp in nsList)
+            {
+                nOutgoing.Add(string.Format("{0}-{1}", kvp.Key, kvp.Value));
+            }
+            //sorting done
+
+            #region No need to go up in hierarchy to get something
+            //int counter = 0;
+            //while (counter <= nOutgoing.Count - 1)
             //{
-            //    var slProp = odpProp.DPChildNodes.Find((p) => { if (p.CNType.Equals("rdfs:domain") && (p.CNName.Equals(this.SelectedCN))) return true; else return false; });
-            //    if (slProp != null)
+            //    string ots = nOutgoing[counter];
+            //    string[] reqParts = ots.Split('-')[1].Split(':');
+            //    if (reqParts[1].ToLower().Equals("class"))
             //    {
-            //        pNs.Add(odpProp.DProperty);
+            //        //Step3: Calculating data properties up in hierarchies 
+            //        //Seems like not required to get all properties
+            //        #region Good Recursive Code for getting up hierarchies
+            //        string relation = string.Empty;
+            //        if (this.curDbInstance.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])))
+            //            relation = this.curDbInstance.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])];
+
+            //        //if sub class I want to add all data properties gathered from all base classes till owl:Thing
+            //        if (relation.ToLower().Equals("subclassof"))
+            //        {
+            //            string source = ots.Split('-')[1];
+            //            //classHierarchy.Add(source);
+            //            while (!source.ToLower().Equals("owl:thing"))
+            //            {
+            //                classHierarchy.Add(source);
+            //                List<string> og = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(source);
+            //                List<string> ic = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(source);
+            //                foreach (string ics in ic)
+            //                {
+            //                    if (ics.Split(':')[1].Equals("DatatypeProperty"))
+            //                        incoming.Add(ics);
+            //                }
+            //                foreach (string sst in og) //must be one only
+            //                    source = sst.Split('-')[1];
+            //            }
+            //            classHierarchy.Add(source);
+            //        }
+            //        #endregion
             //    }
-                
+            //    counter++;
             //}
+            #endregion
+            //No need of data properties to add
+            //foreach (string s in incoming)
+            //{
+            //    pNs.Add(s);
+            //}
+
+            foreach (string s in nOutgoing)
+            {
+                if (!s.Split(':')[1].ToLower().Contains("instance"))
+                    pNs.Add(s);
+            }
             this.PNames = pNs;
         }
 
@@ -395,51 +516,46 @@ namespace Server.Models
         }
         public void GetPropertyDetails()
         {
-            ODataProperty pDetail = new ODataProperty();//this.curDbInstance.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Equals(this.SelectedPN)) return true; else return false; });
-            this.OldDP = pDetail;
+            if (string.IsNullOrEmpty(this.SelectedPN))
+                return;
+            string nName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(this.SelectedCN);
 
-            StringBuilder sBuilder = new StringBuilder();
-            sBuilder.Append("[");
-            foreach (OChildNode ocNode in pDetail.DPChildNodes)
+            List<string> routgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(nName);
+            List<string> rincoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(nName);
+
+            foreach(string s in routgoing)
             {
-                if(ocNode.CNType.Equals("rdfs:domain"))
+                if(s.Split('-')[1].Split(':')[1].ToLower().Equals("rangeexpression"))
                 {
-                    if (ocNode.CNName.Equals(this.SelectedCN))
-                        this.DPDomain = ocNode.CNName;
-                }
-                if(ocNode.CNType.Equals("rdfs:range") || ocNode.CNType.Equals("owl:onDatatype"))
-                {
-                    this.DPRange = ocNode.CNName;
-                }
-                if (ValidateRules.IsOperator(ocNode.CNType))
-                {
-                    //now we need to construct exprssion
-                    sBuilder.Append(ValidateRules.GetOperator(ocNode.CNType));
-                    sBuilder.Append(" ");
-                    sBuilder.Append(ocNode.CNSpecialValue);
-                    sBuilder.Append(" , ");
+                    string cStr = s.Split('-')[1].Split(':')[0];
+                    if (cStr.Contains(this.SelectedPN.Split('-')[1].Split(':')[0]))
+                    {
+                        string rnName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(cStr);
+                        SemanticStructure rss = this.curDbInstance.OwlData.RDFG.NODetails[rnName];
+                        this.RExpr = rss.XMLURI;
+                        break;
+                    }
                 }
             }
-            string newStr = sBuilder.ToString();
-            string newStr1 = string.Empty;
-            if (!string.IsNullOrEmpty(newStr) & newStr.Length > 1) //if there is no expression then only [ will be there and hence I am checking > 1
+
+            SemanticStructure ss = this.curDbInstance.OwlData.RDFG.NODetails[this.SelectedPN.Split('-')[1]];
+
+            List<string> outgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(this.SelectedPN.Split('-')[1]);
+            List<string> incoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(this.SelectedPN.Split('-')[1]);
+
+            var firstRResult = incoming.FindAll((p) => { if (p.Split(':')[1].ToLower().Equals("datatypeproperty")) { return true; } else { return false; } });
+            if (firstRResult.Count == 1)
             {
-                newStr1 = newStr.Substring(0, (newStr.Length - (" , ").Length));
-                this.RExpr = newStr1 + "]";
+                var secResult = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(firstRResult[0]).FindAll((p) => { if (dT.Contains(p.Split('-')[1].Split(':')[0])) { return true; } else { return false; } });
+                if (secResult.Count == 1)
+                {
+                    this.DPRange = secResult[0].Split('-')[1].Split(':')[0];
+                }
+                else
+                { }
             }
             else
-            {
-                this.RExpr = newStr1;
-            }
-            
-            //ConstructExpression using ocNode and then assign expression. Currently I support 
-            //'length' | 'minLength' | 'maxLength' | 'pattern' | 'langRange' | '<=' | '<' | '>=' | '>'
-            //length minLength and maxLength -> !Empty
-            // <= minInclusive
-            // < minExclusive
-            // >=maxInclusive
-            // > maxExclusive
-            // this.RExpr = dP.PRangeExpr;
+            { }
         }
 
 
@@ -503,6 +619,25 @@ namespace Server.Models
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        List<string> dT = new List<string>();
+        void FillDT() //xsd:
+        {
+            dT.Add("byte");
+            dT.Add("boolean");
+            dT.Add("int");
+            dT.Add("integer");
+            dT.Add("long");
+            dT.Add("short");
+            dT.Add("string");
+            dT.Add("double");
+            dT.Add("decimal");
+            dT.Add("float");
+            dT.Add("unsignedByte");
+            dT.Add("unsignedInt");
+            dT.Add("unsignedLong");
+            dT.Add("unsignedShort");
         }
     }
 }

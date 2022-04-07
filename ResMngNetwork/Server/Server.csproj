@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ContractDataModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DebugOuts\ContractDataModels.dll</HintPath>
+    </Reference>
     <Reference Include="DataSerailizer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DebugOuts\DataSerailizer.dll</HintPath>
@@ -63,6 +67,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="ToolUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DebugOuts\ToolUtilities.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -103,6 +111,9 @@
     <Compile Include="DataFileProcess\DataFileProcess.cs" />
     <Compile Include="DataFileProcess\ValidateDataSets.cs" />
     <Compile Include="DSystem\SystemNetwork.cs" />
+    <Compile Include="KGConsole.xaml.cs">
+      <DependentUpon>KGConsole.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KnowledgeGraph\KG.cs" />
     <Compile Include="KnowledgeGraph\KnowledgeGraph.cs">
       <SubType>Form</SubType>
@@ -118,8 +129,10 @@
     <Compile Include="Models\AddNewRstr.cs" />
     <Compile Include="Models\InsertCls.cs" />
     <Compile Include="Models\InsertProperty.cs" />
+    <Compile Include="Models\KGConsoleModel.cs" />
     <Compile Include="Models\MOPModel.cs" />
     <Compile Include="Models\ShowResourcesModel.cs" />
+    <Compile Include="Models\UploadInd.cs" />
     <Compile Include="Models\UploadOntologyFile.cs" />
     <Compile Include="Models\ValidatorModel.cs" />
     <Compile Include="Models\VDViewModel.cs" />
@@ -137,6 +150,10 @@
     <Compile Include="ShowResources.xaml.cs">
       <DependentUpon>ShowResources.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UploadIndividual.xaml.cs">
+      <DependentUpon>UploadIndividual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UploadIndividuals\UploadIndividualsToRDFG.cs" />
     <Compile Include="UploadOntology.xaml.cs">
       <DependentUpon>UploadOntology.xaml</DependentUpon>
     </Compile>
@@ -168,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddNewRestri.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KGConsole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,6 +233,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ShowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UploadIndividual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,11 +295,5 @@
     <Resource Include="ConfigData\Rules.xml" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\ContractDataModels\ContractDataModels.csproj">
-      <Project>{368c2bff-6167-4c07-aa63-80c171cf2159}</Project>
-      <Name>ContractDataModels</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

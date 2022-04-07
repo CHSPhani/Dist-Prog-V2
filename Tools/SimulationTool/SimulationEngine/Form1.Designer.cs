@@ -47,6 +47,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -78,9 +80,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(36, 252);
+            this.button3.Location = new System.Drawing.Point(32, 213);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(169, 29);
+            this.button3.Size = new System.Drawing.Size(202, 41);
             this.button3.TabIndex = 3;
             this.button3.Text = "Create Monitors";
             this.button3.UseVisualStyleBackColor = true;
@@ -89,7 +91,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 221);
+            this.label2.Location = new System.Drawing.Point(29, 184);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 4;
@@ -114,7 +116,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(36, 168);
+            this.button5.Location = new System.Drawing.Point(32, 136);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(173, 29);
             this.button5.TabIndex = 9;
@@ -125,7 +127,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 138);
+            this.label5.Location = new System.Drawing.Point(33, 100);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(135, 13);
             this.label5.TabIndex = 10;
@@ -134,7 +136,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(407, 234);
+            this.label4.Location = new System.Drawing.Point(409, 232);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 13);
             this.label4.TabIndex = 12;
@@ -142,7 +144,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(586, 221);
+            this.button4.Location = new System.Drawing.Point(588, 219);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(202, 39);
             this.button4.TabIndex = 11;
@@ -160,7 +162,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(586, 173);
+            this.button6.Location = new System.Drawing.Point(588, 171);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(202, 39);
             this.button6.TabIndex = 14;
@@ -171,7 +173,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(407, 184);
+            this.label7.Location = new System.Drawing.Point(409, 182);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(151, 13);
             this.label7.TabIndex = 15;
@@ -179,7 +181,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(586, 278);
+            this.button7.Location = new System.Drawing.Point(588, 276);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(204, 37);
             this.button7.TabIndex = 16;
@@ -190,7 +192,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(407, 291);
+            this.label8.Location = new System.Drawing.Point(409, 289);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(134, 13);
             this.label8.TabIndex = 17;
@@ -199,7 +201,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(407, 345);
+            this.label9.Location = new System.Drawing.Point(409, 343);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(145, 13);
             this.label9.TabIndex = 19;
@@ -207,7 +209,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(586, 332);
+            this.button8.Location = new System.Drawing.Point(588, 330);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(202, 36);
             this.button8.TabIndex = 18;
@@ -215,12 +217,35 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(29, 184);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(292, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Step-2.1: Submit OpenDSS config as Individuals to Ontology";
+            this.label10.Visible = false;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(32, 213);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(173, 37);
+            this.button9.TabIndex = 20;
+            this.button9.Text = "Step-2.1: Submit as Individuals";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Visible = false;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 626);
             this.ControlBox = false;
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.button9);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label8);
@@ -268,6 +293,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button9;
     }
 }
 

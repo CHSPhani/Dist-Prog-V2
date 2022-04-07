@@ -7,6 +7,7 @@ using System.Timers;
 using System.Threading;
 using System.Threading.Tasks;
 using DataSerailizer;
+using UoB.ToolUtilities.OpenDSSParser;
 
 namespace Server.DSystem
 {
@@ -33,6 +34,8 @@ namespace Server.DSystem
         
         public ODataProperty OldDP { get; set; }
 
+        public List<CircuitEntry> CEntities { get; set; }
+
         public NodeMesaage()
         {
             ProposedUser = string.Empty;
@@ -40,6 +43,7 @@ namespace Server.DSystem
             PCause = ProposalCause.None;
             DataItems = new List<string>();
             OwlDatag = new OWLDataG();
+            CEntities = new List<CircuitEntry>();
             OldDP = null;
         }
     }

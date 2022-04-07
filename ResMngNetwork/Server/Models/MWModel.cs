@@ -101,30 +101,8 @@ namespace Server.Models
         public void Execute(object parameter)
         {
             var values = (object[])parameter;
-            List<DSNode> ANodes = new List<DSNode>();
-
-            if (values[0] != null)
-                ANodes = values[0] as List<DSNode>;
-
-            if (ANodes == null | ANodes.Count == 0)
-            {
-
-            }
-            else
-            {
-                try
-                {
-                    KG kg = new KG(ANodes);
-                    KGraphDS gDs = kg.KGraph;//for answering question
-
-                    KnowledgeGraph.KnowledgeGraph kGr = new KnowledgeGraph.KnowledgeGraph(kg.SymbolicGraph);  //kg.SymbolicGraph for presentation
-
-                    kGr.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                }
-            }
+            KGConsole kgConsole = new KGConsole();
+            kgConsole.Show();
         }
     }
 
@@ -273,7 +251,14 @@ namespace Server.Models
             this.SysStatus = statusMsg;
             DSNode dsn = this.ActiveNodes.Find((a) => { if (a.UserName.Equals("AUser")) { return true; } else { return false; } });
             if (dsn != null)
+            {
                 Server.ValidationService.ValidateFiles.dbData = dsn.DataInstance;
+                Models.KGConsoleModel.dbData = dsn.DataInstance;
+                //Server.UploadIndividuals.UploadIndividualsToRDFG.dbData = dsn.DataInstance;
+                Server.UploadIndividuals.ObtainAllIndies.dbData = dsn.DataInstance;
+                Server.UploadIndividuals.ObtainSSDetails.dbData = dsn.DataInstance;
+                Server.UploadIndividuals.ObtainSSForInstn.dbData = dsn.DataInstance;
+            }
         }
 
         public MWModel()
@@ -352,6 +337,13 @@ namespace Server.Models
 
 /*
  * 
+ * 
+ * KG kg = new KG(ANodes);
+                    KGraphDS gDs = kg.KGraph;//for answering question
+
+                    KnowledgeGraph.KnowledgeGraph kGr = new KnowledgeGraph.KnowledgeGraph(kg.SymbolicGraph);  //kg.SymbolicGraph for presentation
+
+                    kGr.ShowDialog();
  * 
     public class FolderSelectedEventArgs : EventArgs
     {

@@ -12,6 +12,8 @@ using System.Windows.Input;
 using Server.Models;
 using System.ComponentModel;
 using Server.ChangeRules;
+using UoB.ToolUtilities.OpenDSSParser;
+using Server.UploadIndividuals;
 
 namespace Server.DSystem
 {
@@ -406,7 +408,6 @@ namespace Server.DSystem
             RaiseProposal4?.Invoke(sender, e);
         }
     }
-
     public class AddNewDcommand:ICommand
     {
         public event EventHandler CanExecuteChanged;
@@ -445,7 +446,6 @@ namespace Server.DSystem
             RaiseProposal4?.Invoke(sender, e);
         }
     }
-
     public class AddNewRestr:ICommand
     {
         public event EventHandler CanExecuteChanged;
@@ -484,7 +484,6 @@ namespace Server.DSystem
             RaiseProposal4?.Invoke(sender, e);
         }
     }
-
     public class AddNewCnvr : ICommand
     {
         public event EventHandler CanExecuteChanged;
@@ -519,6 +518,45 @@ namespace Server.DSystem
         }
 
         private void Addnewr_RaiseProposal3(object sender, ProposeEventArgs e)
+        {
+            RaiseProposal4?.Invoke(sender, e);
+        }
+    }
+    public class UpdateIndCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public event RaiseProposeEventHandler RaiseProposal4;
+
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var values = (object[])parameter;
+
+            string p1 = string.Empty;
+            DBData dbData = null;
+
+            if (values[0] != null)
+                p1 = values[0].ToString();
+            else
+                p1 = string.Empty;
+
+            if (values[1] != null)
+                dbData = values[1] as DBData;
+            else
+                dbData = null;
+
+            UploadIndividual upInd = new UploadIndividual(p1, dbData);
+            upInd.RaiseProposal3 += UpInd_RaiseProposal3;
+            upInd.Show();
+        }
+
+        private void UpInd_RaiseProposal3(object sender, ProposeEventArgs e)
         {
             RaiseProposal4?.Invoke(sender, e);
         }
@@ -667,6 +705,21 @@ namespace Server.DSystem
                     vdSet = new ValidateScreenCommand();
                 }
                 return vdSet;
+            }
+        }
+
+        UpdateIndCommand uiCmd;
+
+        public ICommand UploadIndividualsCommand
+        {
+            get
+            {
+                if(uiCmd == null)
+                {
+                    uiCmd = new UpdateIndCommand();
+                    uiCmd.RaiseProposal4 += SpWindow_RaiseProposal4;
+                }
+                return uiCmd;
             }
         }
 
@@ -1001,17 +1054,17 @@ namespace Server.DSystem
                     DBInsert.InsertNewPackage(tQueue.Dequeue(), this.initData);
                     this.Status = string.Format("Package details Updated.");
                 }
-                if(nMsg.PCause == ProposalCause.NewClass)
+                if (nMsg.PCause == ProposalCause.NewClass)
                 {
                     DBInsert.InsertClassEntry(tQueue.Dequeue(), this.initData);
                     this.Status = string.Format("Class details Updated.");
                 }
-                if(nMsg.PCause == ProposalCause.NewProperty)
+                if (nMsg.PCause == ProposalCause.NewProperty)
                 {
                     DBInsert.InsertPropertyEntry(tQueue.Dequeue(), this.initData);
                     this.Status = string.Format("Property details Updated.");
                 }
-                if(nMsg.PCause == ProposalCause.NewOntology)
+                if (nMsg.PCause == ProposalCause.NewOntology)
                 {
                     //NodeMesaage nMsg1 = tQueue.Dequeue();
                     //OWLData oD = nMsg1.OwlData;
@@ -1033,7 +1086,7 @@ namespace Server.DSystem
                     //        this.initData.OwlData.OWLNameSpaces.Add(nSP.Key, nSP.Value);
                     //}
                 }
-                if(nMsg.PCause == ProposalCause.NewDataProperty)
+                if (nMsg.PCause == ProposalCause.NewDataProperty)
                 {
                     NodeMesaage nMsg1 = tQueue.Dequeue();
                     string propName = nMsg1.DataItems[0];
@@ -1074,17 +1127,15 @@ namespace Server.DSystem
                         initData.OwlData.RDFG.EdgeData[edKey2] = ss3.SSType.ToString();
                     //add edge
                     initData.OwlData.RDFG.AddEdge(ss.ToString(), ss4.ToString());
+                    this.Status = string.Format("New Data Property details Updated.");
                 }
                 if (nMsg.PCause == ProposalCause.NewObjectProperty)
                 {
                     NodeMesaage nMsg1 = tQueue.Dequeue();
                     
                     string npName = nMsg1.DataItems[0];
-                    
                     string sName = nMsg1.DataItems[1];
-
                     string tName = nMsg1.DataItems[2];
-                    
                     string inverseProp = nMsg1.DataItems[3];
 
                     //Start creating Object Property
@@ -1132,27 +1183,54 @@ namespace Server.DSystem
                         //add edge
                         initData.OwlData.RDFG.AddEdge(ss.ToString(), ss5.ToString());
                     }
+                    this.Status = string.Format("New Object Property details Updated.");
                 }
-                if (nMsg.PCause ==  ProposalCause.ModifyDataProperty)
+                if (nMsg.PCause == ProposalCause.ModifyDataProperty)
                 {
-                    //NodeMesaage nMsg1 = tQueue.Dequeue();
-                    //string newRange = nMsg1.DataItems[0];
-                    //string newExpr = nMsg1.DataItems[1];
-                    //ODataProperty oldDP = nMsg1.OldDP;
+                    NodeMesaage nMsg1 = tQueue.Dequeue();
+                    string clsName = nMsg.DataItems[0];
+                    string newRange = nMsg.DataItems[1];
+                    string pDT = nMsg.DataItems[2];
+                    string newExpr = nMsg.DataItems[3];
 
-                    //ODataProperty oNDp = this.initData.OwlData.OWLDataProperties.Find((dp) => { if (dp.DProperty.Equals(oldDP.DProperty)) return true; else return false; });
-                    //ValidateRules.UpdateChildNodesForExpr(newExpr, newRange, ref oNDp);
+                    //string oldClsName = nMsg.DataItems[2];
+                    bool igCols = true;
+                    if (nMsg.DataItems[4].ToLower().Equals("true"))
+                        igCols = true;
+                    else
+                        igCols = false;
 
-                    //foreach (OChildNode ocNode in oNDp.DPChildNodes)
-                    //{
-                    //    if(ocNode.CNType.Equals("rdfs:range") || ocNode.CNType.Equals("owl:onDatatype"))
-                    //    {
-                    //        if (!ocNode.CNName.Equals(newRange))
-                    //            ocNode.CNName = newRange;
-                    //    }
-                    //}
+                    ODataProperty oldDP = nMsg.OldDP;
+
+                    SemanticStructure sc = new SemanticStructure() { SSName = string.Format("Expr>{0}", newRange.Split('-')[1].Split(':')[0]), SSType = SStrType.RangeExpression, XMLURI = newExpr };
+                    SemanticStructure sms = null;
+
+                    if (initData.OwlData.RDFG.AddNode(sc.ToString()))
+                        initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc);
+                    else
+                    {
+                        //Modifying content
+                        sms = initData.OwlData.RDFG.NODetails[sc.ToString()];
+                        sms.SSName = sc.SSName;
+                        sms.SSType = sc.SSType;
+                        sms.XMLURI = sc.XMLURI;
+                    }
+
+                    if (sms == null) 
+                    { //here we are adding new expression...
+                        string aClsName = initData.OwlData.RDFG.GetExactNodeName(clsName);
+
+                        SemanticStructure ss = initData.OwlData.RDFG.NODetails[aClsName];
+
+                        string edKey = string.Format("{0}-{1}", ss.SSName, sc.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                            initData.OwlData.RDFG.EdgeData[edKey] = sc.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(ss.ToString(), sc.ToString()); //di I forgot this?
+                    }
+                    
                 }
-                if(nMsg.PCause == ProposalCause.NewOClass)
+                if (nMsg.PCause == ProposalCause.NewOClass)
                 {
                     NodeMesaage nMsg1 = tQueue.Dequeue();
                     string newCls = nMsg1.DataItems[0];
@@ -1167,7 +1245,345 @@ namespace Server.DSystem
                     if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
                         initData.OwlData.RDFG.EdgeData[edKey] = SStrType.SubClassOf.ToString();
 
-                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}",newBaseCls,SStrType.Class), newCls);   
+                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}", newBaseCls, SStrType.Class), newCls);
+                }
+                if (nMsg.PCause == ProposalCause.UploadInd)
+                {
+                    NodeMesaage nMsg1 = tQueue.Dequeue();
+                    List<CircuitEntry> entries = nMsg1.CEntities;
+                    foreach (CircuitEntry ce in entries)
+                    {
+                        try
+                        {
+                            string nName = initData.OwlData.RDFG.GetExactNodeName(ce.CEType);
+                            if (!string.IsNullOrEmpty(nName))
+                            {
+                                //Step1: Add an Instance using ce.CEName 
+
+                                SemanticStructure sc = new SemanticStructure() { SSName = ce.CEName, SSType = SStrType.Instance, XMLURI = string.Empty };
+
+                                initData.OwlData.RDFG.AddNode(sc.ToString());
+                                initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc);
+
+                                SemanticStructure ss = initData.OwlData.RDFG.NODetails[nName];
+
+                                string edKey = string.Format("{0}-{1}", ss.SSName, sc.SSName);
+                                if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                                    initData.OwlData.RDFG.EdgeData[edKey] = sc.SSType.ToString();
+                                //add edge
+                                initData.OwlData.RDFG.AddEdge(ss.ToString(), sc.ToString()); //di I forgot this?
+
+                                //Step2: Get outgoing and incoming edges
+                                List<string> outgoing = initData.OwlData.RDFG.GetEdgesForNode(nName);
+                                List<string> incoming = initData.OwlData.RDFG.GetIncomingEdgesForNode(nName);
+                                List<string> classToBeUsed = new List<string>();
+                                List<string> classHierarchy = new List<string>();
+                                //outgoing.Sort();
+                                //sorting outgoing list because i added number whle adding outgoing properties.
+                                SortedList<int, string> nsList = new SortedList<int, string>();
+                                foreach (string s in outgoing)
+                                {
+                                    nsList[Int32.Parse(s.Split('-')[0])] = s.Split('-')[1];
+                                }
+                                List<string> nOutgoing = new List<string>();
+                                foreach (KeyValuePair<int, string> kvp in nsList)
+                                {
+                                    nOutgoing.Add(string.Format("{0}-{1}", kvp.Key, kvp.Value));
+                                }
+                                //sorting done
+                                int counter = 0;
+                                while (counter <= nOutgoing.Count - 1)
+                                {
+                                    string ots = nOutgoing[counter];
+                                    string[] reqParts = ots.Split('-')[1].Split(':');
+                                    if (reqParts[1].ToLower().Equals("class"))
+                                    {
+                                        //Step3: Calculating data properties up in hierarchies 
+                                        //Seems like not required to get all properties
+                                        #region Good Recursive Code for getting up hierarchies
+                                        string relation = string.Empty;
+                                        if (initData.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])))
+                                            relation = initData.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])];
+
+                                        //if sub class I want to add all data properties gathered from all base classes till owl:Thing
+                                        if (relation.ToLower().Equals("subclassof"))
+                                        {
+                                            string source = ots.Split('-')[1];
+                                            //classHierarchy.Add(source);
+                                            while (!source.ToLower().Equals("owl:thing"))
+                                            {
+                                                classHierarchy.Add(source);
+                                                List<string> og = initData.OwlData.RDFG.GetEdgesForNode(source);
+                                                List<string> ic = initData.OwlData.RDFG.GetIncomingEdgesForNode(source);
+                                                foreach (string ics in ic)
+                                                {
+                                                    if (ics.Split(':')[1].Equals("DatatypeProperty"))
+                                                        incoming.Add(ics);
+                                                }
+                                                foreach (string sst in og) //must be one only
+                                                    source = sst.Split('-')[1];
+                                            }
+                                            classHierarchy.Add(source);
+                                        }
+                                        #endregion
+                                    }
+                                    else if (reqParts[1].ToLower().Equals("objectproperty"))
+                                    {
+                                        //Step4: Calculate restrictions
+                                        classToBeUsed.Add(ots.Split('-')[1]);
+                                        while (true)
+                                        {
+                                            if ((counter + 1) > nOutgoing.Count - 1)
+                                                break;
+                                            string tots = nOutgoing[++counter];
+
+                                            string[] treqParts = tots.Split('-')[1].Split(':');
+                                            if (treqParts[1].ToLower().Equals("objectproperty") || treqParts[1].ToLower().Equals("instance"))
+                                            {
+                                                --counter;
+                                                break;
+                                            }
+                                            else
+                                                classToBeUsed.Add(tots.Split('-')[1]);
+                                        }
+                                        //Need to add nodes and edges using ce.CEEntries
+                                        foreach (string s in classToBeUsed)
+                                        {
+                                            //Step4.1: Add an Instance using ce.CEName 
+                                            string pN = UploadIndividualsToRDFG.GetParamNameForNode(s);
+
+                                            SemanticStructure ssN = initData.OwlData.RDFG.NODetails[s];
+
+                                            //Get value from CEEntries
+                                            List<string> values = new List<string>();
+                                            foreach (string ces in ce.CEEntries)
+                                            {
+                                                if (ces.ToLower().Split('=')[0].Contains(pN.ToLower()))
+                                                {
+                                                    values.Add(ces.Split('=')[1]);
+                                                }
+                                            }
+                                            if (values.Count == 0)
+                                            {
+                                                SemanticStructure scc = new SemanticStructure() { SSName = string.Format("inst_{0}", s), SSType = SStrType.Instance, XMLURI = string.Empty };
+
+                                                if (initData.OwlData.RDFG.AddNode(scc.ToString()))
+                                                    initData.OwlData.RDFG.AddEntryToNODetail(scc.ToString(), scc);
+
+                                                string edKey1 = string.Format("{0}-{1}", ssN.SSName, scc.SSName);
+                                                if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                                                    initData.OwlData.RDFG.EdgeData[edKey1] = scc.SSType.ToString();
+                                                //add edge
+                                                initData.OwlData.RDFG.AddEdge(ssN.ToString(), scc.ToString()); //di I forgot this?
+
+                                                string edKey2 = string.Format("{0}-{1}", sc.SSName, scc.SSName);
+                                                if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                                                    initData.OwlData.RDFG.EdgeData[edKey2] = scc.SSType.ToString();
+                                                //add edge
+                                                initData.OwlData.RDFG.AddEdge(sc.ToString(), scc.ToString()); //di I forgot this?
+                                            }
+                                            else
+                                            {
+                                                int insCounter = 1;
+                                                foreach (string vl in values)
+                                                {
+                                                    SemanticStructure scc = new SemanticStructure() { SSName = string.Format("inst_{0}_{1}:{2}", s.Split(':')[0], insCounter, s.Split(':')[1]), SSType = SStrType.Instance, XMLURI = vl };
+
+                                                    if (initData.OwlData.RDFG.AddNode(scc.ToString()))
+                                                        initData.OwlData.RDFG.AddEntryToNODetail(scc.ToString(), scc);
+
+                                                    string edKey1 = string.Format("{0}-{1}", ssN.SSName, scc.SSName);
+                                                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                                                        initData.OwlData.RDFG.EdgeData[edKey1] = scc.SSType.ToString();
+                                                    //add edge
+                                                    initData.OwlData.RDFG.AddEdge(ssN.ToString(), scc.ToString()); //di I forgot this?
+
+                                                    string edKey2 = string.Format("{0}-{1}", sc.SSName, scc.SSName);
+                                                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                                                        initData.OwlData.RDFG.EdgeData[edKey2] = scc.SSType.ToString();
+                                                    //add edge
+                                                    initData.OwlData.RDFG.AddEdge(sc.ToString(), scc.ToString()); //di I forgot this?
+
+                                                    insCounter++;
+                                                }
+                                            }
+                                        }
+                                        classToBeUsed.Clear();
+                                    }
+                                    else
+                                    {
+                                        //what is this? 
+                                    }
+                                    counter++;
+                                }
+                                //Step5: Adding object properties from up in the hierarchy
+                                foreach(string cName in classHierarchy)
+                                {
+                                    if (!string.IsNullOrEmpty(cName))
+                                    {
+                                        if(cName.Equals("owl:thing"))
+                                            continue;
+                                        //Step5.1: Get outgoing and incoming edges
+                                        List<string> og = initData.OwlData.RDFG.GetEdgesForNode(cName);
+                                        List<string> inc = initData.OwlData.RDFG.GetIncomingEdgesForNode(cName);
+                                        List<string> cToBeUsed = new List<string>();
+
+                                        //sorting outgoing list because i added number whle adding outgoing properties.
+                                        SortedList<int, string> nList = new SortedList<int, string>();
+                                        foreach (string s in og)
+                                        {
+                                            nList[Int32.Parse(s.Split('-')[0])] = s.Split('-')[1];
+                                        }
+                                        List<string> nOG = new List<string>();
+                                        foreach (KeyValuePair<int, string> kvp in nList)
+                                        {
+                                            nOG.Add(string.Format("{0}-{1}", kvp.Key, kvp.Value));
+                                        }
+
+                                        int inCntr = 0;
+                                        while (inCntr <= nOG.Count - 1)
+                                        {
+                                            string ots = nOG[inCntr];
+                                            string[] reqParts = ots.Split('-')[1].Split(':');
+                                            if (reqParts[1].ToLower().Equals("objectproperty"))
+                                            {
+                                                //Step4: Calculate restrictions
+                                                classToBeUsed.Add(ots.Split('-')[1]);
+                                                while (true)
+                                                {
+                                                    if ((counter + 1) > nOG.Count - 1)
+                                                        break;
+                                                    string tots = nOG[++counter];
+
+                                                    string[] treqParts = tots.Split('-')[1].Split(':');
+                                                    if (treqParts[1].ToLower().Equals("objectproperty"))
+                                                    {
+                                                        --counter;
+                                                        break;
+                                                    }
+                                                    else
+                                                        classToBeUsed.Add(tots.Split('-')[1]);
+                                                }
+                                                //Need to add nodes and edges using ce.CEEntries
+                                                foreach (string s in classToBeUsed)
+                                                {
+                                                    //Step4.1: Add an Instance using ce.CEName 
+                                                    string pN = UploadIndividualsToRDFG.GetParamNameForNode(s);
+
+                                                    SemanticStructure ssN = initData.OwlData.RDFG.NODetails[s];
+
+                                                    //Get value from CEEntries
+                                                    List<string> values = new List<string>();
+                                                    foreach (string ces in ce.CEEntries)
+                                                    {
+                                                        if (ces.ToLower().Split('=')[0].Contains(pN.ToLower()))
+                                                        {
+                                                            values.Add(ces.Split('=')[1]);
+                                                        }
+                                                    }
+                                                    if (values.Count == 0)
+                                                    {
+                                                        SemanticStructure scc = new SemanticStructure() { SSName = string.Format("inst_{0}_{1}", ce.CEName, s), SSType = SStrType.Instance, XMLURI = string.Empty };
+
+                                                        initData.OwlData.RDFG.AddNode(scc.ToString());
+                                                        initData.OwlData.RDFG.AddEntryToNODetail(scc.ToString(), scc);
+
+                                                        string edKey1 = string.Format("{0}-{1}", ssN.SSName, scc.SSName);
+                                                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                                                            initData.OwlData.RDFG.EdgeData[edKey1] = scc.SSType.ToString();
+                                                        //add edge
+                                                        initData.OwlData.RDFG.AddEdge(ssN.ToString(), scc.ToString()); //di I forgot this?
+
+                                                        string edKey2 = string.Format("{0}-{1}", sc.SSName, scc.SSName);
+                                                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                                                            initData.OwlData.RDFG.EdgeData[edKey2] = scc.SSType.ToString();
+                                                        //add edge
+                                                        initData.OwlData.RDFG.AddEdge(sc.ToString(), scc.ToString()); //di I forgot this?
+                                                    }
+                                                    else
+                                                    {
+                                                        int insCounter = 1;
+                                                        foreach (string vl in values)
+                                                        {
+                                                            SemanticStructure scc = new SemanticStructure() { SSName = string.Format("inst_{0}_{1}_{2}:{3}", ce.CEName, s.Split(':')[0], insCounter, s.Split(':')[1]), SSType = SStrType.Instance, XMLURI = vl };
+
+                                                            initData.OwlData.RDFG.AddNode(scc.ToString());
+                                                            initData.OwlData.RDFG.AddEntryToNODetail(scc.ToString(), scc);
+
+                                                            string edKey1 = string.Format("{0}-{1}", ssN.SSName, scc.SSName);
+                                                            if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                                                                initData.OwlData.RDFG.EdgeData[edKey1] = scc.SSType.ToString();
+                                                            //add edge
+                                                            initData.OwlData.RDFG.AddEdge(ssN.ToString(), scc.ToString()); //di I forgot this?
+
+                                                            string edKey2 = string.Format("{0}-{1}", sc.SSName, scc.SSName);
+                                                            if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                                                                initData.OwlData.RDFG.EdgeData[edKey2] = scc.SSType.ToString();
+                                                            //add edge
+                                                            initData.OwlData.RDFG.AddEdge(sc.ToString(), scc.ToString()); //di I forgot this?
+
+                                                            insCounter++;
+                                                        }
+                                                    }
+                                                }
+                                                classToBeUsed.Clear();
+                                            }
+                                            inCntr++;
+                                        }
+                                    }
+                                }
+                                //Step6: Add nodes and edges for data properties using ce.CEEntries
+                                foreach (string ins in incoming)
+                                {
+                                    SemanticStructure ssN = initData.OwlData.RDFG.NODetails[ins];
+
+                                    //Get value from CEEntries
+                                    string value = string.Empty;
+                                    if (ins.Split(':')[0].ToLower().Equals("name"))
+                                        value = ce.CEName;
+                                    else
+                                    {
+                                        foreach (string ces in ce.CEEntries)
+                                        {
+                                            if (ces.ToLower().Split('=')[0].Contains(ins.Split(':')[0].ToLower()))
+                                            {
+                                                value = ces.Split('=')[1];
+                                            }
+                                        }
+                                    }
+
+                                    if (!string.IsNullOrEmpty(value))
+                                    {
+                                        SemanticStructure scc = new SemanticStructure() { SSName = string.Format("inst_{0}_{1}", ce.CEName, ins), SSType = SStrType.Instance, XMLURI = value };
+
+                                        //if (initData.OwlData.RDFG.AddNode(scc.ToString()))
+                                        //    initData.OwlData.RDFG.AddEntryToNODetail(scc.ToString(), scc);
+
+                                        initData.OwlData.RDFG.AddNode(scc.ToString());
+                                        initData.OwlData.RDFG.AddEntryToNODetail(scc.ToString(), scc);
+
+                                        string edKey1 = string.Format("{0}-{1}", ssN.SSName, scc.SSName);
+                                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                                            initData.OwlData.RDFG.EdgeData[edKey1] = scc.SSType.ToString();
+                                        //add edge
+                                        initData.OwlData.RDFG.AddEdge(ssN.ToString(), scc.ToString()); //di I forgot this?
+
+
+                                        string edKey2 = string.Format("{0}-{1}", sc.SSName, scc.SSName);
+                                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                                            initData.OwlData.RDFG.EdgeData[edKey2] = scc.SSType.ToString();
+                                        //add edge
+                                        initData.OwlData.RDFG.AddEdge(sc.ToString(), scc.ToString()); //di I forgot this?
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            string s = ex.Message + ce.CEName;
+                        }
+                    }
+                    this.Status = string.Format("New Upload details Updated.");
                 }
                 NetworkFunctions.CollectTransition(NetworkFunctions.SpTree, this);
             }

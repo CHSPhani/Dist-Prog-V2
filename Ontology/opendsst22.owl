@@ -30,15 +30,6 @@
     
 
 
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Load_for_LoadShape -->
-
-    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Load_for_LoadShape">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-        <owl:inverseOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Loadshape_for_Load"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Loadshape_for_Load -->
 
     <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Loadshape_for_Load">
@@ -60,6 +51,14 @@
     <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#conductor_for_geometry">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
         <owl:inverseOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#geometry_for_conductor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#financecomp_for_user -->
+
+    <owl:ObjectProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#financecomp_for_user">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
     </owl:ObjectProperty>
     
 
@@ -293,6 +292,32 @@
     
 
 
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#ID">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystem"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Sensor"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#SmartMeter"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#InstallLoc -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#InstallLoc">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Sensor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Kron -->
 
     <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Kron">
@@ -343,6 +368,17 @@
     
 
 
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Uname -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Uname">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Vminpu -->
 
     <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Vminpu">
@@ -367,6 +403,17 @@
     <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#action">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Loadshape"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#address -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#address">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -418,6 +465,17 @@
     <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#capacitance">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Capacitance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#consumptionduration -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#consumptionduration">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Consumer"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
     
@@ -517,6 +575,17 @@
     
 
 
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#interestedinrenenergy -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#interestedinrenenergy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Consumer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#irradiance -->
 
     <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#irradiance">
@@ -547,11 +616,33 @@
     
 
 
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#lati -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#lati">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Latitude"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#length -->
 
     <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#length">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Line"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#long -->
+
+    <owl:DatatypeProperty rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#long">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Longitude"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
     
@@ -880,14 +971,6 @@
     
 
 
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Address -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Address">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Ang -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Ang">
@@ -901,6 +984,14 @@
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Angle">
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#AuxiliaryEquipment -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#AuxiliaryEquipment">
+        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#CircuitComponents"/>
     </owl:Class>
     
 
@@ -995,7 +1086,6 @@
                 <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Bus"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <owl:disjointWith rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystem"/>
     </owl:Class>
     
 
@@ -1009,32 +1099,7 @@
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Conductor -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Conductor">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Infra"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#geometry_for_conductor"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineGeometry"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#has_measurement_unit"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#ft"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#wiredata_connection"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#WireData"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Infra"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#geometry_for_conductor"/>
-                <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineGeometry"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#has_measurement_unit"/>
@@ -1045,18 +1110,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#wiredata_connection"/>
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#WireData"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#geometry_for_conductor"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineGeometry"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#wiredata_connection"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#WireData"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1088,20 +1141,6 @@
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#load_for_user"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#CunsumptionDuration -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#CunsumptionDuration">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Consumer"/>
     </owl:Class>
     
 
@@ -1126,6 +1165,12 @@
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit"/>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#FinancialComponents -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#FinancialComponents"/>
     
 
 
@@ -1177,14 +1222,6 @@
     
 
 
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#InterestedInRenEnergy -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#InterestedInRenEnergy">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Consumer"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#KV -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#KV">
@@ -1201,56 +1238,17 @@
     
 
 
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Latitude -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Latitude">
+        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Line -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Line">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#ElectricComponent"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Linecode_for_line"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineCode"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#geometry_for_line"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineGeometry"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#has_eng_unit"/>
-                        <owl:someValuesFrom>
-                            <owl:Class>
-                                <owl:unionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Angle"/>
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Current"/>
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#KVA"/>
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Voltage"/>
-                                </owl:unionOf>
-                            </owl:Class>
-                        </owl:someValuesFrom>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#has_measurement_unit"/>
-                        <owl:someValuesFrom>
-                            <owl:Class>
-                                <owl:unionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Hour"/>
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Sec"/>
-                                </owl:unionOf>
-                            </owl:Class>
-                        </owl:someValuesFrom>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#line_has_fuse"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Fuse"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#bus_connection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Bus"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#ElectricComponent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -1304,24 +1302,6 @@
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Fuse"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Linecode_for_line"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineCode"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#geometry_for_line"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#LineGeometry"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#line_has_fuse"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Fuse"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -1364,18 +1344,6 @@
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Units"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#line_for_linecode"/>
-                <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Line"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#line_for_linecode"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Line"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -1388,24 +1356,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#conductor_for_geometry"/>
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Conductor"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#line_for_geometry"/>
-                <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Line"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#conductor_for_geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Conductor"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#line_for_geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Line"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1431,6 +1381,8 @@
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#CVRVars"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#CVRWatts"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#KV"/>
+                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Latitude"/>
+                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Longitude"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#XfkVA"/>
                         </owl:unionOf>
                     </owl:Class>
@@ -1457,28 +1409,6 @@
                 </owl:someValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#user_for_load"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Consumer"/>
-                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Prosumer"/>
-                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#SmartUser"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#LoadName -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#LoadName">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
     </owl:Class>
     
 
@@ -1495,18 +1425,14 @@
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Loadshape">
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Infra"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load_for_LoadShape"/>
-                <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load_for_LoadShape"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Longitude -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Longitude">
+        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit"/>
     </owl:Class>
     
 
@@ -1514,7 +1440,7 @@
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#MathStructure -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#MathStructure">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#MeteringEquipment"/>
+        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit"/>
     </owl:Class>
     
 
@@ -1536,32 +1462,6 @@
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystem -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystem">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Generators"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#has_eng_unit"/>
-                        <owl:someValuesFrom>
-                            <owl:Class>
-                                <owl:unionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#KV"/>
-                                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#KVA"/>
-                                </owl:unionOf>
-                            </owl:Class>
-                        </owl:someValuesFrom>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#user_for_pvsystem"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Prosumer"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#bus_connection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Bus"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Generators"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -1588,28 +1488,14 @@
                 <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Bus"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#user_for_pvsystem"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Prosumer"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
 
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystemID -->
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#PaymentMethod -->
 
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystemID">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Prosumer"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#PaymentMode -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#PaymentMode">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#PaymentMethod">
+        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#FinancialComponents"/>
     </owl:Class>
     
 
@@ -1628,18 +1514,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#pvsystem_for_user"/>
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystem"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#load_for_user"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#pvsystem_for_user"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#PVSystem"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1713,6 +1587,14 @@
     
 
 
+    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Sensor -->
+
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Sensor">
+        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#AuxiliaryEquipment"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#SmartMeter -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#SmartMeter">
@@ -1723,20 +1605,6 @@
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#load_for_smartmeter"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#SmartMeterID -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#SmartMeterID">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#SmartUser"/>
     </owl:Class>
     
 
@@ -1749,12 +1617,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#load_for_user"/>
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#load_for_user"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Load"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -1772,17 +1634,6 @@
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Transformer -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Transformer">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Infra"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#transformer_has_winding"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Winding"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Infra"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -1793,6 +1644,8 @@
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Angle"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Current"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#KVA"/>
+                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Latitude"/>
+                            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Longitude"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Tap"/>
                             <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Voltage"/>
                         </owl:unionOf>
@@ -1823,14 +1676,6 @@
     
 
 
-    <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#UName -->
-
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#UName">
-        <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Units -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Units"/>
@@ -1839,7 +1684,14 @@
 
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Users -->
 
-    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Users"/>
+    <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Users">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#financecomp_for_user"/>
+                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#PaymentMethod"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
     
 
 
@@ -1872,29 +1724,6 @@
     <!-- http://www.bristol.ac.uk/sles/v1/opendsst2#Winding -->
 
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Winding">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#ElectricComponent"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#bus_connection"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Bus"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#has_eng_unit"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#EngineeringUnit"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#winding_has_regulator"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Regulator"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#winding_on_transformer"/>
-                        <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Transformer"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#ElectricComponent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -1918,18 +1747,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#winding_on_transformer"/>
                 <owl:someValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Transformer"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#winding_has_regulator"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Regulator"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#winding_on_transformer"/>
-                <owl:allValuesFrom rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Transformer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -2010,36 +1827,6 @@
     <owl:Class rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#min">
         <rdfs:subClassOf rdf:resource="http://www.bristol.ac.uk/sles/v1/opendsst2#Units"/>
     </owl:Class>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // General axioms
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Address"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#LoadName"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#UName"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Hour"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#Sec"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#ft"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#inch"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#mi"/>
-            <rdf:Description rdf:about="http://www.bristol.ac.uk/sles/v1/opendsst2#min"/>
-        </owl:members>
-    </rdf:Description>
 </rdf:RDF>
 
 

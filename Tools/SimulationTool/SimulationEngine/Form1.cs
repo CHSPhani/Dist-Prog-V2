@@ -180,6 +180,80 @@ namespace SimulationEngine
                 else
                 {
                     //Process results and show in a separate Screen.
+                    int counter = 0;
+                    List<string> unsucc = new List<string>();
+                    foreach (string s in results)
+                    {
+                        if (s.EndsWith("Successfully"))
+                        {
+                            counter++;
+                        }
+                        else
+                        {
+                            string[] mParts = s.Split(' ');
+                            unsucc.Add(mParts[2]);
+                        }
+                    }
+                    label6.Text += Environment.NewLine;
+                    label6.Text += string.Format("{0} files are validated successfully", counter);
+                    label6.Text += Environment.NewLine;
+                    if (unsucc.Count > 0)
+                    {
+                        label6.Text += Environment.NewLine;
+                        StringBuilder sb = new StringBuilder();
+                        foreach (string s in unsucc)
+                            sb.Append(s + ",");
+                        label6.Text += string.Format("File failed to validated successfully are: ", sb.ToString());
+                    }
+                }
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            List<string> result = null;
+            if (this.dssFileParser == null)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "List of config files are exists";
+            }
+            try
+            {
+                string uri = "net.tcp://localhost:6565/UploadService";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IUploadIndividuals>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                result = proxy.UploadIndividuals(this.dssFileParser.CircuitEntities); //Circuit entries
+            }
+            catch(Exception ex)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Not able to Process Upload individuals Files. Exception is " + ex.Message;
+            }
+
+            if(result == null)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Not able tp Update Files";
+            }
+            else
+            {
+                List<string> results = result as List<string>;
+                if (results == null)
+                {
+                    label6.Text += Environment.NewLine;
+                    label6.Text += "Can not Cast results to List<String>";
+                }
+                if (results.Count == 0)
+                {
+                    label6.Text += Environment.NewLine;
+                    label6.Text += "Upload Individuals results are zero";
+                }
+                else
+                {
+                    //Process results and show in a separate Screen.
                 }
             }
         }
