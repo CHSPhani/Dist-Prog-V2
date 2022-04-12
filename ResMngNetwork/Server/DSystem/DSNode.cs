@@ -14,6 +14,7 @@ using System.ComponentModel;
 using Server.ChangeRules;
 using UoB.ToolUtilities.OpenDSSParser;
 using Server.UploadIndividuals;
+using Server.DataFileProcess;
 
 namespace Server.DSystem
 {
@@ -201,6 +202,8 @@ namespace Server.DSystem
     {
         public event EventHandler CanExecuteChanged;
 
+        public event RaiseProposeEventHandler RaiseProposal4;
+
         public bool CanExecute(object parameter)
         {
             return true;
@@ -224,7 +227,13 @@ namespace Server.DSystem
                 dbData = null;
 
             ValidateDataSet vds = new ValidateDataSet(p1, dbData);
+            vds.RaiseProposal3 += Vds_RaiseProposal3;
             vds.Show();
+        }
+
+        private void Vds_RaiseProposal3(object sender, ProposeEventArgs e)
+        {
+            RaiseProposal4?.Invoke(sender, e);
         }
     }
     public class ValidatedDVViewCommand : ICommand
@@ -703,6 +712,7 @@ namespace Server.DSystem
                 if (vdSet == null)
                 {
                     vdSet = new ValidateScreenCommand();
+                    vdSet.RaiseProposal4 += SpWindow_RaiseProposal4;
                 }
                 return vdSet;
             }
@@ -944,6 +954,14 @@ namespace Server.DSystem
             }
             else
             {
+                if (nMsg.DirectTransit)
+                {
+                    if (!NetworkFunctions.RaiseProposal(this, nMsg))
+                    {
+                        MessageBox.Show("Not able to Raise proposal", "Failure");
+                        return;
+                    }
+                }
                 if (nMsg.ProposedUser.Equals(this.UserName)) //Setting Proposer
                 {
                     this.IsProposer = true;
@@ -1099,34 +1117,68 @@ namespace Server.DSystem
                     string selectedDT = nMsg1.DataItems[3];
                     //string expr = nMsg1.DataItems[4];
 
+                    //First see whether the class exists or not
+                    string cls1 = initData.OwlData.RDFG.GetExactNodeName(selectedCN);
+                    SemanticStructure sc = null;
+                    sc = initData.OwlData.RDFG.GetNodeDetails(selectedCN); //cls1
+                    if (sc == null)
+                    {
+                        //Adding New Class
+                        sc = new SemanticStructure() { SSName = selectedCN, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
+                        //Add to Graph
+                        initData.OwlData.RDFG.AddNode(sc.ToString());
+                        initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc);
+                    }
+
                     //Start creating Data Property
                     //http://www.bristol.ac.uk/sles/v1/opendsst2 is XML URI
                     SemanticStructure ss = new SemanticStructure() { SSName = propName, SSType = SStrType.DatatypeProperty, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
-                    if (initData.OwlData.RDFG.AddNode(ss.ToString()))
-                        initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
-                    //1.
-                    SemanticStructure ss2 = new SemanticStructure() { SSName = "FunctionalProperty", SSType = SStrType.Type, XMLURI = "http://www.w3.org/2002/07/owl" };
-                    string edKey = string.Format("{0}-{1}", ss.SSName, ss2.SSName);
-                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
-                        initData.OwlData.RDFG.EdgeData[edKey] = ss2.SSType.ToString();
-                    //add edge
-                    initData.OwlData.RDFG.AddEdge(ss.ToString(), ss2.ToString());
+                    initData.OwlData.RDFG.AddNode(ss.ToString());
+                    initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
 
-                    //2.
-                    SemanticStructure ss3 = new SemanticStructure() { SSName = propName, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
-                    string edKey1 = string.Format("{0}-{1}", ss.SSName, selectedCN);
+                    //Adding to class
+                    string edKey1 = string.Format("{0}-{1}", ss.SSName, sc.SSName);
                     if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
-                        initData.OwlData.RDFG.EdgeData[edKey1] = ss3.SSType.ToString();
+                        initData.OwlData.RDFG.EdgeData[edKey1] = SStrType.Class.ToString();
                     //add edge
-                    initData.OwlData.RDFG.AddEdge(ss.ToString(), ss3.ToString());
+                    initData.OwlData.RDFG.AddEdge(ss.ToString(), sc.ToString());
 
-                    //3.
-                    SemanticStructure ss4 = new SemanticStructure() { SSName = selectedDT, SSType = SStrType.Range, XMLURI = "http://www.w3.org/2001/XMLSchema" };
+                    //Id functional Add functional property to Data Property
+                    if (functional)
+                    {
+                        string fCls1 = initData.OwlData.RDFG.GetExactNodeName("FunctionalProperty");
+                        SemanticStructure ss2 = null;
+                        ss2 = initData.OwlData.RDFG.GetNodeDetails("FunctionalProperty");
+                        if (ss2 == null)
+                        {
+                            ss2 = new SemanticStructure() { SSName = "FunctionalProperty", SSType = SStrType.Type, XMLURI = "http://www.w3.org/2002/07/owl" };
+                            initData.OwlData.RDFG.AddNode(ss2.ToString());
+                            initData.OwlData.RDFG.AddEntryToNODetail(ss2.ToString(), ss2);
+                        }
+                        string edKey = string.Format("{0}-{1}", ss.SSName, ss2.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                            initData.OwlData.RDFG.EdgeData[edKey] = SStrType.Type.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(ss.ToString(), ss2.ToString());
+                    }
+
+                 
+                    //3. Range
+                    string dCls1 = initData.OwlData.RDFG.GetExactNodeName(selectedDT);
+                    SemanticStructure ss4 = null;
+                    ss4 = initData.OwlData.RDFG.GetNodeDetails(selectedDT);
+                    if (ss4 == null)
+                    {
+                        ss4 = new SemanticStructure() { SSName = selectedDT, SSType = SStrType.Range, XMLURI = "http://www.w3.org/2001/XMLSchema" };
+                        initData.OwlData.RDFG.AddNode(ss4.ToString());
+                        initData.OwlData.RDFG.AddEntryToNODetail(ss4.ToString(), ss4);
+                    }
                     string edKey2 = string.Format("{0}-{1}", ss.SSName, ss4.SSName);
                     if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
-                        initData.OwlData.RDFG.EdgeData[edKey2] = ss3.SSType.ToString();
+                        initData.OwlData.RDFG.EdgeData[edKey2] = SStrType.Range.ToString();
                     //add edge
                     initData.OwlData.RDFG.AddEdge(ss.ToString(), ss4.ToString());
+                    
                     this.Status = string.Format("New Data Property details Updated.");
                 }
                 if (nMsg.PCause == ProposalCause.NewObjectProperty)
@@ -1141,8 +1193,8 @@ namespace Server.DSystem
                     //Start creating Object Property
                     //http://www.bristol.ac.uk/sles/v1/opendsst2 is XML URI
                     SemanticStructure ss = new SemanticStructure() { SSName = npName, SSType = SStrType.ObjectProperty, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
-                    if (initData.OwlData.RDFG.AddNode(ss.ToString()))
-                        initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
+                    initData.OwlData.RDFG.AddNode(ss.ToString());
+                    initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
 
                     //1.
                     SemanticStructure ss2 = new SemanticStructure() { SSName = "topObjectProperty", SSType = SStrType.subPropertyOf, XMLURI = "http://www.w3.org/2002/07/owl" };
@@ -1156,7 +1208,7 @@ namespace Server.DSystem
                     if (!string.IsNullOrEmpty(inverseProp))
                     {
                         SemanticStructure ss3 = new SemanticStructure() { SSName = inverseProp, SSType = SStrType.inverseOf, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
-                        string edKey1 = string.Format("{0}-{1}", ss.SSName, ss2.SSName);
+                        string edKey1 = string.Format("{0}-{1}", ss.SSName, ss3.SSName);
                         if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
                             initData.OwlData.RDFG.EdgeData[edKey1] = ss3.SSType.ToString();
                         //add edge
@@ -1166,7 +1218,7 @@ namespace Server.DSystem
                     if (!string.IsNullOrEmpty(sName))
                     {
                         SemanticStructure ss4 = new SemanticStructure() { SSName = sName, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
-                        string edKey4 = string.Format("{0}-{1}", ss.SSName, sName);
+                        string edKey4 = string.Format("{0}-{1}", ss.SSName, ss4.SSName);
                         if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey4))
                             initData.OwlData.RDFG.EdgeData[edKey4] = ss4.SSType.ToString();
                         //add edge
@@ -1177,7 +1229,7 @@ namespace Server.DSystem
                     if (!string.IsNullOrEmpty(tName))
                     {
                         SemanticStructure ss5 = new SemanticStructure() { SSName = tName, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
-                        string edKey5 = string.Format("{0}-{1}", ss.SSName, tName);
+                        string edKey5 = string.Format("{0}-{1}", ss.SSName, ss5.SSName);
                         if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey5))
                             initData.OwlData.RDFG.EdgeData[edKey5] = ss5.SSType.ToString();
                         //add edge
@@ -1202,11 +1254,16 @@ namespace Server.DSystem
 
                     ODataProperty oldDP = nMsg.OldDP;
 
-                    SemanticStructure sc = new SemanticStructure() { SSName = string.Format("Expr>{0}", newRange.Split('-')[1].Split(':')[0]), SSType = SStrType.RangeExpression, XMLURI = newExpr };
+                    SemanticStructure sc = null;
+                    if (newRange.Contains('-'))
+                        sc = new SemanticStructure() { SSName = string.Format("Expr>{0}", newRange.Split('-')[1].Split(':')[0]), SSType = SStrType.RangeExpression, XMLURI = newExpr };
+                    else
+                        sc = new SemanticStructure() { SSName = string.Format("Expr>{0}", newRange.Split(':')[0]), SSType = SStrType.RangeExpression, XMLURI = newExpr };
+
                     SemanticStructure sms = null;
 
                     if (initData.OwlData.RDFG.AddNode(sc.ToString()))
-                        initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc);
+                    { }
                     else
                     {
                         //Modifying content
@@ -1215,6 +1272,7 @@ namespace Server.DSystem
                         sms.SSType = sc.SSType;
                         sms.XMLURI = sc.XMLURI;
                     }
+                    initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc); //add anyway
 
                     if (sms == null) 
                     { //here we are adding new expression...
@@ -1417,11 +1475,11 @@ namespace Server.DSystem
                                     counter++;
                                 }
                                 //Step5: Adding object properties from up in the hierarchy
-                                foreach(string cName in classHierarchy)
+                                foreach (string cName in classHierarchy)
                                 {
                                     if (!string.IsNullOrEmpty(cName))
                                     {
-                                        if(cName.Equals("owl:thing"))
+                                        if (cName.Equals("owl:thing"))
                                             continue;
                                         //Step5.1: Get outgoing and incoming edges
                                         List<string> og = initData.OwlData.RDFG.GetEdgesForNode(cName);
@@ -1584,6 +1642,17 @@ namespace Server.DSystem
                         }
                     }
                     this.Status = string.Format("New Upload details Updated.");
+                }
+                if (nMsg.PCause == ProposalCause.OntoChanges)
+                {
+                    NodeMesaage nMsg1 = tQueue.Dequeue();
+                    string selectedCls = nMsg1.DataItems[0];
+                    bool connected = false;
+                    string boolConn = nMsg1.DataItems[1];
+                    bool.TryParse(boolConn, out connected);
+                    //Change Ontology
+                    ValidateDataSets.CreateOntEgClassV1(initData, selectedCls, nMsg1.OModel, connected);
+                    this.Status = string.Format("Ontology Changed according to new additions.");
                 }
                 NetworkFunctions.CollectTransition(NetworkFunctions.SpTree, this);
             }

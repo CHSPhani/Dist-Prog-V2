@@ -111,6 +111,9 @@
     <Compile Include="DataFileProcess\DataFileProcess.cs" />
     <Compile Include="DataFileProcess\ValidateDataSets.cs" />
     <Compile Include="DSystem\SystemNetwork.cs" />
+    <Compile Include="GenOntoModificationWindow.xaml.cs">
+      <DependentUpon>GenOntoModificationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KGConsole.xaml.cs">
       <DependentUpon>KGConsole.xaml</DependentUpon>
     </Compile>
@@ -131,13 +134,18 @@
     <Compile Include="Models\InsertProperty.cs" />
     <Compile Include="Models\KGConsoleModel.cs" />
     <Compile Include="Models\MOPModel.cs" />
+    <Compile Include="Models\OntoModificationModel.cs" />
     <Compile Include="Models\ShowResourcesModel.cs" />
     <Compile Include="Models\UploadInd.cs" />
     <Compile Include="Models\UploadOntologyFile.cs" />
+    <Compile Include="Models\ValidationFeedbackModel.cs" />
     <Compile Include="Models\ValidatorModel.cs" />
     <Compile Include="Models\VDViewModel.cs" />
     <Compile Include="ModifyOP.xaml.cs">
       <DependentUpon>ModifyOP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OntoModificationWindow.xaml.cs">
+      <DependentUpon>OntoModificationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PBReasoner\PBReasoner.cs" />
     <Compile Include="RDFGraphWindow\FormRDFGraph.cs">
@@ -159,6 +167,9 @@
     </Compile>
     <Compile Include="ValidateDataSet.xaml.cs">
       <DependentUpon>ValidateDataSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationFeedback.xaml.cs">
+      <DependentUpon>ValidationFeedback.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationService\ValidateFiles.cs" />
     <Compile Include="VDView.xaml.cs">
@@ -185,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddNewRestri.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GenOntoModificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,6 +247,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OntoModificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShowResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -245,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ValidateDataSet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ValidationFeedback.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

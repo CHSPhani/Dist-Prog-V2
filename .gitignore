@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/OpenDSSCircuit/Ckt24_V3/MatlabAnlaysis_07-04-2022
+/OpenDSSCircuit/Ckt24_V3/MatlabAnlaysis_12-04-2022
+/OpenDSSCircuit/Ckt24_V3/MatlabAnlaysis_11-04-2022
+/OpenDSSCircuit/Ckt24_V3/MatlabAnlaysis_09-04-2022
+/OpenDSSCircuit/Ckt24_V3/MatlabAnlaysis_08-04-2022

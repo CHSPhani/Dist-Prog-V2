@@ -57,6 +57,7 @@
             <Button Content="Validate" Margin="10,10,10,10" Command="{Binding VCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CurrentUserName"></Binding>
                         <Binding ElementName="cmbDS" Path="SelectedItem"></Binding>
                         <Binding ElementName="cmbIND" Path="SelectedItem"></Binding>
                         <Binding Path="PResult"></Binding>
@@ -72,7 +73,7 @@
         </StackPanel>
 
         <TextBlock Grid.Column="0" Grid.Row="7" Margin="10,10,10,10">Validation Result</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding ValdiationResult}" TextWrapping="Wrap"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding ProposalStatus}" TextWrapping="Wrap"></TextBlock>
 
         <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
             <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>

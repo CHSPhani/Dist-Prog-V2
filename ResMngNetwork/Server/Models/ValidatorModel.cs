@@ -83,6 +83,8 @@ namespace Server.Models
 
         public event EventHandler EventCompleted;
 
+        public event RaiseProposeEventHandler RaisePropose;
+
         public bool CanExecute(object parameter)
         {
             return true;
@@ -91,15 +93,19 @@ namespace Server.Models
         public void Execute(object parameter)
         {
             var values = (object[])parameter;
-
-            string dataSet = values[0] as string;
-            string indVal = values[1] as string;
-            IFileProcessResult fpResult = values[2] as IFileProcessResult;
-            DBData dbData = values[3] as DBData;
+            string p0 = string.Empty;
+            if (values[0] != null)
+                p0 = values[0].ToString();
+            else
+                p0 = string.Empty;
+            string dataSet = values[1] as string;
+            string indVal = values[2] as string;
+            IFileProcessResult fpResult = values[3] as IFileProcessResult;
+            DBData dbData = values[4] as DBData;
             bool adValue = false;
-            Boolean.TryParse(values[4].ToString(), out adValue);
+            Boolean.TryParse(values[5].ToString(), out adValue);
             bool iCols = false;
-            Boolean.TryParse(values[5].ToString(), out iCols);
+            Boolean.TryParse(values[6].ToString(), out iCols);
 
             //if (string.IsNullOrEmpty(dataSet) && string.IsNullOrEmpty(indVal))
             //{
@@ -108,7 +114,13 @@ namespace Server.Models
             //    return;
             //}
             //else 
-            if (fpResult == null)
+            if (string.IsNullOrEmpty(p0))
+            {
+                EventHandler handler = EventCompleted;
+                handler?.Invoke(this, new SaveCompleteEventArgs() { EvntMsg = "UserName" });
+                return;
+            }
+            else if (fpResult == null)
             {
                 EventHandler handler = EventCompleted;
                 handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "ResultNull" });
@@ -131,10 +143,29 @@ namespace Server.Models
                 //Process and Return Validation result
                 if (fpResult.FileType == AllowedFileTypes.csv)
                 {
+
                     ValidationResult vR = ValidateDataSets.ValidateCSVDataSet(dbData, indVal, fpResult, dataSet, adValue, iCols);
-                    EventHandler handler = EventCompleted;
-                    handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Processed", VResult = vR });
-                    return;
+                    if (vR.OMModel != null)
+                    {
+                        //Raise Property
+                        NodeMesaage nMessage = new NodeMesaage();
+                        nMessage.PCause = ProposalCause.OntoChanges;
+                        nMessage.PTYpe = ProposalType.Transition;
+                        nMessage.DirectTransit = true;
+                        nMessage.OModel = vR.OMModel;
+                        List<string> sItems = new List<string>();
+                        sItems.Add(vR.OClassName);
+                        sItems.Add(vR.IsODataLinked.ToString());
+                        nMessage.DataItems = sItems;
+                        nMessage.ProposedUser = p0;
+                        RaisePropose?.Invoke(this, new ProposeEventArgs() { NMessage = nMessage });
+                    }
+                    else
+                    {
+                        EventHandler handler = EventCompleted;
+                        handler?.Invoke(this, new ValidateResultEventARgs() { EvntMsg = "Processed", VResult = vR });
+                        return;
+                    }
                 }
             }
         }
@@ -142,6 +173,51 @@ namespace Server.Models
 
     public class ValidatorModel : INotifyPropertyChanged
     {
+        public event RaiseProposeEventHandler RaiseProposal2;
+
+        string pStatus;
+        public string ProposalStatus
+        {
+            get
+            {
+                return this.pStatus;
+            }
+            set
+            {
+                this.pStatus = value;
+                OnPropertyChanged("ProposalStatus");
+            }
+        }
+
+        bool pState;
+        public bool ProposalState
+        {
+            get
+            {
+                return this.pState;
+            }
+            set
+            {
+                this.pState = value;
+                if (this.pState) { this.ProposalState1 = false; } else { this.ProposalState1 = true; }
+                OnPropertyChanged("ProposalState");
+            }
+        }
+
+        bool pState1;
+        public bool ProposalState1
+        {
+            get
+            {
+                return this.pState1;
+            }
+            set
+            {
+                this.pState1 = value;
+                OnPropertyChanged("ProposalState1");
+            }
+        }
+
         bool igColNames;
         public bool IgColName
         {
@@ -391,14 +467,23 @@ namespace Server.Models
                 {
                     vCommand = new ValidateCommand();
                     vCommand.EventCompleted += VCommand_EventCompleted;
+                    vCommand.RaisePropose += VCommand_RaisePropose;
                 }
                 return vCommand;
             }
         }
 
+        private void VCommand_RaisePropose(object sender, ProposeEventArgs e)
+        {
+            this.ProposalStatus = "Proposal Started";
+            RaiseProposal2?.Invoke(this, e);
+        }
+
         private void VCommand_EventCompleted(object sender, EventArgs e)
         {
             ValidateResultEventARgs sArgs = e as ValidateResultEventARgs;
+            this.ProposalStatus = sArgs.VResult.Reason;
+
             if (sArgs.EvntMsg == "ResultNull")
             {
                 MessageBoxResult result = MessageBox.Show("Process Result is null", "Error", MessageBoxButton.OK);

@@ -280,6 +280,7 @@ namespace Server.DSystem
         NewObjectProperty,
         ModifyObjectProperty,
         UploadInd,
+        OntoChanges,
         None
     }
 

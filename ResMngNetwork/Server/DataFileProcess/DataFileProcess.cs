@@ -1,4 +1,5 @@
 ﻿using DataSerailizer;
+using Server.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,7 +79,13 @@ namespace Server.DataFileProcess
                     csvPFResult.FileContent.Add(line);
                     if (counter == 1)
                     {
-                        csvPFResult.ColNames = line.Split(',').ToList<string>();
+                        List<string> temoCols = new List<string>();
+                        foreach (string s in line.Split(',').ToList<string>())
+                        {
+                            if (!string.IsNullOrEmpty(s))
+                                temoCols.Add(s);
+                        }
+                        csvPFResult.ColNames = temoCols;
                         csvPFResult.NoOfCols = csvPFResult.ColNames.Count;
                     }
                     counter++;
@@ -218,7 +225,7 @@ namespace Server.DataFileProcess
             processRes = false;
         }
     }
-
+    
     public class ValidationResult
     {
         public bool Validated;
@@ -226,14 +233,18 @@ namespace Server.DataFileProcess
         public string OClassName { get; set; }
         public string InstName { get; set; }
         public string Details { get; set; }
+        public bool IsODataLinked { get; set; }
+        public OntoModificationModel OMModel { get; set; }
 
         public ValidationResult()
         {
             Validated = false;
+            IsODataLinked = false;
             Reason = string.Empty;
             OClassName = string.Empty;
             InstName = string.Empty;
             Details = string.Empty;
+            OMModel = null;
         }
     }
 }

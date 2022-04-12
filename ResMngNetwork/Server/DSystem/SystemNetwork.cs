@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DataSerailizer;
 using UoB.ToolUtilities.OpenDSSParser;
+using Server.Models;
 
 namespace Server.DSystem
 {
@@ -36,8 +37,13 @@ namespace Server.DSystem
 
         public List<CircuitEntry> CEntities { get; set; }
 
+        public OntoModificationModel OModel { get; set; }
+
+        public bool DirectTransit { get; set; }
+
         public NodeMesaage()
         {
+            DirectTransit = false;
             ProposedUser = string.Empty;
             PTYpe = ProposalType.None;
             PCause = ProposalCause.None;
@@ -45,6 +51,7 @@ namespace Server.DSystem
             OwlDatag = new OWLDataG();
             CEntities = new List<CircuitEntry>();
             OldDP = null;
+            OModel = null;
         }
     }
 

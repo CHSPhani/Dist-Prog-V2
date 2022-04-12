@@ -225,7 +225,10 @@ namespace Server.Models
                 sb.Append(string.Format("Data Properties\n"));
                 foreach (string s in incoming)
                 {
+                    if (s.Split(':')[1].ToLower().Contains("instance"))
+                        continue;
                     sb.Append(string.Format("\t {0}", s.Split(':')[0]));
+                    sb.Append("\n");
                 }
                 sb.Append("\n");
                 sb.Append(string.Format("Object Restrictions"));

@@ -1,4 +1,5 @@
 ﻿using DataSerailizer;
+using Server.DSystem;
 using Server.Models;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,12 @@ namespace Server
     /// <summary>
     /// Interaction logic for ValidateDataSet.xaml
     /// </summary>
-    public partial class ValidateDataSet : Window
+    public partial class ValidateDataSet : Window, IProposalResult, ITransitionResult
     {
         ValidatorModel vModel;
+
+        public event RaiseProposeEventHandler RaiseProposal3;
+
         public ValidateDataSet()
         {
             vModel = new ValidatorModel();
@@ -33,8 +37,14 @@ namespace Server
         public ValidateDataSet(string uName, DBData dbData)
         {
             vModel = new ValidatorModel(uName, dbData);
+            vModel.RaiseProposal2 += VModel_RaiseProposal2;
             InitializeComponent();
             this.DataContext = vModel;
+        }
+
+        private void VModel_RaiseProposal2(object sender, ProposeEventArgs e)
+        {
+            RaiseProposal3?.Invoke(this, e);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -63,6 +73,23 @@ namespace Server
         private void CmbIND_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        public void ProcessProposalResult(VoteType overAllType)
+        {
+            vModel.ProposalStatus = overAllType.ToString();
+            if (overAllType == VoteType.Accepted)
+                vModel.ProposalState = true;
+            else
+                vModel.ProposalState = false;
+        }
+
+        public void ProcessTransitResult(TransitType tType)
+        {
+            if (tType == TransitType.Done)
+                vModel.ProposalStatus = "Transition Done";
+            else
+                vModel.ProposalStatus = "Transition Failed";
         }
     }
 }

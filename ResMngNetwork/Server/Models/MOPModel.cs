@@ -437,7 +437,11 @@ namespace Server.Models
             SortedList<int, string> nsList = new SortedList<int, string>();
             foreach (string s in outgoing)
             {
-                nsList[Int32.Parse(s.Split('-')[0])] = s.Split('-')[1];
+                int indOfSep = s.IndexOf('-');
+                string strKey = s.Substring(0, indOfSep);
+                string strVal = s.Substring(indOfSep + 1);
+
+                nsList[Int32.Parse(strKey)] = strVal; //s.Split('-')[1];
             }
             List<string> nOutgoing = new List<string>();
             foreach (KeyValuePair<int, string> kvp in nsList)
@@ -494,8 +498,15 @@ namespace Server.Models
 
             foreach (string s in nOutgoing)
             {
-                if (!s.Split(':')[1].ToLower().Contains("instance"))
-                    pNs.Add(s);
+                if (s.Contains(':'))
+                    if (!s.Split(':')[1].ToLower().Contains("instance"))
+                        pNs.Add(s);
+            }
+            foreach(string s in incoming)
+            {
+                if (s.Contains(':'))
+                    if (!s.Split(':')[1].ToLower().Contains("instance"))
+                        pNs.Add(s);
             }
             this.PNames = pNs;
         }
@@ -523,30 +534,81 @@ namespace Server.Models
             List<string> routgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(nName);
             List<string> rincoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(nName);
 
-            foreach(string s in routgoing)
+            string strKey2 = string.Empty;
+            string strVal2 = string.Empty;
+            if (this.SelectedPN.Contains('-'))
             {
-                if(s.Split('-')[1].Split(':')[1].ToLower().Equals("rangeexpression"))
+                int indOfSep2 = this.SelectedPN.IndexOf('-');
+                strKey2 = this.SelectedPN.Substring(0, indOfSep2);
+                strVal2 = this.SelectedPN.Substring(indOfSep2 + 1);
+                
+                foreach (string s in routgoing)
                 {
-                    string cStr = s.Split('-')[1].Split(':')[0];
-                    if (cStr.Contains(this.SelectedPN.Split('-')[1].Split(':')[0]))
+                    int indOfSep = s.IndexOf('-');
+                    string strKey = s.Substring(0, indOfSep);
+                    string strVal = s.Substring(indOfSep + 1);
+
+                    if (strVal.Split(':')[1].ToLower().Equals("rangeexpression")) //if (s.Split('-')[1].Split(':')[1].ToLower().Equals("rangeexpression"))
                     {
-                        string rnName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(cStr);
-                        SemanticStructure rss = this.curDbInstance.OwlData.RDFG.NODetails[rnName];
-                        this.RExpr = rss.XMLURI;
-                        break;
+                        string cStr = strVal.Split(':')[0]; //.Split('-')[1]
+                        if (cStr.Contains(strVal2.Split(':')[0]))//.Contains(cStr))//.Contains(strVal2))//SelectedPN.Split('-')[1].Split(':')[0]))
+                        {
+                            string rnName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(cStr);
+                            SemanticStructure rss = this.curDbInstance.OwlData.RDFG.NODetails[rnName];
+                            this.RExpr = rss.XMLURI;
+                            break;
+                        }
                     }
                 }
+
+                SemanticStructure ss = this.curDbInstance.OwlData.RDFG.NODetails[strVal2];// this.SelectedPN.Split('-')[1]];
+
+                List<string> outgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(strVal2);// this.SelectedPN.Split('-')[1]);
+                List<string> incoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(strVal2);// this.SelectedPN.Split('-')[1]);
+
+                var firstRResult = incoming.FindAll((p) => { if (p.Split(':')[1].ToLower().Equals("datatypeproperty") || p.Split(':')[1].ToLower().Equals("datatype")) { return true; } else { return false; } });
+                if (firstRResult.Count == 1)
+                {
+                    var secResult = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(firstRResult[0]).FindAll((p) => { if (dT.Contains(p.Split('-')[1].Split(':')[0])) { return true; } else { return false; } });
+                    if (secResult.Count == 1)
+                    {
+                        this.DPRange = secResult[0].Split('-')[1].Split(':')[0];
+                    }
+                    else
+                    { }
+                }
+                else
+                { }
             }
-
-            SemanticStructure ss = this.curDbInstance.OwlData.RDFG.NODetails[this.SelectedPN.Split('-')[1]];
-
-            List<string> outgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(this.SelectedPN.Split('-')[1]);
-            List<string> incoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(this.SelectedPN.Split('-')[1]);
-
-            var firstRResult = incoming.FindAll((p) => { if (p.Split(':')[1].ToLower().Equals("datatypeproperty")) { return true; } else { return false; } });
-            if (firstRResult.Count == 1)
+            else
             {
-                var secResult = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(firstRResult[0]).FindAll((p) => { if (dT.Contains(p.Split('-')[1].Split(':')[0])) { return true; } else { return false; } });
+                foreach (string s in routgoing)
+                {
+                    int indOfSep = s.IndexOf('-');
+                    string strKey = s.Substring(0, indOfSep);
+                    string strVal = s.Substring(indOfSep + 1);
+
+                    if (strVal.Split(':')[1].ToLower().Equals("rangeexpression")) //if (s.Split('-')[1].Split(':')[1].ToLower().Equals("rangeexpression"))
+                    {
+                        string cStr = strVal.Split(':')[0]; //.Split('-')[1]
+                        if (cStr.Contains(strVal2.Split(':')[0]))//.Contains(cStr))//.Contains(strVal2))//SelectedPN.Split('-')[1].Split(':')[0]))
+                        {
+                            string rnName = this.curDbInstance.OwlData.RDFG.GetExactNodeName(cStr);
+                            SemanticStructure rss = this.curDbInstance.OwlData.RDFG.NODetails[rnName];
+                            this.RExpr = rss.XMLURI;
+                            break;
+                        }
+                    }
+                }
+
+                //No - in the property hence data property
+                string exactdpn = this.curDbInstance.OwlData.RDFG.GetExactNodeName(this.SelectedPN);
+                SemanticStructure ss = this.curDbInstance.OwlData.RDFG.NODetails[this.SelectedPN];// exactdpn];//.Split('-')[1]];
+
+                List<string> outgoing = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(this.SelectedPN);// exactdpn);// this.SelectedPN.Split('-')[1]);
+                List<string> incoming = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(this.SelectedPN);// exactdpn);// this.SelectedPN.Split('-')[1]);
+
+                var secResult = outgoing.FindAll((p) => { if (dT.Contains(p.Split('-')[1].Split(':')[0])) { return true; } else { return false; } });
                 if (secResult.Count == 1)
                 {
                     this.DPRange = secResult[0].Split('-')[1].Split(':')[0];
@@ -554,8 +616,6 @@ namespace Server.Models
                 else
                 { }
             }
-            else
-            { }
         }
 
 
