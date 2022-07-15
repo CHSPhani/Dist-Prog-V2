@@ -30,16 +30,17 @@
             <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Step-1: Selecting OR Creating a suitable Role"></Label>
             <Label Grid.Row="1" Grid.Column="0" Content="Select an Existingh Role" Margin="5,5,5,5" HorizontalAlignment="Center"></Label>
             <Label Grid.Row="1" Grid.Column="1" Content="In case desired Role is not found, then Create a New Role" Margin="5,5,5,5" HorizontalAlignment="Center"></Label>
-            <ComboBox Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding URoles}" SelectedItem="{Binding SURole}"></ComboBox>
+            <ComboBox Name="cmbRoles" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding URoles}" SelectedItem="{Binding SURole}"
+                        LostFocus="CmbRoles_LostFocus"></ComboBox>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
                 <Button Name="btnCreate" Content="Create" Margin="10,10,10,10" Click="BtnCreate_Click"></Button>
                 <TextBox Width="325" Margin="2,2,2,2" Text="{Binding NRName}"></TextBox>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Label Content=">>" Margin="5,5,5,5"></Label>
-                <Button Content="Step-2" Margin="10,10,10,10"></Button>
+                <Button Name ="btnstep2" Content="Step-2" Margin="10,10,10,10" IsEnabled="False" Click="Btnstep2_Click"></Button>
                 <Label Content=">>" Margin="5,5,5,5"></Label>
-                <Button Content="Step-3" Margin="10,10,10,10"></Button>
+                <Button Name ="btnstep3" Content="Step-3" Margin="10,10,10,10" IsEnabled="False"></Button>
             </StackPanel>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" FlowDirection="RightToLeft">
@@ -47,6 +48,8 @@
             <Button Content="Save User Details" Name="suser" Click="Suser_Click" Margin="10,10,10,10"></Button>
             <Button Content="Validate User" Name="vuser" Click="Vuser_Click" Margin="10,10,10,10"></Button>
         </StackPanel>
-        <TextBlock  Grid.Row="3" Name="lblDesc" Text="{Binding SResult}"></TextBlock>
+        <ScrollViewer Grid.Row="3"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <TextBlock Name="lblDesc" Text="{Binding SResult}"></TextBlock>
+        </ScrollViewer>
     </Grid>
 </Window>

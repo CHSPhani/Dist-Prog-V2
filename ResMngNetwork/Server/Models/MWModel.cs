@@ -253,7 +253,7 @@ namespace Server.Models
             if (dsn != null)
             {
                 Server.ValidationService.ValidateFiles.dbData = dsn.DataInstance;
-                Models.KGConsoleModel.dbData = dsn.DataInstance;
+                Models.KGConsoleModel.dsn = dsn;
                 Server.UploadIndividuals.UploadIndividualsToRDFG.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.ObtainAllIndies.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.ObtainSSDetails.dbData = dsn.DataInstance;

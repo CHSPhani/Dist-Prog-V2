@@ -56,12 +56,12 @@ namespace UserRegModule
             }
             catch (Exception ex)
             {
-                this.SResult += Environment.NewLine + string.Format("Exception happend when calling Service for getting Serach details from KG. Details {0}", ex.Message);
+                this.Dispatcher.BeginInvoke(new Action(() => { lblDesc.Text += Environment.NewLine + string.Format("Exception happend when calling Service for getting Serach details from KG. Details {0}", ex.Message); }));
                 urModel.URoles = null;
             }
             if(string.IsNullOrEmpty(sResult))
             {
-                this.SResult += Environment.NewLine + string.Format("NO Search Results are obtained for Users from KG.");
+                this.Dispatcher.BeginInvoke(new Action(() => { lblDesc.Text += Environment.NewLine + string.Format("NO Search Results are obtained for Users from KG."); })); 
                 urModel.URoles = null;
             }
             else
@@ -121,7 +121,7 @@ namespace UserRegModule
             }
             catch (Exception ex)
             {
-                this.SResult += Environment.NewLine + string.Format("Exception happend when adding new user to KG. Details {0}", ex.Message);
+                this.Dispatcher.BeginInvoke(new Action(() => { lblDesc.Text += Environment.NewLine + string.Format("Exception happend when adding new user to KG.\n Details {0}", ex.Message); }));
             }
 
             
@@ -143,11 +143,11 @@ namespace UserRegModule
         {
             if (addResult)
             {
-                this.SResult += Environment.NewLine + string.Format("Added new user to KG.");
+                this.Dispatcher.BeginInvoke(new Action(() => { lblDesc.Text += Environment.NewLine + string.Format("Added new user to KG."); btnstep2.IsEnabled = true; btnstep3.IsEnabled = true; }));
             }
             else
             {
-                this.SResult += Environment.NewLine + string.Format("Cannot add new user to KG.");
+                this.Dispatcher.BeginInvoke(new Action(() => { lblDesc.Text += Environment.NewLine + string.Format("Cannot add new user to KG."); }));
             }
         }
 
@@ -155,6 +155,32 @@ namespace UserRegModule
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void CmbRoles_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(urModel.SURole))
+            {
+                btnstep2.IsEnabled = true;
+                btnstep3.IsEnabled = true;
+            }
+        }
+        /// <summary>
+        ///  In this step2 we need to create screen for entering details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Btnstep2_Click(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(urModel.SURole))
+            {
+                //Existing Role is selected
+
+            }
+            else if(!string.IsNullOrEmpty(urModel.NRName))
+            {
+                //New thing is created
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ContractDataModels;
 using DataSerailizer;
 using Microsoft.Glee.Drawing;
+using Server.DSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,8 @@ namespace Server.Models
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class KGConsoleModel : INotifyPropertyChanged, IObtainSearchResults
     {
-        public static DBData dbData = null;
+        public static DSNode dsn = null;
+        DBData dbData = null;
 
         string searchTerm;
         public string SearchTerm
@@ -102,14 +104,16 @@ namespace Server.Models
 
         public KGConsoleModel()
         {
-            if (KGConsoleModel.dbData != null)
+            if (KGConsoleModel.dsn != null)
+                dbData = KGConsoleModel.dsn.DataInstance;
+            if (this.dbData != null)
             {
                 this.IncludeSS = true;
                 this.IncludeII = true;
                 this.IncludeDS = true;
 
                 List<string> ss = new List<string>();
-                var GroupBySS = KGConsoleModel.dbData.OwlData.RDFG.NODetails.Values.GroupBy(s => s.SSType);
+                var GroupBySS = this.dbData.OwlData.RDFG.NODetails.Values.GroupBy(s => s.SSType);
                 foreach (var group in GroupBySS)
                 {
                     string s1 = group.Key.ToString();
@@ -139,18 +143,21 @@ namespace Server.Models
         /// </summary>
         public string GetSearchResults()
         {
+            //Refresh Database
+            this.dbData = dsn.DataInstance;
+            //Start search
             List<SemanticStructure> classHierarchy = new List<SemanticStructure>();
-            SemanticStructure curObj = KGConsoleModel.dbData.OwlData.RDFG.GetNodeDetails(this.searchTerm);
+            SemanticStructure curObj = this.dbData.OwlData.RDFG.GetNodeDetails(this.searchTerm);
 
             if (curObj == null)
-                curObj = KGConsoleModel.dbData.OwlData.RDFG.GetNodeDetailsW(this.searchTerm);
+                curObj = this.dbData.OwlData.RDFG.GetNodeDetailsW(this.searchTerm);
             
             if(curObj == null)
                 return "Not able to find the requested item in knowledge Graph";
             
             classHierarchy.Add(curObj);
 
-            string nName = KGConsoleModel.dbData.OwlData.RDFG.GetExactNodeName(curObj.SSName);
+            string nName = this.dbData.OwlData.RDFG.GetExactNodeName(curObj.SSName);
             if(string.IsNullOrEmpty(nName))
             {
                 //Hopefully Individual.
@@ -165,8 +172,8 @@ namespace Server.Models
                 sb1.Append("\n");
                 return sb1.ToString();
             }
-            List<string> outgoing = KGConsoleModel.dbData.OwlData.RDFG.GetEdgesForNode(nName);
-            List<string> incoming = KGConsoleModel.dbData.OwlData.RDFG.GetIncomingEdgesForNode(nName);
+            List<string> outgoing = this.dbData.OwlData.RDFG.GetEdgesForNode(nName);
+            List<string> incoming = this.dbData.OwlData.RDFG.GetIncomingEdgesForNode(nName);
             List<string> nOutgoing = new List<string>();
             StringBuilder sb = new StringBuilder();
 
@@ -188,8 +195,8 @@ namespace Server.Models
                 //Seems like not required to get all properties
                 string reqParts = nOutgoing[0].Split('-')[1].Split(':')[0];
                 string relation = string.Empty;
-                if (KGConsoleModel.dbData.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts)))
-                    relation = KGConsoleModel.dbData.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts)];
+                if (this.dbData.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts)))
+                    relation = this.dbData.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts)];
 
                 //if sub class I want to add all data properties gathered from all base classes till owl:Thing
                 if (relation.ToLower().Equals("subclassof"))
@@ -198,12 +205,12 @@ namespace Server.Models
                     SemanticStructure ss = null;
                     while (!source.ToLower().Equals("owl:thing"))
                     {
-                        ss = KGConsoleModel.dbData.OwlData.RDFG.GetNodeDetails(source.Split(':')[0]);
+                        ss = this.dbData.OwlData.RDFG.GetNodeDetails(source.Split(':')[0]);
                         if (ss != null)
                             classHierarchy.Add(ss);
 
-                        List<string> og = KGConsoleModel.dbData.OwlData.RDFG.GetEdgesForNode(source);
-                        List<string> ic = KGConsoleModel.dbData.OwlData.RDFG.GetIncomingEdgesForNode(source);
+                        List<string> og = this.dbData.OwlData.RDFG.GetEdgesForNode(source);
+                        List<string> ic = this.dbData.OwlData.RDFG.GetIncomingEdgesForNode(source);
                         foreach (string ics in ic)
                         {
                             if (ics.Split(':')[1].Equals("DatatypeProperty"))
@@ -212,7 +219,7 @@ namespace Server.Models
                         foreach (string sst in og) //must be one only
                             source = sst.Split('-')[1];
                     }
-                    ss = KGConsoleModel.dbData.OwlData.RDFG.GetNodeDetails(source.Split(':')[0]);
+                    ss = this.dbData.OwlData.RDFG.GetNodeDetails(source.Split(':')[0]);
                     if (ss != null)
                         classHierarchy.Add(ss);
                 }
@@ -249,13 +256,7 @@ namespace Server.Models
                         sb.Append("\n");
                     }
                 }
-                sb.Append(string.Format("Sub Classes"));
-                sb.Append("\n");
-                foreach (string icStr in incomingCls)
-                {
-                    sb.Append(string.Format("\t {0}", icStr));
-                    sb.Append("\n");
-                }
+                
                 sb.Append(string.Format("Object Restrictions"));
                 sb.Append("\n");
                 c = 1;
@@ -266,6 +267,12 @@ namespace Server.Models
                         c++;
                         continue;
                     }
+                    if (nOutgoing[c].Split('-')[1].ToLower().Contains("class"))
+                    {
+                        incomingCls.Add(nOutgoing[c].Split(':')[0].Split('-')[1]);
+                        c++;
+                        continue;
+                    }
                     if (nOutgoing[c].Split('-')[1].ToLower().Contains("objectproperty"))
                         sb.Append("\n");
                     sb.Append(string.Format("\t{0}", nOutgoing[c].Split('-')[1].Split(':')[0]));
@@ -273,15 +280,22 @@ namespace Server.Models
                     c++;
                 }
                 sb.Append("\n");
+                sb.Append(string.Format("Sub Classes"));
+                sb.Append("\n");
+                foreach (string icStr in incomingCls)
+                {
+                    sb.Append(string.Format("\t {0}", icStr));
+                    sb.Append("\n");
+                }
             }
 
             //Now process Edge data
             List<string> eds = new List<string>();
-            foreach (string sedg in KGConsoleModel.dbData.OwlData.RDFG.EdgeData.Keys)
+            foreach (string sedg in this.dbData.OwlData.RDFG.EdgeData.Keys)
             {
                 if (sedg.Split('-')[0].ToLower().Equals(nName.Split(':')[0].ToLower()))
                 {
-                    if (KGConsoleModel.dbData.OwlData.RDFG.EdgeData[sedg].Equals("Instance"))
+                    if (this.dbData.OwlData.RDFG.EdgeData[sedg].Equals("Instance"))
                         eds.Add(sedg);
                 }
             }
@@ -290,10 +304,10 @@ namespace Server.Models
             
             foreach (string es in eds)
             {
-                SemanticStructure insObj = KGConsoleModel.dbData.OwlData.RDFG.GetNodeDetails(es.Split('-')[1]);
+                SemanticStructure insObj = this.dbData.OwlData.RDFG.GetNodeDetails(es.Split('-')[1]);
                 if (insObj != null)
                 {
-                    string inName = KGConsoleModel.dbData.OwlData.RDFG.GetExactNodeName(insObj.SSName);
+                    string inName = this.dbData.OwlData.RDFG.GetExactNodeName(insObj.SSName);
                     sb.Append(string.Format("\t{0}", inName.Split(':')[0]));
                     sb.Append("\n");
                 }

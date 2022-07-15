@@ -1326,16 +1326,19 @@ namespace Server.DSystem
                     string newCls = nMsg1.DataItems[0];
                     string newBaseCls = nMsg1.DataItems[1];
 
+                    string nBName = initData.OwlData.RDFG.GetExactNodeName(newBaseCls);
+                    SemanticStructure ssb = initData.OwlData.RDFG.NODetails[nBName];
+
                     //http://www.bristol.ac.uk/sles/v1/opendsst2 is XML URI
                     SemanticStructure ss = new SemanticStructure() { SSName = newCls, SSType = SStrType.Class, XMLURI = "http://www.bristol.ac.uk/sles/v1/opendsst2" };
                     if (initData.OwlData.RDFG.AddNode(ss.ToString()))
                         initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
 
-                    string edKey = string.Format("{0}-{1}", ss.SSName, newBaseCls);
+                    string edKey = string.Format("{0}-{1}", ssb.SSName, ss.SSName);//newBaseCls
                     if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
                         initData.OwlData.RDFG.EdgeData[edKey] = SStrType.SubClassOf.ToString();
 
-                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}", newBaseCls, SStrType.Class), newCls);
+                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}", ssb.SSName, SStrType.Class), string.Format("{0}:{1}",ss.SSName,SStrType.Class));
                 }
                 if (nMsg.PCause == ProposalCause.UploadInd)
                 {
