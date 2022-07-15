@@ -62,6 +62,9 @@ namespace Server
             this.Close();
         }
 
+        /// <summary>
+        /// WCF Services hosting calls
+        /// </summary>
         void InvokingServices()
         {
             IValidateService vService = new ValidateFiles();
