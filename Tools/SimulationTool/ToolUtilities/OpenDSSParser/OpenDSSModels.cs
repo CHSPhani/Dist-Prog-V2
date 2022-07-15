@@ -212,4 +212,303 @@ namespace UoB.ToolUtilities.OpenDSSParser
             return false;
         }
     }
+
+    public class PVSystem : GraphNode
+    {
+        public string Bus1 { get; set; }
+        public int Irradiance { get; set; }
+        public double kV { get; set; }
+        public double kVA { get; set; }
+        public double PF { get; set; }
+        public double Pmpp { get; set; }
+        public LoadShape Duty { get; set; }
+        public int Phases { get; set; }
+
+        public PVSystem()
+        {
+            kV = kVA = PF = Pmpp = 0.0;
+            Bus1 = string.Empty;
+            Irradiance = Phases = 0;
+            Duty = null;
+        }
+        public override string ToString()
+        {
+            return string.Format("PVSystem Name={0}, Type={1}, Bus={2}, Irradiance={3}, kV={4}, kVA={5}, PF={6}, Pmpp={7}, Phases={8}",
+                                 this.Name, this.NType, this.Bus1, this.Irradiance, this.kV, this.kVA, this.PF, this.Pmpp, this.Phases);
+        }
+    }
+
+    public class LoadShape : GraphNode
+    {
+        public long NPTS { get; set; }
+
+        public int MInterval { get; set; }
+
+        public string Mult { get; set; }
+
+        public string Action { get; set; }
+
+        public LoadShape()
+        {
+            NPTS = MInterval = 0;
+            Mult = Action = string.Empty;
+        }
+    }
+
+    public class ImpactAnalysisData
+    {
+        public string PvName { get; set; }
+        public List<string> INodes { get; set; }
+        public List<string> IEdges { get; set; }
+        public string INotes { get; set; }
+
+        public ImpactAnalysisData()
+        {
+            PvName = string.Empty;
+            INodes = new List<string>();
+            IEdges = new List<string>();
+            INotes = string.Empty;
+        }
+    }
+   
+    public class PrepareImpactResult
+    {
+        List<ImpactResultData> listIRData = new List<ImpactResultData>();
+        public PrepareImpactResult()
+        {
+
+        }
+
+        public PrepareImpactResult(ImpactResultData irData) : this()
+        {
+            listIRData.Add(irData);
+        }
+
+        void CreateVisualGraph()
+        {
+            foreach (ImpactResultData irData in listIRData)
+            {
+                //irData.VisualGraph
+            }
+        }
+    }
+
+    /// <summary>
+    /// New	load.278071200	phases=1	
+    /// kV=0.24	bus1=G2000RN2800_N274196_sec_1.3	xfkVA=3.25119253	pf=0.98	status=variable	model=4 CVRwatts=0.8	
+    /// CVRvars=3	conn=wye	Vminpu=0.7	duty=LS_PhaseC		!	Phase	3.
+    /// This class describes a Load
+    /// </summary>
+    public class Load : GraphNode
+    {
+        public int Phases { get; set; }
+        public double kV { get; set; }
+        public double kVA { get; set; }
+        public double kvar { get; set; }
+        public double kw { get; set; }
+        public double kwH { get; set; }
+        public double xfkVA { get; set; }
+        public double PF { get; set; }
+        public string Bus1 { get; set; }
+        public string status { get; set; }
+        public int Model { get; set; }
+        public double CVRWatts { get; set; }
+        public double CVRvars { get; set; }
+        public ConnectionType LoadConnType { get; set; }
+        public double Vminpu { get; set; }
+        public double Vmaxpu { get; set; }
+        public LoadShape Duty { get; set; }
+
+        public Load()
+        {
+            Phases = Model = 0;
+            kV = xfkVA = PF = CVRvars = CVRWatts = Vminpu = Vmaxpu = 0.0;
+            kVA = kvar = kw = kwH = 0.0;
+            Bus1 = string.Empty;
+            LoadConnType = ConnectionType.NotAssigned;
+            Duty = null;
+        }
+        public override string ToString()
+        {
+            return string.Format("Load Name={0}, Type={1}, Phases={2}, kV={3}, kVA={4}, kvar={5}, kw={6}, kwH={7}, xfakVA={8}, PF={9}, Bus1={10}, status={11}, Model={12}",
+                                 this.Name, this.NType, this.Phases, this.kV, this.kVA, this.kvar, this.kw, this.kwH, this.xfkVA, this.PF, this.Bus1, this.status, this.Model);
+        }
+    }
+    public enum ConnectionType
+    {
+        NotAssigned,
+        Wye,
+        Delta
+    }
+
+    /// <summary>
+    /// New Capacitor.Cap_G2100PL6500 phases=3 kvar=900 bus1=N300521 kV=34.5 conn=wye enabled=true
+    /// This class describes Capacitor.
+    /// </summary>
+    public class Capacitor : GraphNode
+    {
+        public int Phases { get; set; }
+        public bool Enabled { get; set; }
+        public ConnectionType CapacitorConnType { get; set; }
+        public double kvar { get; set; }
+        public double kV { get; set; }
+        public string Bus { get; set; }
+
+        public Capacitor()
+        {
+            Phases = 0;
+            kvar = kV = 0.0;
+            Enabled = false;
+            Bus = string.Empty;
+        }
+    }
+
+    public class Bus : GraphNode
+    {
+        //public string BusName { get; set; }
+        public long BusSlNo { get; set; }
+        public double BusLongitude { get; set; }
+        public double BusLatitude { get; set; }
+
+        public Bus()
+        {
+            //BusName = string.Empty;
+            BusSlNo = long.MinValue;
+            BusLongitude = double.NaN;
+            BusLatitude = double.NaN;
+            NType = NodeType.Bus;
+        }
+        public override string ToString()
+        {
+            return string.Format("Bus Name={0}, Type={1}, BusSlNo={2}, Longitude={3}, Latitude={4}", this.Name, this.NType, this.BusSlNo, this.BusLongitude, this.BusLatitude);
+        }
+    }
+    public class Location
+    {
+        public double Longitude;
+        public double Latitude;
+        public override string ToString()
+        {
+            return string.Format("({0}:{1})", this.Longitude, this.Latitude);
+        }
+        public Location()
+        {
+            Longitude = Latitude = 0.0;
+        }
+    }
+
+    public enum TransformerType
+    {
+        NotAssigned,
+        Substation,
+        Distribution
+    }
+
+    public class Winding
+    {
+        public int No { get; set; }
+
+        public string Bus { get; set; }
+
+        public ConnectionType WindingConnType { get; set; }
+
+        public double kv { get; set; }
+
+        public double kvA { get; set; }
+
+        public int PercentageR { get; set; }
+
+        public Winding()
+        {
+            No = -1;
+            Bus = string.Empty;
+            WindingConnType = ConnectionType.NotAssigned;
+            kv = 0.0d;
+            kvA = 0.0d;
+            PercentageR = 0;
+        }
+        public override string ToString()
+        {
+            return string.Format("Winding No={0}, Bus={1}, WindingConnType={2}, kv={3}, kvA ={4}, PercentageR={5}",
+                                    this.No, this.Bus, this.WindingConnType, this.kv, this.kvA, this.PercentageR);
+        }
+    }
+    public class Transformer : GraphNode
+    {
+        public Location TrLocation { get; set; }
+        public TransformerType TrType { get; set; }
+
+        public int Phases { get; set; }
+
+        public int NoOfWindings { get; set; }
+
+        public List<Winding> Windings { get; set; }
+
+        public float PerImag { get; set; }
+
+        public float PerLoadLoss { get; set; }
+
+        public float PerNoLoadLoss { get; set; }
+
+        public float Xhl { get; set; }
+
+        public string sub { get; set; }
+
+        public List<Double> PerRS { get; set; }
+
+        public float MinTap { get; set; }
+
+        public float MaxTap { get; set; }
+
+        public long EmergHkva { get; set; }
+
+        public bool RegControl { get; set; }
+        public Transformer()
+        {
+            TrLocation = new Location();
+            TrType = TransformerType.NotAssigned;
+            NoOfWindings = -1;
+            Windings = new List<Winding>();
+            PerImag = PerLoadLoss = PerNoLoadLoss = Xhl = 0.0f;
+            sub = string.Empty;
+            MinTap = MaxTap = float.NaN;
+            EmergHkva = long.MinValue;
+            PerRS = new List<double>();
+        }
+        public override string ToString()
+        {
+            List<string> windingInfo = new List<string>();
+            foreach (Winding w in this.Windings)
+            {
+                windingInfo.Add(w.ToString());
+            }
+            return string.Format("Transformer Name={0}, Type ={1}, Phases={2}, NoofWindings={3}, Winding1 ={4}, Winding2={5}, PerImag={6}, PerLoadLoss={7}, Xhl={8}, sub={9}, RegControlAttached={10}",
+                                  this.Name, this.TrType, this.Phases, this.NoOfWindings, windingInfo[0], windingInfo[1], this.PerImag, this.PerLoadLoss, this.Xhl, this.sub, this.RegControl);
+        }
+
+    }
+
+    public class Line : GraphEdge
+    {
+        public string Id { get; set; }
+        public string Bus1 { get; set; }
+        public string Bus2 { get; set; }
+        public int Phase { get; set; }
+        public double Length { get; set; }
+        public LineUnit Units { get; set; }
+        public string LineCode { get; set; }
+
+        public Line()
+        {
+            Id = Bus1 = Bus2 = LineCode = string.Empty;
+            Phase = 0;
+            Length = 0;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Line Id = {1}, Bus1={2}, Bus2={3}, Phase={4}, Length={5}",
+                                  base.ToString(), this.Id, this.Bus1, this.Bus2, this.Phase, this.Length);
+        }
+    }
 }

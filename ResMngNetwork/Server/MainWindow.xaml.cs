@@ -37,6 +37,11 @@ namespace Server
             InvokingServices();
         }
 
+        /// <summary>
+        /// Coed for Exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             mwModel.SaveSMSettings();
@@ -97,8 +102,73 @@ namespace Server
             host4.AddServiceEndpoint(typeof(IObtainSSForInst), binding4, "");
             host4.Opened += Host4_Opened;
             host4.Open();
+
+            ISubmitPVS sbPV = new SubmitPV();
+            ServiceHost host6 = new ServiceHost(sbPV, new Uri("net.tcp://localhost:6565/SubmitPV"));
+            var binding6 = new NetTcpBinding(SecurityMode.None);
+            binding6.MaxReceivedMessageSize = 2147483647;
+            host6.AddServiceEndpoint(typeof(ISubmitPVS), binding6, "");
+            host6.Opened += Host6_Opened;
+            host6.Open();
+
+            ISendPVInfo sdPV = new SendPVDetails();
+            ServiceHost host5 = new ServiceHost(sdPV, new Uri("net.tcp://localhost:6565/SendPVDetails"));
+            var binding5 = new NetTcpBinding(SecurityMode.None);
+            binding5.MaxReceivedMessageSize = 2147483647;
+            host5.AddServiceEndpoint(typeof(ISendPVInfo), binding5, "");
+            host5.Opened += Host5_Opened;
+            host5.Open();
+
+            IObtainLoadIndividuals oLoads = new ObtainAllLoadIndies();
+            ServiceHost host7 = new ServiceHost(oLoads, new Uri("net.tcp://localhost:6565/ObtainAllLoadIndies"));
+            var binding7 = new NetTcpBinding(SecurityMode.None);
+            binding7.MaxReceivedMessageSize = 2147483647;
+            host7.AddServiceEndpoint(typeof(IObtainLoadIndividuals), binding7, "");
+            host7.Opened += Host7_Opened;
+            host7.Open();
+
+            IObtainSearchResults oSResults = new KGConsoleModel();
+            ServiceHost host8 = new ServiceHost(oSResults, new Uri("net.tcp://localhost:6565/KGConsoleModel"));
+            var binding8 = new NetTcpBinding(SecurityMode.None);
+            binding8.MaxReceivedMessageSize = 2147483647;
+            host8.AddServiceEndpoint(typeof(IObtainSearchResults), binding8, "");
+            host8.Opened += Host8_Opened;
+            host8.Open();
+
+            IAddNewUserRole aNewURole = new AddNewUserRole();
+            ServiceHost host9 = new ServiceHost(aNewURole, new Uri("net.tcp://localhost:6565/AddNewUserRole"));
+            var binding9 = new NetTcpBinding(SecurityMode.None);
+            binding9.MaxReceivedMessageSize = 2147483647;
+            host9.AddServiceEndpoint(typeof(IAddNewUserRole), binding9, "");
+            host9.Opened += Host9_Opened;
+            host9.Open();
         }
 
+        private void Host9_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Add new user role service is opened");
+        }
+
+        private void Host8_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Obtain search results is opened");
+        }
+
+        private void Host7_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Obtain all Load Individuals is opened");
+        }
+
+        private void Host5_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Getting data for sending PV service opened");
+        }
+
+        private void Host6_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Getting data for submit PV service opened");
+        }
+        
         private void Host4_Opened(object sender, EventArgs e)
         {
             Console.WriteLine("Getting data for instance service opened");

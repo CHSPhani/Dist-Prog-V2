@@ -254,10 +254,12 @@ namespace Server.Models
             {
                 Server.ValidationService.ValidateFiles.dbData = dsn.DataInstance;
                 Models.KGConsoleModel.dbData = dsn.DataInstance;
-                //Server.UploadIndividuals.UploadIndividualsToRDFG.dbData = dsn.DataInstance;
+                Server.UploadIndividuals.UploadIndividualsToRDFG.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.ObtainAllIndies.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.ObtainSSDetails.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.ObtainSSForInstn.dbData = dsn.DataInstance;
+                Server.UploadIndividuals.ObtainAllLoadIndies.dbData = dsn.DataInstance;
+                Server.UploadIndividuals.AddNewUserRole.dsn= dsn;
             }
         }
 

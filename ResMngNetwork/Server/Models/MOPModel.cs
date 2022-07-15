@@ -450,45 +450,47 @@ namespace Server.Models
             }
             //sorting done
 
-            #region No need to go up in hierarchy to get something
-            //int counter = 0;
-            //while (counter <= nOutgoing.Count - 1)
-            //{
-            //    string ots = nOutgoing[counter];
-            //    string[] reqParts = ots.Split('-')[1].Split(':');
-            //    if (reqParts[1].ToLower().Equals("class"))
-            //    {
-            //        //Step3: Calculating data properties up in hierarchies 
-            //        //Seems like not required to get all properties
-            //        #region Good Recursive Code for getting up hierarchies
-            //        string relation = string.Empty;
-            //        if (this.curDbInstance.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])))
-            //            relation = this.curDbInstance.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])];
+            #region Need to go up in hierarchy to get something
+            //I commented this before But added on 06/06
+            //Reason: For a class I want to get all data properties Up the Hierarchy.
+            int counter = 0;
+            while (counter <= nOutgoing.Count - 1)
+            {
+                string ots = nOutgoing[counter];
+                string[] reqParts = ots.Split('-')[1].Split(':');
+                if (reqParts[1].ToLower().Equals("class"))
+                {
+                    //Step3: Calculating data properties up in hierarchies 
+                    //Seems like not required to get all properties
+                    #region Good Recursive Code for getting up hierarchies
+                    string relation = string.Empty;
+                    if (this.curDbInstance.OwlData.RDFG.EdgeData.ContainsKey(string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])))
+                        relation = this.curDbInstance.OwlData.RDFG.EdgeData[string.Format("{0}-{1}", nName.Split(':')[0], reqParts[0])];
 
-            //        //if sub class I want to add all data properties gathered from all base classes till owl:Thing
-            //        if (relation.ToLower().Equals("subclassof"))
-            //        {
-            //            string source = ots.Split('-')[1];
-            //            //classHierarchy.Add(source);
-            //            while (!source.ToLower().Equals("owl:thing"))
-            //            {
-            //                classHierarchy.Add(source);
-            //                List<string> og = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(source);
-            //                List<string> ic = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(source);
-            //                foreach (string ics in ic)
-            //                {
-            //                    if (ics.Split(':')[1].Equals("DatatypeProperty"))
-            //                        incoming.Add(ics);
-            //                }
-            //                foreach (string sst in og) //must be one only
-            //                    source = sst.Split('-')[1];
-            //            }
-            //            classHierarchy.Add(source);
-            //        }
-            //        #endregion
-            //    }
-            //    counter++;
-            //}
+                    //if sub class I want to add all data properties gathered from all base classes till owl:Thing
+                    if (relation.ToLower().Equals("subclassof"))
+                    {
+                        string source = ots.Split('-')[1];
+                        //classHierarchy.Add(source);
+                        while (!source.ToLower().Equals("owl:thing"))
+                        {
+                            classHierarchy.Add(source);
+                            List<string> og = this.curDbInstance.OwlData.RDFG.GetEdgesForNode(source);
+                            List<string> ic = this.curDbInstance.OwlData.RDFG.GetIncomingEdgesForNode(source);
+                            foreach (string ics in ic)
+                            {
+                                if (ics.Split(':')[1].Equals("DatatypeProperty"))
+                                    incoming.Add(ics);
+                            }
+                            foreach (string sst in og) //must be one only
+                                source = sst.Split('-')[1];
+                        }
+                        classHierarchy.Add(source);
+                    }
+                    #endregion
+                }
+                counter++;
+            }
             #endregion
             //No need of data properties to add
             //foreach (string s in incoming)
@@ -502,7 +504,7 @@ namespace Server.Models
                     if (!s.Split(':')[1].ToLower().Contains("instance"))
                         pNs.Add(s);
             }
-            foreach(string s in incoming)
+            foreach (string s in incoming)
             {
                 if (s.Contains(':'))
                     if (!s.Split(':')[1].ToLower().Contains("instance"))

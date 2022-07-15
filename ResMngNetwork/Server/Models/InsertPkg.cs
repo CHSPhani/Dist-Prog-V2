@@ -46,7 +46,29 @@ namespace Server.Models
         }
     }
 
+    public class ProposeResultEventArgs : EventArgs
+    {
+        public bool PResult { get; set; }
+
+        public ProposeResultEventArgs()
+        {
+            PResult = false;
+        }
+    }
+
+    public class TransitResultEventArgs :EventArgs
+    {
+        public bool TResult { get; set; }
+
+        public TransitResultEventArgs()
+        {
+            TResult = false;
+        }
+    }
+
     public delegate void RaiseProposeEventHandler(object sender, ProposeEventArgs e);
+    public delegate bool ProposeResultEventHandler(object sender, ProposeResultEventArgs e);
+    public delegate bool TransitResultEventHandler(object sender, TransitResultEventArgs e);
 
     public class ProposePackageCommand : ICommand
     {

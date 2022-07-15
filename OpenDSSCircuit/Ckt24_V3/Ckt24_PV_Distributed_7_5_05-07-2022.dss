@@ -1,0 +1,1 @@
+new loadshape.PV_Loadshape npts=1799 sinterval=2 csvfile=PVloadshape_7_5MW_Distributed_05-07-2022.txt Pbase=7.50 action=normalize

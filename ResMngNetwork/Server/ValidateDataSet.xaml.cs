@@ -91,5 +91,6 @@ namespace Server
             else
                 vModel.ProposalStatus = "Transition Failed";
         }
+        
     }
 }

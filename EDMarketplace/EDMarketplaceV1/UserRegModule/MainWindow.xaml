@@ -1,0 +1,27 @@
+﻿<Window x:Class="UserRegModule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserRegModule"
+        mc:Ignorable="d"
+        Title="User Registration Module" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" FlowDirection="RightToLeft">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Margin="10,10,10,10" Name="btnRegister" Click="BtnRegister_Click">Register</Button>
+                <Button Margin="10,10,10,10">Sign In</Button>
+            </StackPanel>
+            <Label Content="User Registration Module" Margin="500,10,10,10"></Label>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            
+        </Grid>
+        <Button Grid.Row="2" Click="Button_Click" Margin="10,10,10,10" HorizontalAlignment="Right">Exit</Button>
+    </Grid>
+</Window>

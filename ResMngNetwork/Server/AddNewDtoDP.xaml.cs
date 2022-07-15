@@ -60,5 +60,10 @@ namespace Server
             else
                 addnD.ProposalStatus = "Transition Failed";
         }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

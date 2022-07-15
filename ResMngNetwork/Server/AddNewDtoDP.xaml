@@ -4,14 +4,58 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Server"
+        xmlns:mdl="clr-namespace:Server.Models"
         mc:Ignorable="d"
-        Title="Add new Domain to Data Property" Height="450" Width="800">
+        Title="Add new Domain to Data Property" Height="250" Width="800"  WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Resources>
+            <mdl:PSaveDataConverter x:Key="psConv"></mdl:PSaveDataConverter>
+        </Grid.Resources>
         <Grid.RowDefinitions>
-            
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
+
+        <TextBlock Text="Select Data Property" Grid.Row="0" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
+        <ComboBox  Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"></ComboBox>
+
+        <TextBlock Text="Sub Class of" Grid.Row="1" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"></ComboBox>
+
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="Logged_in User" Margin="10,10,10,10" TextAlignment="Right"></TextBlock>
+            <TextBlock Text="{Binding CurrentUserName}" Width="300" TextAlignment="Left" Margin="10,10,10,10"></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Content="Exit" Name ="Exit" Click="Exit_Click" Margin="10,10,10,10"></Button>
+            <Button Content="Save" Name="save" Margin="10,10,10,10" IsEnabled="{Binding ProposalState}" Command="{Binding SOcCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CurrentUserName"></Binding>
+                        <Binding Path="CName"></Binding>
+                        <Binding Path="SBClass"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button Content="Propose" Name="pro" Margin="10,10,10,10" Command="{Binding POcCommand}" IsEnabled="{Binding ProposalState1}" >
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="CurrentUserName"></Binding>
+                        <Binding Path="CName"></Binding>
+                        <Binding Path="SBClass"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <TextBlock Text="{Binding ProposalStatus}" Margin="5,5,5,5" Width="500"></TextBlock>
+            <TextBlock Text="Proposal State" Margin="5,5,5,5"></TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

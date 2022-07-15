@@ -103,15 +103,6 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            
-            <Button  Width="300" Margin="10,10,10,10" Content="Propose New Restrictions to a Class in Ontology" Command="{Binding AddNewRt}">
-                <Button.CommandParameter>
-                    <MultiBinding Converter="{StaticResource psConv}">
-                        <Binding Path="UserName"></Binding>
-                        <Binding Path="DataInstance"></Binding>
-                    </MultiBinding>
-                </Button.CommandParameter>
-            </Button>
             <Button  Width="300" Margin="10,10,10,10" Content="Propose Range for Data Property of Ontology" Command="{Binding MOPCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
@@ -120,7 +111,15 @@
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-            <Button  Width="300" Margin="10,10,10,10" Content="Propose Conversion for Eng Unit in Ontology" Command="{Binding AddNewCnv}">
+            <Button  Width="300" Margin="10,10,10,10" Content="Propose Conversion for Eng Unit in Ontology" Command="{Binding AddNewCnv}" IsEnabled="False">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource psConv}">
+                        <Binding Path="UserName"></Binding>
+                        <Binding Path="DataInstance"></Binding>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button  Width="300" Margin="10,10,10,10" Content="Propose New Restrictions to a Class in Ontology" Command="{Binding AddNewRt}" IsEnabled="False">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource psConv}">
                         <Binding Path="UserName"></Binding>

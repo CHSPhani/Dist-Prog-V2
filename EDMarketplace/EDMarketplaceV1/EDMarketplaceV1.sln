@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserRegModule", "UserRegModule\UserRegModule.csproj", "{FB8F3983-B5A3-403A-A2DB-A890A09B668A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2PMarket", "P2PMarket\P2PMarket.csproj", "{96755C12-E33C-43DB-9E21-452C8B61AD62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB8F3983-B5A3-403A-A2DB-A890A09B668A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8F3983-B5A3-403A-A2DB-A890A09B668A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8F3983-B5A3-403A-A2DB-A890A09B668A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8F3983-B5A3-403A-A2DB-A890A09B668A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8E7DECD-C5A8-4BC8-9121-251F5A29E322}
+	EndGlobalSection
+EndGlobal

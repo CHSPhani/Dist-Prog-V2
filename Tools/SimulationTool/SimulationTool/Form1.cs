@@ -18,6 +18,7 @@ namespace SimulationTool
     {
         string sPath;
         DSSFileParser dssFileParser;
+        
         public Form1()
         {
             sPath = @"C:\WorkRelated-Offline\Dist_Prog_V2\OpenDSSCircuit\Ckt24_V3";
@@ -93,6 +94,56 @@ namespace SimulationTool
 
                 dssFileParser.GetOperationalState(sStrs);
             }
+        }
+
+        /// <summary>
+        /// PVPanels 
+        /// Hard coded N283575 N283602 N292548
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            List<CircuitEntry> pvs = new List<CircuitEntry>();
+            try
+            {
+                string uri = "net.tcp://localhost:6565/SendPVDetails";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<ISendPVInfo>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                pvs = proxy.SendPVInfo();
+            }
+            catch (Exception ex)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Not able to Obtain Individuals from Knowledge Graph. Exception is " + ex.Message;
+            }
+            if(pvs.Count ==0)
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Not able to obtain PVS";
+            }
+            else
+            {
+                label6.Text += Environment.NewLine;
+                label6.Text += "Obtained Details about PV Details.";
+            }
+
+            //Add PV Panels to Graph using pvs
+            dssFileParser.AddPVs(pvs);
+            
+        }
+
+        /// <summary>
+        /// This function calles Edmonds Algorithm to remove cycles and create operational branching.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button7_Click(object sender, EventArgs e)
+        {
+            dssFileParser.GoLiveV2("11:00-11:30");//time slot hardcoded need to create a screen
         }
     }
 }

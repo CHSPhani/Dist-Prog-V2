@@ -49,6 +49,12 @@
             this.button8 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.button12 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -62,7 +68,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(730, 587);
+            this.button2.Location = new System.Drawing.Point(732, 719);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(60, 27);
             this.button2.TabIndex = 1;
@@ -136,7 +142,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(409, 232);
+            this.label4.Location = new System.Drawing.Point(29, 319);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 13);
             this.label4.TabIndex = 12;
@@ -144,7 +150,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(588, 219);
+            this.button4.Location = new System.Drawing.Point(186, 309);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(202, 39);
             this.button4.TabIndex = 11;
@@ -155,14 +161,14 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 388);
+            this.label6.Location = new System.Drawing.Point(12, 443);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 13;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(588, 171);
+            this.button6.Location = new System.Drawing.Point(186, 260);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(202, 39);
             this.button6.TabIndex = 14;
@@ -173,7 +179,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(409, 182);
+            this.label7.Location = new System.Drawing.Point(29, 269);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(151, 13);
             this.label7.TabIndex = 15;
@@ -181,7 +187,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(588, 276);
+            this.button7.Location = new System.Drawing.Point(588, 172);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(204, 37);
             this.button7.TabIndex = 16;
@@ -192,7 +198,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(409, 289);
+            this.label8.Location = new System.Drawing.Point(409, 185);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(134, 13);
             this.label8.TabIndex = 17;
@@ -201,7 +207,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(409, 343);
+            this.label9.Location = new System.Drawing.Point(411, 238);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(145, 13);
             this.label9.TabIndex = 19;
@@ -209,7 +215,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(588, 330);
+            this.button8.Location = new System.Drawing.Point(588, 226);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(202, 36);
             this.button8.TabIndex = 18;
@@ -238,14 +244,80 @@
             this.button9.Visible = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(411, 288);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(135, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Step-8: Add PV Generation";
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(588, 276);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(202, 36);
+            this.button10.TabIndex = 22;
+            this.button10.Text = "Add PV Generation";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(411, 335);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(127, 13);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Step-9: Smulate (with PV)";
+            this.label12.Visible = false;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(588, 323);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(202, 36);
+            this.button11.TabIndex = 24;
+            this.button11.Text = "Simulate (With PV)";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(411, 387);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(151, 13);
+            this.label13.TabIndex = 27;
+            this.label13.Text = "Step-10: Validate all Data Files";
+            this.label13.Visible = false;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(588, 375);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(202, 36);
+            this.button12.TabIndex = 26;
+            this.button12.Text = "Validate Simulated Files";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Visible = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 626);
+            this.ClientSize = new System.Drawing.Size(800, 749);
             this.ControlBox = false;
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.button9);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label8);
@@ -264,6 +336,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.button9);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "Simulation Engine";
@@ -295,6 +368,12 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button12;
     }
 }
 

@@ -1,5 +1,7 @@
 ﻿using ContractDataModels;
 using DataSerailizer;
+using Server.DSystem;
+using Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,49 @@ using UoB.ToolUtilities.OpenDSSParser;
 namespace Server.UploadIndividuals
 {
 
+    /// <summary>
+    /// Class to hold data
+    /// </summary>
+    public class TempDataHolder
+    {
+        public static List<CircuitEntry> cEntities;
+
+        public TempDataHolder()
+        {
+            cEntities = new List<CircuitEntry>();
+        }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class SubmitPV : ISubmitPVS
+    {
+                
+        public SubmitPV()
+        {
+        
+        }
+
+        bool ISubmitPVS.SubmitPV(List<CircuitEntry> PVSystems)
+        {
+            TempDataHolder.cEntities = PVSystems;
+            return true;
+        }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class SendPVDetails : ISendPVInfo
+    {
+        public List<CircuitEntry> SendPVInfo()
+        {
+            if (TempDataHolder.cEntities == null)
+                return null;
+            if (TempDataHolder.cEntities.Count == 0)
+                return null;
+            else
+                return TempDataHolder.cEntities;
+        }
+    }
+    
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ObtainSSForInstn: IObtainSSForInst
     {
@@ -78,6 +123,30 @@ namespace Server.UploadIndividuals
             if (ObtainAllIndies.dbData != null)
             {
                 foreach(SemanticStructure sst in ObtainAllIndies.dbData.OwlData.RDFG.NODetails.Values.ToList<SemanticStructure>())
+                {
+                    if (sst.SSType == SStrType.Instance)
+                        sStrs.Add(sst);
+                }
+            }
+            return sStrs;
+        }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class ObtainAllLoadIndies : IObtainLoadIndividuals
+    {
+        public static DBData dbData = null;
+
+        public ObtainAllLoadIndies()
+        {
+
+        }
+        public List<SemanticStructure> ObtainLoadIndividuals()
+        {
+            List<SemanticStructure> sStrs = new List<SemanticStructure>();
+            if (ObtainAllIndies.dbData != null)
+            {
+                foreach (SemanticStructure sst in ObtainAllIndies.dbData.OwlData.RDFG.NODetails.Values.ToList<SemanticStructure>())
                 {
                     if (sst.SSType == SStrType.Instance)
                         sStrs.Add(sst);
@@ -330,5 +399,110 @@ namespace Server.UploadIndividuals
                 return "bus";
             return pName;
         }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    public class AddNewUserRole : IAddNewUserRole, IProposalResult, ITransitionResult
+    {
+        public static DSNode dsn = null;
+        bool pResult;
+        public event ProposeResultEventHandler PRHandler;
+        public event TransitResultEventHandler TRHandler;
+        ISendAddNewUserResult callbackChannel;
+        public AddNewUserRole()
+        {
+            pResult = false;
+            this.PRHandler += AddNewUserRole_PRHandler;
+            this.TRHandler += AddNewUserRole_TRHandler;
+        }
+
+        private bool AddNewUserRole_TRHandler(object sender, TransitResultEventArgs e)
+        {
+            bool tResult = e.TResult;
+            callbackChannel.SendAddUserResult(tResult);
+            return tResult;
+        }
+
+        private bool AddNewUserRole_PRHandler(object sender, ProposeResultEventArgs e)
+        {
+            this.pResult = e.PResult;
+            if(!pResult)
+             callbackChannel.SendAddUserResult(pResult); //Return when approval not obtained.
+            return pResult;
+        }
+        string uN;
+        public void AddNewUser(string UName)
+        {
+            this.uN = UName;
+            callbackChannel = OperationContext.Current.GetCallbackChannel<ISendAddNewUserResult>();
+            if (dsn != null)
+            {               
+                dsn.SplPower = true;
+
+                NodeMesaage nMessage = new NodeMesaage();
+                nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+                nMessage.PCause = ProposalCause.NewOClass;
+                nMessage.PTYpe = ProposalType.Voting;
+                List<string> sItems = new List<string>();
+                sItems.Add("Users");
+                sItems.Add(UName);
+                nMessage.DataItems = sItems;
+                dsn.PANUserCommand.Propose(this, nMessage);
+                
+            }
+        }
+        public void ProcessProposalResult(VoteType overAllType)
+        {
+            if (overAllType == VoteType.Accepted)
+            {
+                //PRHandler?.Invoke(this, new ProposeResultEventArgs() { PResult = true });
+                //Proposal Accepted and we are starting new transition
+                NodeMesaage nMessage = new NodeMesaage();
+                nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+                nMessage.PCause = ProposalCause.NewOClass;
+                nMessage.PTYpe = ProposalType.Transition;
+                List<string> sItems = new List<string>();
+                sItems.Add(this.uN);
+                sItems.Add("Users");
+                nMessage.DataItems = sItems;
+                dsn.PANUserCommand.Transit(this, nMessage); //Call transition
+            }
+            else
+            {
+                PRHandler?.Invoke(this, new ProposeResultEventArgs() { PResult = false });
+            }
+        }
+
+        public void ProcessTransitResult(TransitType tType)
+        {
+            if (tType == TransitType.Done)
+            {
+                TRHandler?.Invoke(this, new TransitResultEventArgs() { TResult = true });
+            }
+            else
+            {
+                TRHandler?.Invoke(this, new TransitResultEventArgs() { TResult = false });
+            }
+        }
+    }
+
+    public class ProposeANewUser  
+    {
+        public event RaiseProposeEventHandler RaiseProposal4;
+        
+        public ProposeANewUser()
+        {
+        }
+
+        public void Propose(AddNewUserRole adRole, NodeMesaage nMsg)
+        {
+            RaiseProposal4?.Invoke(adRole, new ProposeEventArgs() { NMessage = nMsg });
+        }
+
+        public void Transit(AddNewUserRole adRole, NodeMesaage nMsg)
+        {
+            RaiseProposal4?.Invoke(adRole, new ProposeEventArgs() { NMessage = nMsg });
+        }
+            
     }
 }

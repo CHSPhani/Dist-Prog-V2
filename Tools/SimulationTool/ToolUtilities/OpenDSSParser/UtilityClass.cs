@@ -26,6 +26,20 @@ namespace UoB.ToolUtilities.OpenDSSParser
         public static string MonitorEntryPoint = "Calcvoltagebases";
         public static int PVLoadStartHour = 6; //6 is the start reading of PV load shape
         public static int HalfHourReadings = 1800; //1800 is number of seconds for hour
+
+        public static string RemoveComments(string value)
+        {
+            if (value.Contains("!"))
+            {
+                int index = value.IndexOf('!');
+                string newValue = value.Substring(0, index - 1);
+                return newValue.Trim();
+            }
+            else
+            {
+                return value;
+            }
+        }
     }
 
     public static class DateUtilities
@@ -104,4 +118,103 @@ namespace UoB.ToolUtilities.OpenDSSParser
         }
     }
 
+    public static class DSSObjectNames
+    {
+        public static Dictionary<string, string> ObjectNames;
+        static DSSObjectNames()
+        {
+            ObjectNames = new Dictionary<string, string>();
+            ObjectNames.Add("Circuit", "Circuit");
+            ObjectNames.Add("Loadshape", "Loadshape");
+            ObjectNames.Add("energymeter", "energymeter");
+        }
+
+        //This function checks whether a function exists or not. 
+        public static bool IsObjectNameExists(string objName)
+        {
+            return ObjectNames.ContainsKey(objName);
+        }
+    }
+
+    public static class LineSegmentParsers
+    {
+        //Parse kind of Line segment: (0.26841171,0.26841171)
+        public static List<double> ParsePerRS(string perRS)
+        {
+            List<double> values = new List<double>();
+            //parse the string 
+            string valStr = perRS.Substring(1, perRS.Length - 2);
+            string[] vals = valStr.Split(',');
+            foreach (string val in vals)
+            {
+                values.Add(double.Parse(val));
+            }
+            if (values.Count > 0)
+                return values;
+            return null;
+        }
+
+        //Parse kind of Line segment: mult = (file = LS_PhaseA.txt)
+        public static string FileName(string mulVal)
+        {
+            return (mulVal.Split('=')[1]).Split('=')[1];
+        }
+
+        //Parse kind of Line segment: Loadshape.LS_PhaseA
+        public static string NameOfObject(string objStr)
+        {
+            return objStr.Split('.')[1];
+        }
+
+
+        //Parse kind of Line segment: Loadshape.LS_PhaseA
+        //Return LS_PhaseA
+        //Checks and returns 
+        public static string DSSObject(string objStr)
+        {
+            string objName = objStr.Split('.')[0];
+            if (!string.IsNullOrEmpty(objName))
+            {
+                if (DSSObjectNames.IsObjectNameExists(objName))
+                    return objName;
+            }
+            return string.Empty;
+        }
+
+        //Parse kind of Lines Redirect  Wiredata_ckt24.dss
+        //returns file names
+        public static string GetRedirectFileName(string line)
+        {
+            return (ShrinkSpacesToOne(line)).Split(' ')[1];
+        }
+
+        //This function removes all spaces in between a line and returns
+        //Ex: "  Redirect    Wiredata_ckt24.dss  " ==> "Redirect Wiredata_ckt24.dss"
+        public static string ShrinkSpacesToOne(string line)
+        {
+            string refLine = line.Trim();
+            int spaceCount = 0;
+            StringBuilder newLine = new StringBuilder();
+            foreach (char c in refLine)
+            {
+                if (!Char.IsWhiteSpace(c))
+                {
+                    if (spaceCount != 0)
+                    {
+                        spaceCount = 0;
+                    }
+                    newLine.Append(c);
+                }
+                else
+                {
+                    if (spaceCount == 0)
+                    {
+                        spaceCount++;
+                        newLine.Append(' ');
+                    }
+                }
+            }
+            return newLine.ToString();
+        }
+    }
 }

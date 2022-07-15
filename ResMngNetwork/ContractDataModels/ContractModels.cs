@@ -43,4 +43,45 @@ namespace ContractDataModels
         [OperationContract]
         SemanticStructure ObtainSSForInst(string InsName);
     }
+      
+    [ServiceContract]
+    public interface ISubmitPVS
+    {
+        [OperationContract]
+        bool SubmitPV(List<CircuitEntry> PVSystems);
+    }
+
+    [ServiceContract]
+    public interface ISendPVInfo
+    {
+        [OperationContract]
+        List<CircuitEntry> SendPVInfo();
+    }
+
+    [ServiceContract]
+    public interface IObtainLoadIndividuals
+    {
+        [OperationContract]
+        List<SemanticStructure> ObtainLoadIndividuals();
+    }
+
+    [ServiceContract]
+    public interface IObtainSearchResults
+    {
+        [OperationContract]
+        string GetSearchResults(string sTerm);
+    }
+
+    [ServiceContract(CallbackContract = typeof(ISendAddNewUserResult))]
+    public interface IAddNewUserRole
+    {
+        [OperationContract(IsOneWay = true)]
+        void AddNewUser(string UName);
+    }
+
+    public interface ISendAddNewUserResult
+    {
+        [OperationContract(IsOneWay = true)]
+        void SendAddUserResult(bool res);
+    }
 }

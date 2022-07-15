@@ -1,0 +1,3 @@
+https://neo4j.com/docs/cypher-manual/current/introduction/
+
+https://neo4j.com/docs/cypher-manual/current/clauses/delete/

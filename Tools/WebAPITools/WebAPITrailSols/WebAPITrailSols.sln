@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDempoAPI", "MyDempoAPI\MyDempoAPI.csproj", "{4E115438-17F8-4118-9660-519DC939E571}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E115438-17F8-4118-9660-519DC939E571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E115438-17F8-4118-9660-519DC939E571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E115438-17F8-4118-9660-519DC939E571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E115438-17F8-4118-9660-519DC939E571}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E96EEA2-E234-4427-B768-8830CD1DCC50}
+	EndGlobalSection
+EndGlobal

@@ -17,7 +17,6 @@
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
-            <!--<RowDefinition Height="60"></RowDefinition>-->
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,13 +24,12 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <TextBlock Text="Class Name (Domain)" Grid.Row="0" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
+        <ComboBox Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" Name="cmbDS" ItemsSource="{Binding DMClasses}" SelectedItem="{Binding SelectedCN}"></ComboBox>
 
-        <TextBlock Text="Property Name" Grid.Row="0" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
-        <TextBox Text="{Binding PName}" Grid.Row="0" Grid.Column="1" TextAlignment="Left" Margin="10,10,10,10"></TextBox>
+        <TextBlock Text="Property Name" Grid.Row="1" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
+        <TextBox Text="{Binding PName}" Grid.Row="1" Grid.Column="1" TextAlignment="Left" Margin="10,10,10,10"></TextBox>
 
-        <TextBlock Text="Class Name (Domain)" Grid.Row="1" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
-        <ComboBox Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Name="cmbDS" ItemsSource="{Binding DMClasses}" SelectedItem="{Binding SelectedCN}"></ComboBox>
-        
         <TextBlock Text="Functional Property" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10" TextAlignment="Left"></TextBlock>
         <CheckBox Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"  IsChecked="{Binding FunctionalProp}" >Functional</CheckBox>
 

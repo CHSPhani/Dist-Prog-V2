@@ -1,15 +1,18 @@
-﻿using DataSerailizer;
+﻿using ContractDataModels;
+using DataSerailizer;
 using Microsoft.Glee.Drawing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class KGConsoleModel : INotifyPropertyChanged
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class KGConsoleModel : INotifyPropertyChanged, IObtainSearchResults
     {
         public static DBData dbData = null;
 
@@ -125,6 +128,12 @@ namespace Server.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public string GetSearchResults(string sTerm)
+        {
+            this.SearchTerm = sTerm;
+            return this.GetSearchResults();
+        }
+
         /// <summary>
         ///
         /// </summary>
@@ -212,7 +221,9 @@ namespace Server.Models
                 {
                     //Construct result output
                     sb.Append("Search Results \n");
-                    sb.Append(string.Format("Primary structure {0}\n", classHierarchy[0].SSName));
+                    sb.Append("Primary structure\n");
+                    sb.Append(string.Format("\t {0}", classHierarchy[0].SSName));
+                    sb.Append("\n");
                     sb.Append(string.Format("Class hierarchy\n"));
                     c = 1;
                     while (c <= classHierarchy.Count - 1)
@@ -223,15 +234,30 @@ namespace Server.Models
                     sb.Append("\n");
                 }
                 sb.Append(string.Format("Data Properties\n"));
+                List<string> incomingCls = new List<string>();
                 foreach (string s in incoming)
                 {
                     if (s.Split(':')[1].ToLower().Contains("instance"))
                         continue;
-                    sb.Append(string.Format("\t {0}", s.Split(':')[0]));
+                    if (s.Split(':')[1].ToLower().Contains("class"))
+                    {
+                        incomingCls.Add(s.Split(':')[0]);
+                    }
+                    else
+                    {
+                        sb.Append(string.Format("\t {0}", s.Split(':')[0]));
+                        sb.Append("\n");
+                    }
+                }
+                sb.Append(string.Format("Sub Classes"));
+                sb.Append("\n");
+                foreach (string icStr in incomingCls)
+                {
+                    sb.Append(string.Format("\t {0}", icStr));
                     sb.Append("\n");
                 }
-                sb.Append("\n");
                 sb.Append(string.Format("Object Restrictions"));
+                sb.Append("\n");
                 c = 1;
                 while (c <= nOutgoing.Count - 1)
                 {
@@ -272,8 +298,6 @@ namespace Server.Models
                     sb.Append("\n");
                 }
             }
-
-
             return sb.ToString();
         }
     }

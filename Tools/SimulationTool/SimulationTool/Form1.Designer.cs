@@ -41,6 +41,10 @@
             this.button5 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -55,7 +59,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(727, 411);
+            this.button2.Location = new System.Drawing.Point(731, 451);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(60, 27);
             this.button2.TabIndex = 1;
@@ -153,12 +157,54 @@
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 11;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(397, 341);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(138, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Step-5: Update PV Sources";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(685, 328);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(106, 39);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "Update PV";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(397, 395);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(221, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Step-6: Get Operational Branching using Algo";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(685, 382);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(106, 39);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "Operational Branching PV";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 500);
             this.ControlBox = false;
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button5);
@@ -194,6 +240,10 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button7;
     }
 }
 

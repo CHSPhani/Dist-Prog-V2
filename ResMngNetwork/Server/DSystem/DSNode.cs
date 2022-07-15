@@ -341,6 +341,7 @@ namespace Server.DSystem
             RaiseProposal4?.Invoke(sender, e);
         }
     }
+    
     public class AddNewOPCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
@@ -445,7 +446,7 @@ namespace Server.DSystem
             else
                 dbData = null;
 
-            AddNewDtoDP addnewd = new AddNewDtoDP();
+            AddNewDtoDP addnewd = new AddNewDtoDP(p1, dbData);
             addnewd.RaiseProposal3 += Addnewd_RaiseProposal3;
             addnewd.Show();
         }
@@ -622,6 +623,20 @@ namespace Server.DSystem
                 OnPropertyChanged("Status");
             }
         }
+
+        bool splPower;
+        public bool SplPower
+        {
+            get
+            {
+                return this.splPower;
+            }
+            set
+            {
+                this.splPower = value;
+            }
+        }
+
         public List<DSNode> Incidents { get; set; } 
 
         DBData initData = null;
@@ -792,6 +807,21 @@ namespace Server.DSystem
             }
         }
 
+        ProposeANewUser paNURCommand;
+
+        public ProposeANewUser PANUserCommand
+        {
+            get
+            {
+                if(paNURCommand != null)
+                {
+                    paNURCommand = new ProposeANewUser();
+                    paNURCommand.RaiseProposal4 += SpWindow_RaiseProposal4;            
+                }
+                return paNURCommand;
+            }
+        }
+        
         AddNewOPCommand nOPCommand;
         public ICommand NewOPCommand
         {
@@ -820,7 +850,7 @@ namespace Server.DSystem
                 return aNocCommand;
             }
         }
-
+        
         AddNewDcommand addNewDCmd;
 
         public ICommand NewDCmd
@@ -923,14 +953,15 @@ namespace Server.DSystem
             }
         }
 
-        //Event for Propertu Class and PAckage raise proposal
+
+        //Event for Property Class and PAckage raise proposal
         private void SpWindow_RaiseProposal4(object sender, ProposeEventArgs e)
         {
             NodeMesaage nMsg = e.NMessage;
 
             if (nMsg.PTYpe == ProposalType.Voting)
             {
-                if (this.UserRole == MemberRole.NonVotingMember | this.UserRole == MemberRole.MuteMember)
+                if (!this.SplPower & (this.UserRole == MemberRole.NonVotingMember | this.UserRole == MemberRole.MuteMember))
                 {
                     this.Status = string.Format("Can not initiate voting process.");
                     this.EOrig = sender;
@@ -951,6 +982,7 @@ namespace Server.DSystem
                     return;
                 }
                 NetworkFunctions.Broadcast(NetworkFunctions.GetRootNodeL(), this.UserName, nMsg);
+                
             }
             else
             {
@@ -1671,6 +1703,11 @@ namespace Server.DSystem
             mQueue = new Queue<NodeMesaage>();
             tQueue = new Queue<NodeMesaage>();
             this.IsProposer = false;
+            this.SplPower = false; 
+
+            paNURCommand = new ProposeANewUser();
+            paNURCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
+
             NetworkFunctions.CCEHandler += NetworkFunctions_CCEHandler;
             NetworkFunctions.TCHandler += NetworkFunctions_TCHandler;
         }
