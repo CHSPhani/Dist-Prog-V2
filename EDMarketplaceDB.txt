@@ -1,0 +1,66 @@
+ CREATE TABLE `edmarketplace`.`Consumer` (
+    ->  `cID` INT NOT NULL,
+    ->  `cuID` VARCHAR(150) NOT NULL,
+    ->  `cuName` VARCHAR(150) NOT NULL,
+    ->  `cuAddress` VARCHAR(1500) NOT NULL,
+    ->  `cDuration` float NOT NULL,
+    ->  `iInRE` VARCHAR(10) NOT NULL,
+    ->  `cuLoad` VARCHAR(150) NOT NULL,
+    ->  `cuFMethod` VARCHAR(150) NOT NULL,
+    ->  `cuFName` VARCHAR(150) NOT NULL,
+    ->  `cuPhone` VARCHAR(150) NOT NULL,
+    ->  `cuEmail` VARCHAR(150) NOT NULL,
+    ->  `cupwd` VARCHAR(150) NOT NULL,
+    -> PRIMARY KEY (`cID`));
+
+CREATE TABLE `edmarketplace`.`Prosumer` (
+ `pID` INT NOT NULL,
+ `prID` VARCHAR(150) NOT NULL,
+ `prName` VARCHAR(150) NOT NULL,
+ `prAddress` VARCHAR(1500) NOT NULL,
+ `prLoad` VARCHAR(150) NOT NULL,
+ `prPVSystem` VARCHAR(150) NOT NULL,
+ `prFMethod` VARCHAR(150) NOT NULL,
+ `prFName` VARCHAR(150) NOT NULL,
+ `prPhone` VARCHAR(150) NOT NULL,
+ `prEmail` VARCHAR(150) NOT NULL,
+ `prpwd` VARCHAR(150) NOT NULL,
+PRIMARY KEY (`pID`));
+
+CREATE TABLE `edmarketplace`.`Smartuser` (
+ `sID` INT NOT NULL,
+ `suID` VARCHAR(150) NOT NULL,
+ `suName` VARCHAR(150) NOT NULL,
+ `suAddress` VARCHAR(1500) NOT NULL,
+ `suLoad` VARCHAR(150) NOT NULL,
+ `suFMethod` VARCHAR(150) NOT NULL,
+ `suFName` VARCHAR(150) NOT NULL,
+ `suPhone` VARCHAR(150) NOT NULL,
+ `suEmail` VARCHAR(150) NOT NULL,
+ `supwd` VARCHAR(150) NOT NULL,
+PRIMARY KEY (`sID`));
+
+CREATE TABLE `edmarketplace`.`AlDeveloper` (
+ `aID` INT NOT NULL,
+ `adID` VARCHAR(150) NOT NULL,
+ `adName` VARCHAR(150) NOT NULL,
+ `adAddress` VARCHAR(1500) NOT NULL,
+ `adURole` VARCHAR(1500) NOT NULL,
+ `adFName` VARCHAR(150) NOT NULL,
+ `adPhone` VARCHAR(150) NOT NULL,
+ `adEmail` VARCHAR(150) NOT NULL,
+ `adpwd` VARCHAR(150) NOT NULL,
+PRIMARY KEY (`aID`));
+
+
+CREATE TABLE `edmarketplace`.`Newuser` (
+ `nID` INT NOT NULL,
+ `nuAName` VARCHAR(150) NOT NULL,
+ `nuDP` VARCHAR(5000) NOT NULL,
+ `nuRT` VARCHAR(5000) NOT NULL,
+ `nuFName` VARCHAR(150) NOT NULL,
+ `nuPhone` VARCHAR(150) NOT NULL,
+ `nuEmail` VARCHAR(150) NOT NULL,
+ `nuID` VARCHAR(150) NOT NULL,
+ `nupwd` VARCHAR(150) NOT NULL,
+PRIMARY KEY (`nID`));

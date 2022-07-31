@@ -42,6 +42,17 @@ namespace UserRegModule
         public ConsumerDet(DSSFileParser tds):this()
         {
             this.dssFileParser = tds;
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+
+/*
+ *  this.dssFileParser = tds;
             List<SemanticStructure> sStrs = new List<SemanticStructure>();
             try
             {
@@ -79,11 +90,4 @@ namespace UserRegModule
                 }
                 cdModel.ALoads = sss;
             }
-        }
-
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-    }
-}
+ * */

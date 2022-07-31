@@ -808,7 +808,6 @@ namespace Server.DSystem
         }
 
         ProposeANewUser paNURCommand;
-
         public ProposeANewUser PANUserCommand
         {
             get
@@ -821,7 +820,21 @@ namespace Server.DSystem
                 return paNURCommand;
             }
         }
-        
+
+        ProposeAddNewUserInstance paNUInstCommand;
+        public ProposeAddNewUserInstance PANUInstCommand
+        {
+            get
+            {
+                if(paNUInstCommand != null)
+                {
+                    paNUInstCommand = new ProposeAddNewUserInstance();
+                    paNUInstCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
+                }
+                return paNUInstCommand;
+            }
+        }
+
         AddNewOPCommand nOPCommand;
         public ICommand NewOPCommand
         {
@@ -1334,11 +1347,11 @@ namespace Server.DSystem
                     if (initData.OwlData.RDFG.AddNode(ss.ToString()))
                         initData.OwlData.RDFG.AddEntryToNODetail(ss.ToString(), ss);
 
-                    string edKey = string.Format("{0}-{1}", ssb.SSName, ss.SSName);//newBaseCls
+                    string edKey = string.Format("{0}-{1}", ss.SSName, ssb.SSName);//newBaseCls
                     if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
                         initData.OwlData.RDFG.EdgeData[edKey] = SStrType.SubClassOf.ToString();
 
-                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}", ssb.SSName, SStrType.Class), string.Format("{0}:{1}",ss.SSName,SStrType.Class));
+                    this.initData.OwlData.RDFG.AddEdge(string.Format("{0}:{1}", ss.SSName, SStrType.Class), string.Format("{0}:{1}",ssb.SSName,SStrType.Class));
                 }
                 if (nMsg.PCause == ProposalCause.UploadInd)
                 {
@@ -1689,6 +1702,30 @@ namespace Server.DSystem
                     ValidateDataSets.CreateOntEgClassV1(initData, selectedCls, nMsg1.OModel, connected);
                     this.Status = string.Format("Ontology Changed according to new additions.");
                 }
+                if(nMsg.PCause == ProposalCause.NewUserInstance)
+                {
+                    NodeMesaage nMsg1 = tQueue.Dequeue();
+                    UInstEntry uie = nMsg1.UIEntry;
+
+                    string nBName = initData.OwlData.RDFG.GetExactNodeName(uie.UClsName);
+                    SemanticStructure ssb = initData.OwlData.RDFG.NODetails[nBName];
+
+                    //Step1: Add an Instance using ce.CEName 
+
+                    SemanticStructure sc = new SemanticStructure() { SSName = uie.UId, SSType = SStrType.Instance, XMLURI = string.Empty };
+
+                    initData.OwlData.RDFG.AddNode(sc.ToString());
+                    initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc);
+
+                    //SemanticStructure ss = initData.OwlData.RDFG.NODetails[nName];
+
+                    string edKey = string.Format("{0}-{1}", ssb.SSName, sc.SSName);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                        initData.OwlData.RDFG.EdgeData[edKey] = sc.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(ssb.ToString(), sc.ToString()); //di I forgot this?
+
+                }
                 NetworkFunctions.CollectTransition(NetworkFunctions.SpTree, this);
             }
         }
@@ -1710,6 +1747,9 @@ namespace Server.DSystem
 
             paNURCommand = new ProposeANewUser();
             paNURCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
+
+            paNUInstCommand = new ProposeAddNewUserInstance();
+            paNUInstCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
 
             NetworkFunctions.CCEHandler += NetworkFunctions_CCEHandler;
             NetworkFunctions.TCHandler += NetworkFunctions_TCHandler;

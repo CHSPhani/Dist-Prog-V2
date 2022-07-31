@@ -29,7 +29,7 @@ namespace Server.UploadIndividuals
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SubmitPV : ISubmitPVS
     {
-                
+        public static DSNode dsn = null;
         public SubmitPV()
         {
         
@@ -37,6 +37,24 @@ namespace Server.UploadIndividuals
 
         bool ISubmitPVS.SubmitPV(List<CircuitEntry> PVSystems)
         {
+            //Special code to add PVs to KG..but not complete..
+            //if (dsn != null)
+            //{
+            //    dsn.SplPower = true;
+
+            //    NodeMesaage nMessage = new NodeMesaage();
+            //    nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+            //    nMessage.PCause = ProposalCause.NewOClass;
+            //    nMessage.PTYpe = ProposalType.Voting;
+            //    List<string> sItems = new List<string>();
+            //    foreach(CircuitEntry cep in PVSystems)
+            //    {
+            //     //add cep to sITems;   
+            //    }
+            //    nMessage.DataItems = sItems;
+            //    dsn.PANUserCommand.Propose(this, nMessage);//need to change static to normal class
+            //}
+            //Spcial Code
             TempDataHolder.cEntities = PVSystems;
             return true;
         }
@@ -48,9 +66,9 @@ namespace Server.UploadIndividuals
         public List<CircuitEntry> SendPVInfo()
         {
             if (TempDataHolder.cEntities == null)
-                return null;
+                return new List<CircuitEntry>();
             if (TempDataHolder.cEntities.Count == 0)
-                return null;
+                return new List<CircuitEntry>();
             else
                 return TempDataHolder.cEntities;
         }
@@ -503,6 +521,101 @@ namespace Server.UploadIndividuals
         {
             RaiseProposal4?.Invoke(adRole, new ProposeEventArgs() { NMessage = nMsg });
         }
-            
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    public class AddNewUserInstance : IAddUserInstance, IProposalResult, ITransitionResult
+    {
+        public static DSNode dsn = null;
+        bool pResult;
+        public event ProposeResultEventHandler PRHandler;
+        public event TransitResultEventHandler TRHandler;
+        ISendUserAddUpdate callbackChannel;
+
+        public AddNewUserInstance()
+        {
+            pResult = false;
+            this.PRHandler += AddNewUserRole_PRHandler;
+            this.TRHandler += AddNewUserRole_TRHandler;
+        }
+        private bool AddNewUserRole_TRHandler(object sender, TransitResultEventArgs e)
+        {
+            bool tResult = e.TResult;
+            callbackChannel.SendUAddResult(tResult);
+            return tResult;
+        }
+        private bool AddNewUserRole_PRHandler(object sender, ProposeResultEventArgs e)
+        {
+            bool tResult = e.PResult;
+            if (!pResult)
+                callbackChannel.SendUAddResult(tResult);
+            return tResult;
+        }
+        UInstEntry uiE;
+        public void AddUserInstance(UInstEntry uiEntry)
+        {
+            uiE = uiEntry;
+            callbackChannel = OperationContext.Current.GetCallbackChannel<ISendUserAddUpdate>();
+            if (dsn != null)
+            {
+                dsn.SplPower = true;
+
+                NodeMesaage nMessage = new NodeMesaage();
+                nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+                nMessage.PCause = ProposalCause.NewUserInstance;
+                nMessage.PTYpe = ProposalType.Voting;
+                List<string> sItems = new List<string>();
+                nMessage.DataItems = sItems;
+                //Need to add data to message
+                nMessage.UIEntry = uiEntry;
+                dsn.PANUInstCommand.Propose(this, nMessage);
+            }
+        }
+        public void ProcessProposalResult(VoteType overAllType)
+        {
+            if (overAllType == VoteType.Accepted)
+            {
+                NodeMesaage nMessage = new NodeMesaage();
+                nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+                nMessage.PCause = ProposalCause.NewUserInstance;
+                nMessage.PTYpe = ProposalType.Transition;
+                List<string> sItems = new List<string>();
+                nMessage.DataItems = sItems;
+                //Need to add data to message
+                nMessage.UIEntry = uiE;
+                dsn.PANUInstCommand.Transit(this, nMessage);
+            }
+            else
+            {
+                PRHandler?.Invoke(this, new ProposeResultEventArgs() { PResult = false });
+            }
+        }
+        public void ProcessTransitResult(TransitType tType)
+        {
+            if (tType == TransitType.Done)
+            {
+                TRHandler?.Invoke(this, new TransitResultEventArgs() { TResult = true });
+            }
+            else
+            {
+                TRHandler?.Invoke(this, new TransitResultEventArgs() { TResult = false });
+            }
+        }
+    }
+
+    public class ProposeAddNewUserInstance
+    {
+        public event RaiseProposeEventHandler RaiseProposal4;
+
+        public ProposeAddNewUserInstance() { }
+
+        public void Propose (AddNewUserInstance auInst, NodeMesaage nMsg)
+        {
+            RaiseProposal4?.Invoke(auInst, new ProposeEventArgs() { NMessage = nMsg });
+        }
+        public void Transit(AddNewUserInstance auInst, NodeMesaage nMsg)
+        {
+            RaiseProposal4?.Invoke(auInst, new ProposeEventArgs() { NMessage = nMsg });
+        }
     }
 }

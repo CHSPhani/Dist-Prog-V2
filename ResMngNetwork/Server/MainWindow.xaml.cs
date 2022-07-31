@@ -145,6 +145,19 @@ namespace Server
             host9.AddServiceEndpoint(typeof(IAddNewUserRole), binding9, "");
             host9.Opened += Host9_Opened;
             host9.Open();
+
+            IAddUserInstance aNewUserInst = new AddNewUserInstance();
+            ServiceHost host10 = new ServiceHost(aNewUserInst, new Uri("net.tcp://localhost:6565/AddNewUserInstance"));
+            var binding10 = new NetTcpBinding(SecurityMode.None);
+            binding10.MaxReceivedMessageSize = 2147483647;
+            host10.AddServiceEndpoint(typeof(IAddUserInstance), binding10, "");
+            host10.Opened += Host10_Opened;
+            host10.Open();
+        }
+
+        private void Host10_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Add new user instance service is opened");
         }
 
         private void Host9_Opened(object sender, EventArgs e)

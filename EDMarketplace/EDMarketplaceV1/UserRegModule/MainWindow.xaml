@@ -5,23 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserRegModule"
         mc:Ignorable="d"
-        Title="User Registration Module" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="User Registration Module" Height="500" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" FlowDirection="RightToLeft">
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                 <Button Margin="10,10,10,10" Name="btnRegister" Click="BtnRegister_Click">Register</Button>
-                <Button Margin="10,10,10,10">Sign In</Button>
             </StackPanel>
-            <Label Content="User Registration Module" Margin="500,10,10,10"></Label>
+            <Label Content="User Registration Module" Margin="570,10,10,10"></Label>
         </StackPanel>
         <Grid Grid.Row="1">
-            
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
+                <StackPanel Margin="5,5,5,5" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label>User Name</Label>
+                    <TextBox Name="txtCU" Width="300" Text="{Binding CUName}"  LostFocus="TxtCU_LostFocus"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="5,5,5,5" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Content="Role           "></Label>
+                    <ComboBox Width="300" ItemsSource="{Binding ERoles}" SelectedItem="{Binding SRole}"></ComboBox>
+                </StackPanel>
+                <StackPanel Margin="5,5,5,5" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label  Content="Password   "></Label>
+                    <PasswordBox Name="txtPWd" Width="300" LostFocus="TxtPWd_LostFocus" PasswordChanged="TxtPWd_PasswordChanged" PasswordChar="*"></PasswordBox>
+                </StackPanel>
+                <StackPanel Margin="5,5,5,5" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Name ="btnLogin" Margin="5,5,5,5" Content="Sign In" Click="BtnLogin_Click"></Button>
+                </StackPanel>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Number of Prosumers Registered:"></Label>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding NOOfProsumers}"></TextBlock>
+                <Label Grid.Row="1" Grid.Column="0" Content="Number of Consumers Registered:"></Label>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding NOOfConsumers}"></TextBlock>
+                <Label Grid.Row="2" Grid.Column="0" Content="Number of Smart users Registered:"></Label>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding NOSU}"></TextBlock>
+                <Label Grid.Row="3" Grid.Column="0" Content="Number of Algorith Developers Registered:"></Label>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding NOAD}"></TextBlock>
+                <Label Grid.Row="4" Grid.Column="0" Content="Number of New Users Registered:"></Label>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding NONU}"></TextBlock>
+            </Grid>
         </Grid>
+        
         <Button Grid.Row="2" Click="Button_Click" Margin="10,10,10,10" HorizontalAlignment="Right">Exit</Button>
     </Grid>
 </Window>

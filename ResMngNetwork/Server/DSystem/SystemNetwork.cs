@@ -39,6 +39,8 @@ namespace Server.DSystem
 
         public OntoModificationModel OModel { get; set; }
 
+        public UInstEntry UIEntry { get; set; }
+
         public bool DirectTransit { get; set; }
 
         public NodeMesaage()
@@ -52,6 +54,7 @@ namespace Server.DSystem
             CEntities = new List<CircuitEntry>();
             OldDP = null;
             OModel = null;
+            UIEntry = null;
         }
     }
 

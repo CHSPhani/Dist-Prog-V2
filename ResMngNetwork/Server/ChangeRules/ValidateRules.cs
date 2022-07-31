@@ -158,6 +158,10 @@ namespace Server.ChangeRules
             {
                 return VoteType.Accepted;//What needs to be validated when some one wants to add individuals to ontology? Just say yes
             }
+            else if (nMsg.PCause == ProposalCause.NewUserInstance)
+            {
+                return VoteType.Accepted;
+            }
             else if (nMsg.PCause == ProposalCause.NewOClass)
             {
                 string newCls = nMsg.DataItems[0];

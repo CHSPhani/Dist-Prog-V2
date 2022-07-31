@@ -209,8 +209,10 @@ namespace Server.Models
                         if (ss != null)
                             classHierarchy.Add(ss);
 
-                        List<string> og = this.dbData.OwlData.RDFG.GetEdgesForNode(source);
-                        List<string> ic = this.dbData.OwlData.RDFG.GetIncomingEdgesForNode(source);
+                        string dd = this.dbData.OwlData.RDFG.GetExactNodeName(source);
+
+                        List<string> og = this.dbData.OwlData.RDFG.GetEdgesForNode(ss.ToString());
+                        List<string> ic = this.dbData.OwlData.RDFG.GetIncomingEdgesForNode(ss.ToString());
                         foreach (string ics in ic)
                         {
                             if (ics.Split(':')[1].Equals("DatatypeProperty"))
@@ -279,6 +281,40 @@ namespace Server.Models
                     sb.Append("\n");
                     c++;
                 }
+                //Add Object properties for all parent classes as well....
+                foreach (SemanticStructure sc in classHierarchy)
+                {
+                    if (sc.SSName.ToLower().Equals("owl:thing"))
+                        break;
+                    
+                    string nName1 = this.dbData.OwlData.RDFG.GetExactNodeName(sc.SSName);
+                    if (nName1.ToLower().Equals(nName.ToLower()))
+                        continue;
+                    List<string> outgoing1 = this.dbData.OwlData.RDFG.GetEdgesForNode(nName1);
+                    int c1 = 0;
+                    while (c1 <= outgoing1.Count - 1)
+                    {
+                        if (outgoing1[c1].Split('-')[1].ToLower().Contains("instance"))
+                        {
+                            c1++;
+                            continue;
+                        }
+                        if (outgoing1[c1].Split('-')[1].ToLower().Contains("class"))
+                        {
+                            //incomingCls.Add(outgoing1[c1].Split(':')[0].Split('-')[1]);
+                            c1++;
+                            continue;
+                        }
+                        if (outgoing1[c1].Split('-')[1].ToLower().Contains("objectproperty"))
+                        {
+                            sb.Append("\n");
+                            sb.Append(string.Format("\t{0}", outgoing1[c1].Split('-')[1].Split(':')[0]));
+                            sb.Append("\n");
+                        }
+                        c1++;
+                    }
+                }
+                //Adding logic ends here
                 sb.Append("\n");
                 sb.Append(string.Format("Sub Classes"));
                 sb.Append("\n");

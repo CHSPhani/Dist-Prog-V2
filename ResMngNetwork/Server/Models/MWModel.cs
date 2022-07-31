@@ -260,6 +260,8 @@ namespace Server.Models
                 Server.UploadIndividuals.ObtainSSForInstn.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.ObtainAllLoadIndies.dbData = dsn.DataInstance;
                 Server.UploadIndividuals.AddNewUserRole.dsn= dsn;
+                Server.UploadIndividuals.AddNewUserInstance.dsn = dsn;
+                Server.UploadIndividuals.SubmitPV.dsn = dsn;
             }
         }
 

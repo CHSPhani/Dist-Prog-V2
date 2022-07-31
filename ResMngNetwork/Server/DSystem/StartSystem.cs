@@ -281,6 +281,7 @@ namespace Server.DSystem
         ModifyObjectProperty,
         UploadInd,
         OntoChanges,
+        NewUserInstance,
         None
     }
 

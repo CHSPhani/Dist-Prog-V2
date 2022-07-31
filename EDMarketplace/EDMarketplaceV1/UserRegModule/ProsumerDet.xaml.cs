@@ -38,11 +38,24 @@ namespace UserRegModule
             pdModel = new ProsumerDataModel();
             InitializeComponent();
             this.DataContext = pdModel;
+            
         }
 
         public ProsumerDet(DSSFileParser tds):this()
         {
             this.dssFileParser = tds;
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+
+
+/*
+ *  this.dssFileParser = tds;
             List<SemanticStructure> sStrs = new List<SemanticStructure>();
             try
             {
@@ -114,11 +127,4 @@ namespace UserRegModule
                 }
                 pdModel.PVPanels = pvnames;
             }
-        }
-
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-    }
-}
+ * */

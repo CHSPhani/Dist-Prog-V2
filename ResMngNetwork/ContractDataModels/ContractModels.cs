@@ -84,4 +84,17 @@ namespace ContractDataModels
         [OperationContract(IsOneWay = true)]
         void SendAddUserResult(bool res);
     }
+
+    [ServiceContract(CallbackContract = typeof(ISendUserAddUpdate))]
+    public interface IAddUserInstance
+    {
+        [OperationContract(IsOneWay = true)]
+        void AddUserInstance(UInstEntry uiEntry);
+    }
+
+    public interface ISendUserAddUpdate
+    {
+        [OperationContract(IsOneWay = true)]
+        void SendUAddResult(bool res);
+    }
 }
