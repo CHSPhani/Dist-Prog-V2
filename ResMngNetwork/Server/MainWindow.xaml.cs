@@ -89,6 +89,7 @@ namespace Server
             host2.AddServiceEndpoint(typeof(IObtainAllIndividuals), binding2, "");
             host2.Opened += Host2_Opened;
             host2.Open();
+            
 
             IObtainSSDetails oSSdet = new ObtainSSDetails();
             ServiceHost host3 = new ServiceHost(oSSdet, new Uri("net.tcp://localhost:6565/ObtainSSdetails"));
@@ -153,6 +154,45 @@ namespace Server
             host10.AddServiceEndpoint(typeof(IAddUserInstance), binding10, "");
             host10.Opened += Host10_Opened;
             host10.Open();
+
+            IAddDSToUI aDSTOUI = new AdNewDSToUI();
+            ServiceHost host11 = new ServiceHost(aDSTOUI, new Uri("net.tcp://localhost:6565/AdNewDSToUI"));
+            var binding11 = new NetTcpBinding(SecurityMode.None);
+            binding11.MaxReceivedMessageSize = 2147483647;
+            host11.AddServiceEndpoint(typeof(IAddDSToUI), binding11, "");
+            host11.Opened += Host11_Opened;
+            host11.Open();
+
+            IObtainDSforUI dsForUI = new ObtainDSets();
+            ServiceHost host12 = new ServiceHost(dsForUI, new Uri("net.tcp://localhost:6565/ObtainDSets"));
+            var binding12 = new NetTcpBinding(SecurityMode.None);
+            binding12.MaxReceivedMessageSize = 2147483647;
+            host12.AddServiceEndpoint(typeof(IObtainDSforUI), binding12, "");
+            host12.Opened += Host12_Opened;
+            host12.Open();
+
+            IObtainDSDetails dsDet = new ObtainDSDet();
+            ServiceHost host13 = new ServiceHost(dsDet, new Uri("net.tcp://localhost:6565/ObtainDSDet"));
+            var binding13 = new NetTcpBinding(SecurityMode.None);
+            binding13.MaxReceivedMessageSize = 2147483647;
+            host13.AddServiceEndpoint(typeof(IObtainDSDetails), binding13, "");
+            host13.Opened += Host13_Opened;
+            host13.Open();
+        }
+
+        private void Host13_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Get DS details service is opened");
+        }
+
+        private void Host12_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Get DS for USer Instance service is opened");
+        }
+
+        private void Host11_Opened(object sender, EventArgs e)
+        {
+            Console.WriteLine("Add data to new user instance service is opened");
         }
 
         private void Host10_Opened(object sender, EventArgs e)

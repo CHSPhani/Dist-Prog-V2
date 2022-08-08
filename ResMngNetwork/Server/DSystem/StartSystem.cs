@@ -282,6 +282,7 @@ namespace Server.DSystem
         UploadInd,
         OntoChanges,
         NewUserInstance,
+        NewDSToUI,
         None
     }
 

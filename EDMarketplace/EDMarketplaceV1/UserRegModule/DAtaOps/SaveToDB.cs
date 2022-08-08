@@ -316,7 +316,7 @@ namespace UserRegModule.DAtaOps
                     }
                 }
                 if (count > 0)
-                    uRoles.Add("smartuser");
+                    uRoles.Add("aldeveloper");
 
                 rdr.Close();
                 sql = string.Empty;
@@ -388,6 +388,30 @@ namespace UserRegModule.DAtaOps
                 return 0;
             }
             return id;
+        }
+        public static string GetADURole(string adName, MySqlConnection conn)
+        {
+            string uRole = string.Empty;
+            try
+            {
+                string sql = string.Format("SELECT adURole FROM aldeveloper WHERE adID ='{0}'", adName);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+                        uRole = rdr[0].ToString();
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while checking new user already exists. Reason is {0}", ex.Message));
+                return string.Empty;
+            }
+            return uRole;
         }
         public static NewUserDataModel GetExistingUSer(string auName, MySqlConnection conn)
         {
@@ -473,5 +497,141 @@ namespace UserRegModule.DAtaOps
             }
             return (apwd == pwd);
         }
+
+        public static int GetADId(string adName, MySqlConnection conn)
+        {
+            int aid = -1;
+            try
+            {
+                string sql = string.Format("SELECT aID FROM aldeveloper WHERE adID ='{0}'", adName);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+                        aid = Int32.Parse(rdr[0].ToString());
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while getting aID from aldeveloper table. Reason is {0}", ex.Message));
+                return -1;
+            }
+            return aid;
+        }
+
+        public static int GetADSId(string adsName, MySqlConnection conn)
+        {
+            int aid = -1;
+            try
+            {
+                string sql = string.Format("SELECT adSID FROM aldevconfig1 WHERE adcSInstName ='{0}'", adsName);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+                        aid = Int32.Parse(rdr[0].ToString());
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while getting aID from aldeveloper table. Reason is {0}", ex.Message));
+                return -1;
+            }
+            return aid;
+        }
+
+        public static int GetADPId(string adsName, MySqlConnection conn)
+        {
+            int aid = -1;
+            try
+            {
+                string sql = string.Format("SELECT adSDS FROM aldevconfig2 WHERE adcDSName ='{0}'", adsName);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+                        aid = Int32.Parse(rdr[0].ToString());
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while getting aID from aldeveloper table. Reason is {0}", ex.Message));
+                return -1;
+            }
+            return aid;
+        }
+
+        public static bool SaveADC1Details(int adsid, int aid, string instName, MySqlConnection conn)
+        {
+            try
+            {
+                string icmd = string.Format("INSERT INTO aldevconfig1(adSID, aID, adcSInstName) VALUES" +
+                                           "({0},{1},'{2}')", adsid, aid, instName);
+                MySqlCommand cmd = new MySqlCommand(icmd, conn);
+                cmd.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while saving aldevconfig1 to DB. Reason is {0}", ex.Message));
+                return false;
+            }
+            Console.WriteLine(string.Format("Saved New user det to DB."));
+            return true;
+        }
+
+        public static bool SaveADC2Details(int adsid, int adsds, string dsName, MySqlConnection conn)
+        {
+            try
+            {
+                string icmd = string.Format("INSERT INTO aldevconfig2(adSID, adSDS, adcDSName) VALUES" +
+                                           "({0},{1},'{2}')", adsid, adsds, dsName);
+                MySqlCommand cmd = new MySqlCommand(icmd, conn);
+                cmd.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while saving aldevconfig2 to DB. Reason is {0}", ex.Message));
+                return false;
+            }
+            Console.WriteLine(string.Format("Saved New user det to DB."));
+            return true;
+        }
+
+        public static bool SaveADC3Details(int adsds, int adsdp, string dpName, MySqlConnection conn)
+        {
+            try
+            {
+                string icmd = string.Format("INSERT INTO aldevconfig3(adSDS, adSDP, adcDPName) VALUES" +
+                                           "({0},{1},'{2}')", adsds, adsdp, dpName);
+                MySqlCommand cmd = new MySqlCommand(icmd, conn);
+                cmd.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Error while saving aldevconfig3 to DB. Reason is {0}", ex.Message));
+                return false;
+            }
+            Console.WriteLine(string.Format("Saved New user det to DB."));
+            return true;
+        }
+
     }
 }

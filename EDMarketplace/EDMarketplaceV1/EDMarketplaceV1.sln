@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserRegModule", "UserRegMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2PMarket", "P2PMarket\P2PMarket.csproj", "{96755C12-E33C-43DB-9E21-452C8B61AD62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSCreationApp", "DSCreationApp\DSCreationApp.csproj", "{8BD48C24-75A7-4362-ABC6-A6721B4005DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96755C12-E33C-43DB-9E21-452C8B61AD62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD48C24-75A7-4362-ABC6-A6721B4005DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD48C24-75A7-4362-ABC6-A6721B4005DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD48C24-75A7-4362-ABC6-A6721B4005DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD48C24-75A7-4362-ABC6-A6721B4005DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

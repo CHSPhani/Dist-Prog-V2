@@ -835,6 +835,20 @@ namespace Server.DSystem
             }
         }
 
+        ProposeAddDSToUIInstance pndsuiCommand;
+        public ProposeAddDSToUIInstance PndsUICommand
+        {
+            get
+            {
+                if (pndsuiCommand != null)
+                {
+                    pndsuiCommand = new ProposeAddDSToUIInstance();
+                    pndsuiCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
+                }
+                return pndsuiCommand;
+            }
+        }
+
         AddNewOPCommand nOPCommand;
         public ICommand NewOPCommand
         {
@@ -1726,6 +1740,106 @@ namespace Server.DSystem
                     initData.OwlData.RDFG.AddEdge(ssb.ToString(), sc.ToString()); //di I forgot this?
 
                 }
+                if (nMsg.PCause == ProposalCause.NewDSToUI)
+                {
+                    //get the VDSetModel and then use the data to create nodes..
+                    NodeMesaage nMsg1 = tQueue.Dequeue();
+                    VDSetModel vdsm = nMsg1.VDSModel;
+
+                    //Step0: Get instance node
+                    string nBName = initData.OwlData.RDFG.GetExactNodeName(vdsm.LUName);
+                    SemanticStructure ssb = initData.OwlData.RDFG.NODetails[nBName];
+
+                    //Step1: Get all incoming nodes for ssb
+                    int dsNumber = 0; 
+                    List<string> icEdges = initData.OwlData.RDFG.GetIncomingEdgesForNode(ssb.SSName);
+                    foreach (string ics in icEdges)
+                    {
+                        //string icName = initData.OwlData.RDFG.GetExactNodeName(ics);
+                        SemanticStructure icb = initData.OwlData.RDFG.NODetails[ics];
+                        if(icb.SSType == SStrType.Dataset)
+                        {
+                            if (icb.SSName.Contains(':'))
+                                dsNumber = Int32.Parse(icb.SSName.Split(':')[0].Substring(7));
+                            else
+                                dsNumber = Int32.Parse(icb.SSName.Split('-')[1].Substring(7));
+                            continue;
+                        }
+                    }
+                    
+                    dsNumber++;
+                    //Step2: Create Dataset
+                    string dsN = string.Format("{0}-dataset{1}",vdsm.LUName, dsNumber);
+                    SemanticStructure sc = new SemanticStructure() { SSName = dsN, SSType = SStrType.Dataset, XMLURI = string.Empty };
+                    initData.OwlData.RDFG.AddNode(sc.ToString());
+                    initData.OwlData.RDFG.AddEntryToNODetail(sc.ToString(), sc);
+                    
+                    string edKey = string.Format("{0}-{1}", sc.SSName, ssb.SSName);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey))
+                        initData.OwlData.RDFG.EdgeData[edKey] = sc.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(sc.ToString(), ssb.ToString());
+
+                    //Step4: Add Path
+                    SemanticStructure scp = new SemanticStructure() { SSName = vdsm.FPath, SSType = SStrType.DPath, XMLURI = string.Empty };
+                    initData.OwlData.RDFG.AddNode(scp.ToString());
+                    initData.OwlData.RDFG.AddEntryToNODetail(scp.ToString(), scp);
+                    string edKey1 = string.Format("{0}-{1}", scp.SSName, sc.SSName);
+                    if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey1))
+                        initData.OwlData.RDFG.EdgeData[edKey1] = scp.SSType.ToString();
+                    //add edge
+                    initData.OwlData.RDFG.AddEdge(scp.ToString(), sc.ToString());
+
+                    //Step5: Add Properties
+                    //XMLURI string.Empty is replaced to related all details of properties.
+
+                    foreach (DSLayoutModel dsl in vdsm.DslModels)
+                    {
+                        SemanticStructure sc1 = new SemanticStructure() { SSName = dsl.CFName, SSType = SStrType.DPName, XMLURI = string.Empty };
+                        initData.OwlData.RDFG.AddNode(sc1.ToString());
+                        initData.OwlData.RDFG.AddEntryToNODetail(sc1.ToString(), sc1);
+                        string edKeyp = string.Format("{0}-{1}", sc1.SSName, sc.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKeyp))
+                            initData.OwlData.RDFG.EdgeData[edKeyp] = sc1.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(sc1.ToString(), sc.ToString());
+
+
+                        string ssname = string.Format("{0}-Exp",dsl.CFName);
+                        if (!string.IsNullOrEmpty(dsl.CFExp))
+                            ssname = dsl.CFExp;
+                        SemanticStructure sc2 = new SemanticStructure() { SSName = ssname, SSType = SStrType.DPExp, XMLURI = dsl.CFName };
+                        initData.OwlData.RDFG.AddNode(sc2.ToString());
+                        initData.OwlData.RDFG.AddEntryToNODetail(sc2.ToString(), sc2);
+                        string edKey2 = string.Format("{0}-{1}", sc2.SSName, sc.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey2))
+                            initData.OwlData.RDFG.EdgeData[edKey2] = sc2.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(sc2.ToString(), sc.ToString());
+
+                        string sfdval = string.Format("{0}-DValue", dsl.CFName);
+                        if (!string.IsNullOrEmpty(dsl.CFDValue))
+                            sfdval = dsl.CFDValue;
+                        SemanticStructure sc3 = new SemanticStructure() { SSName = sfdval, SSType = SStrType.DPDValue, XMLURI = dsl.CFName };
+                        initData.OwlData.RDFG.AddNode(sc3.ToString());
+                        initData.OwlData.RDFG.AddEntryToNODetail(sc3.ToString(), sc3);
+                        string edKey3 = string.Format("{0}-{1}", sc3.SSName, sc.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey3))
+                            initData.OwlData.RDFG.EdgeData[edKey3] = sc3.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(sc3.ToString(), sc.ToString());
+
+                        string scftval = string.Format("{0}-{1}", dsl.CFName,dsl.SCFType);
+                        SemanticStructure sc4 = new SemanticStructure() { SSName = scftval, SSType = SStrType.DPType, XMLURI = dsl.CFName };  
+                        initData.OwlData.RDFG.AddNode(sc4.ToString());
+                        initData.OwlData.RDFG.AddEntryToNODetail(sc4.ToString(), sc4);
+                        string edKey4 = string.Format("{0}-{1}", sc4.SSName, sc.SSName);
+                        if (!initData.OwlData.RDFG.EdgeData.ContainsKey(edKey4))
+                            initData.OwlData.RDFG.EdgeData[edKey4] = sc4.SSType.ToString();
+                        //add edge
+                        initData.OwlData.RDFG.AddEdge(sc4.ToString(), sc.ToString());
+                    }
+                }
                 NetworkFunctions.CollectTransition(NetworkFunctions.SpTree, this);
             }
         }
@@ -1750,6 +1864,9 @@ namespace Server.DSystem
 
             paNUInstCommand = new ProposeAddNewUserInstance();
             paNUInstCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
+
+            pndsuiCommand = new ProposeAddDSToUIInstance();
+            pndsuiCommand.RaiseProposal4 += SpWindow_RaiseProposal4;
 
             NetworkFunctions.CCEHandler += NetworkFunctions_CCEHandler;
             NetworkFunctions.TCHandler += NetworkFunctions_TCHandler;

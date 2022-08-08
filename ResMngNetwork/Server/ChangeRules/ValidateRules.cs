@@ -158,7 +158,11 @@ namespace Server.ChangeRules
             {
                 return VoteType.Accepted;//What needs to be validated when some one wants to add individuals to ontology? Just say yes
             }
-            else if (nMsg.PCause == ProposalCause.NewUserInstance)
+            else if (nMsg.PCause == ProposalCause.NewUserInstance) //What needs to be validated when some one wants to add new user to KG? Just say yes
+            {
+                return VoteType.Accepted;
+            }
+            else if (nMsg.PCause == ProposalCause.NewDSToUI) //What needs to be validated when some one wants to add data to a user instance? Just say yes
             {
                 return VoteType.Accepted;
             }

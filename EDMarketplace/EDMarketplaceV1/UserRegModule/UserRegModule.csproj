@@ -117,6 +117,9 @@
     <Compile Include="ADDet.xaml.cs">
       <DependentUpon>ADDet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AlDevConfig.xaml.cs">
+      <DependentUpon>AlDevConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConsumerDet.xaml.cs">
       <DependentUpon>ConsumerDet.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,13 @@
     <Compile Include="DPDet.xaml.cs">
       <DependentUpon>DPDet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DSDetailsScreen.xaml.cs">
+      <DependentUpon>DSDetailsScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DSLayoutScreen.xaml.cs">
+      <DependentUpon>DSLayoutScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSLayoutModel.cs" />
     <Compile Include="Models\UserRegModel.cs" />
     <Compile Include="Models\USModel.cs" />
     <Compile Include="NewRestrictionDet.xaml.cs">
@@ -150,11 +160,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AlDevConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConsumerDet.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="DPDet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DSDetailsScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DSLayoutScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

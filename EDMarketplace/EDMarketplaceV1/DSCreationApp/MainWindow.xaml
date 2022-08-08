@@ -1,0 +1,33 @@
+﻿<Window x:Class="DSCreationApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DSCreationApp"
+        mc:Ignorable="d"
+        Title="DS Creation Window" Height="250" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Label Grid.Column="0" Grid.Row="0" Content="Select Type" Margin="10,10,10,10"></Label>
+        <ComboBox Grid.Column="1" Grid.Row="0" Margin="10,10,10,10" ItemsSource="{Binding FTypes}" SelectedItem="{Binding SFType}"></ComboBox>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Vertical">
+            <CheckBox Content="Full Day" Margin="10,10,10,10"></CheckBox>
+            <CheckBox Content="Time Slot"  Margin="10,10,10,10"></CheckBox>
+        </StackPanel>
+        <Label Grid.Column="0" Grid.Row="2" Content="Create DS" Margin="10,10,10,10"></Label>
+        
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Name="btnCreate" Click="BtnCreate_Click" Content="Create" Margin="10,10,10,10" HorizontalAlignment="Center"></Button>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Name="btnExit" Click="BtnExit_Click" Margin="10,10,10,10" Content="Exit" HorizontalAlignment="Right"></Button>
+    </Grid>
+</Window>

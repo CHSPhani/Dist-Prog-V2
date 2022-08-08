@@ -149,6 +149,7 @@ namespace UserRegModule.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
     public class NUDataProperty: INotifyPropertyChanged
     {
         string nudpName;

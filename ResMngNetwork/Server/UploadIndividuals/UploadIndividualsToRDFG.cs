@@ -175,6 +175,119 @@ namespace Server.UploadIndividuals
     }
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class ObtainDSets: IObtainDSforUI
+    {
+        public static DBData dbData = null;
+        public ObtainDSets() { }
+
+        public List<string> ObtainDataSets(string uiName)
+        {
+            List<string> dsDet = new List<string>();
+
+            string inName = ObtainDSets.dbData.OwlData.RDFG.GetExactNodeName(uiName);
+
+            List<string> ogds = ObtainDSets.dbData.OwlData.RDFG.GetEdgesForNode(inName);
+            List<string> igdsincoming = ObtainDSets.dbData.OwlData.RDFG.GetIncomingEdgesForNode(inName);
+
+            if (igdsincoming.Count != 0)
+            {
+                foreach (string s in igdsincoming)
+                {
+                    if (s.Contains(":"))
+                    {
+                        if (s.Split(':')[1].ToLower().Equals("dataset"))
+                        {
+                            dsDet.Add(s.Split(':')[0]);
+                        }
+                    }
+                }
+            }
+            return dsDet;
+        }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class ObtainDSDet: IObtainDSDetails
+    {
+        public static DBData dbData = null;
+
+        public ObtainDSDet() { }
+
+        public List<DSLayoutModel> ObtainDSDetails(string dsName)
+        {
+            List<DSLayoutModel> dsml = new List<DSLayoutModel>();
+
+            string inName = ObtainDSDet.dbData.OwlData.RDFG.GetExactNodeName(dsName);
+
+            List<string> ogds = ObtainDSDet.dbData.OwlData.RDFG.GetEdgesForNode(inName);
+            List<string> igdsincoming = ObtainDSDet.dbData.OwlData.RDFG.GetIncomingEdgesForNode(inName);
+
+            //Store ss in a list for processing
+            List<SemanticStructure> ssd = new List<SemanticStructure>();
+            if (igdsincoming.Count != 0)
+            {
+                foreach (string s in igdsincoming)
+                {
+                    //string orName = ObtainDSDet.dbData.OwlData.RDFG.GetExactNodeName(s);
+                    SemanticStructure p1 = ObtainDSDet.dbData.OwlData.RDFG.NODetails[s];
+                    ssd.Add(p1);
+                }
+            }
+            //First Round
+            dsml.Clear();
+            foreach (SemanticStructure ssi in ssd)
+            {
+                DSLayoutModel dsm = new DSLayoutModel();
+                if (ssi.SSType == SStrType.DPName & string.IsNullOrEmpty(ssi.XMLURI))
+                {
+                    dsm.CFName = ssi.SSName;
+                    dsm.CDSName = inName.Split(':')[0];//.Split('-')[0];
+                    dsml.Add(dsm);
+                }
+                
+            }
+            //Second Round filling properties. 
+            foreach (SemanticStructure ssi in ssd)
+            {
+                if (ssi.SSType == SStrType.DPExp)
+                {
+                    string sss = ssi.XMLURI;
+                    foreach(DSLayoutModel dsm in dsml)
+                    {
+                        if(dsm.CFName.Trim().Equals(sss))
+                        {
+                            dsm.CFExp = ssi.SSName;
+                        }
+                    }
+                }
+                else if (ssi.SSType == SStrType.DPDValue)
+                {
+                    string sss = ssi.XMLURI;
+                    foreach (DSLayoutModel dsm in dsml)
+                    {
+                        if (dsm.CFName.Trim().Equals(sss))
+                        {
+                            dsm.CFDValue = ssi.SSName;
+                        }
+                    }
+                }
+                else if (ssi.SSType == SStrType.DPType)
+                {
+                    string sss = ssi.XMLURI;
+                    foreach (DSLayoutModel dsm in dsml)
+                    {
+                        if (dsm.CFName.Trim().Equals(sss))
+                        {
+                            dsm.SCFType = ssi.SSName;
+                        }
+                    }
+                }
+            }
+            return dsml;
+        }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class UploadIndividualsToRDFG : IUploadIndividuals
     {
         public static DBData dbData = null;
@@ -616,6 +729,106 @@ namespace Server.UploadIndividuals
         public void Transit(AddNewUserInstance auInst, NodeMesaage nMsg)
         {
             RaiseProposal4?.Invoke(auInst, new ProposeEventArgs() { NMessage = nMsg });
+        }
+    }
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    public class AdNewDSToUI : IAddDSToUI, IProposalResult, ITransitionResult
+    {
+        public static DSNode dsn = null;
+        bool pResult;
+        public event ProposeResultEventHandler PRHandler;
+        public event TransitResultEventHandler TRHandler;
+        ISendDSAddUpdate callbackChannel;
+        
+        public AdNewDSToUI()
+        {
+            pResult = false;
+            this.PRHandler += AddNewUserRole_PRHandler;
+            this.TRHandler += AddNewUserRole_TRHandler;
+        }
+        private bool AddNewUserRole_TRHandler(object sender, TransitResultEventArgs e)
+        {
+            bool tResult = e.TResult;
+            callbackChannel.SendDSAddResult(tResult);
+            return tResult;
+        }
+        private bool AddNewUserRole_PRHandler(object sender, ProposeResultEventArgs e)
+        {
+            bool tResult = e.PResult;
+            if (!pResult)
+                callbackChannel.SendDSAddResult(tResult);
+            return tResult;
+        }
+
+        VDSetModel vdsModel;
+        public void AddDsToUI(VDSetModel vdSet)
+        {
+            vdsModel = vdSet;
+            callbackChannel = OperationContext.Current.GetCallbackChannel<ISendDSAddUpdate>();
+            if(dsn != null)
+            {
+                dsn.SplPower = true;
+
+                NodeMesaage nMessage = new NodeMesaage();
+                nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+                nMessage.PCause = ProposalCause.NewDSToUI;
+                nMessage.PTYpe = ProposalType.Voting;
+                List<string> sItems = new List<string>();
+                nMessage.DataItems = sItems;
+                //Need to add data to message
+                nMessage.VDSModel = vdSet;
+                dsn.PndsUICommand.Propose(this, nMessage);
+            }
+        }
+
+        public void ProcessProposalResult(VoteType overAllType)
+        {
+            if (overAllType == VoteType.Accepted)
+            {
+                NodeMesaage nMessage = new NodeMesaage();
+                nMessage.ProposedUser = AddNewUserRole.dsn.UserName;
+                nMessage.PCause = ProposalCause.NewDSToUI;
+                nMessage.PTYpe = ProposalType.Transition;
+                List<string> sItems = new List<string>();
+                nMessage.DataItems = sItems;
+                //Need to add data to message
+                nMessage.VDSModel = vdsModel;
+                dsn.PndsUICommand.Transit(this, nMessage);
+            }
+            else
+            {
+                PRHandler?.Invoke(this, new ProposeResultEventArgs() { PResult = false });
+            }
+        }
+
+        public void ProcessTransitResult(TransitType tType)
+        {
+            if (tType == TransitType.Done)
+            {
+                TRHandler?.Invoke(this, new TransitResultEventArgs() { TResult = true });
+            }
+            else
+            {
+                TRHandler?.Invoke(this, new TransitResultEventArgs() { TResult = false });
+            }
+        }
+    }
+
+    public class ProposeAddDSToUIInstance
+    {
+        public event RaiseProposeEventHandler RaiseProposal4;
+
+        public ProposeAddDSToUIInstance() { }
+
+        public void Propose(AdNewDSToUI adInst, NodeMesaage nMSg)
+        {
+            RaiseProposal4?.Invoke(adInst, new ProposeEventArgs() { NMessage = nMSg });
+        }
+
+        public void Transit(AdNewDSToUI adInst, NodeMesaage nMSg)
+        {
+            RaiseProposal4?.Invoke(adInst, new ProposeEventArgs() { NMessage = nMSg });
         }
     }
 }

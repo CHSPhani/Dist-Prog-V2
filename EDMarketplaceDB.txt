@@ -52,6 +52,43 @@ CREATE TABLE `edmarketplace`.`AlDeveloper` (
  `adpwd` VARCHAR(150) NOT NULL,
 PRIMARY KEY (`aID`));
 
+CREATE TABLE `edmarketplace`.`AlDevConfig1` (
+ `adSID` INT NOT NULL,
+ `aID` INT NOT NULL,
+ `adcSInstName` VARCHAR(150) NOT NULL, 
+PRIMARY KEY (`adSID`,`aID`),
+CONSTRAINT `adid`
+    FOREIGN KEY (`aID`)
+    REFERENCES `edmarketplace`.`AlDeveloper` (`aID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `edmarketplace`.`AlDevConfig2` (
+ `adSID` INT NOT NULL,
+ `adSDS` INT NOT NULL,
+ `adcDSName` VARCHAR(150) NOT NULL);
+//wanted to create PK FK but too much hence left it
+, 
+PRIMARY KEY (`adSID`,`adSDS`),
+CONSTRAINT `adsids`
+    FOREIGN KEY (`adSID`)
+    REFERENCES `edmarketplace`.`AlDevConfig1` (`adSID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `edmarketplace`.`AlDevConfig3` (
+ `adSDS` INT NOT NULL,
+ `adSDP` INT NOT NULL,
+ `adcDPName` VARCHAR(150) NOT NULL);
+//wanted to create PK FK but too much hence left it
+, 
+PRIMARY KEY (`adSDS`,`adSDP`),
+CONSTRAINT `adsips`
+    FOREIGN KEY (`adSDS`)
+    REFERENCES `edmarketplace`.`AlDevConfig2` (`adSDS`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 
 CREATE TABLE `edmarketplace`.`Newuser` (
  `nID` INT NOT NULL,
@@ -64,3 +101,4 @@ CREATE TABLE `edmarketplace`.`Newuser` (
  `nuID` VARCHAR(150) NOT NULL,
  `nupwd` VARCHAR(150) NOT NULL,
 PRIMARY KEY (`nID`));
+

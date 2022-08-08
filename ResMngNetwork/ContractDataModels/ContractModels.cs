@@ -66,6 +66,20 @@ namespace ContractDataModels
     }
 
     [ServiceContract]
+    public interface IObtainDSforUI
+    {
+        [OperationContract]
+        List<string> ObtainDataSets(string uiName);
+    }
+
+    [ServiceContract]
+    public interface IObtainDSDetails
+    {
+        [OperationContract]
+        List<DSLayoutModel> ObtainDSDetails(string dsName);
+    }
+
+    [ServiceContract]
     public interface IObtainSearchResults
     {
         [OperationContract]
@@ -96,5 +110,18 @@ namespace ContractDataModels
     {
         [OperationContract(IsOneWay = true)]
         void SendUAddResult(bool res);
+    }
+
+    [ServiceContract(CallbackContract = typeof(ISendDSAddUpdate))]
+    public interface IAddDSToUI
+    {
+        [OperationContract(IsOneWay = true)]
+        void AddDsToUI(VDSetModel vdSet);
+    }
+
+    public interface ISendDSAddUpdate
+    {
+        [OperationContract(IsOneWay = true)]
+        void SendDSAddResult(bool res);
     }
 }

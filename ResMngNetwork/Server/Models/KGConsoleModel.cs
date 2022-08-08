@@ -335,9 +335,9 @@ namespace Server.Models
                         eds.Add(sedg);
                 }
             }
-            sb.Append(string.Format("Intsnaces"));
+            sb.Append(string.Format("Instances"));
             sb.Append("\n");
-            
+            StringBuilder sb2 = new StringBuilder();
             foreach (string es in eds)
             {
                 SemanticStructure insObj = this.dbData.OwlData.RDFG.GetNodeDetails(es.Split('-')[1]);

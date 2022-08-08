@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserRegModule"
         mc:Ignorable="d"
-        Title="User Screen for Validating Datasets" Height="300" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="User Screen for Validating Datasets" Height="550" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -13,24 +13,42 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Select File" Margin="10,10,10,10"></Label>
         <Button Grid.Row="0" Grid.Column="1" Content="Select File" Name="bthSelect" Click="BthSelect_Click" Margin="10,10,10,10"></Button>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" FlowDirection="LeftToRight">
+            <CheckBox Content="First Row is Field Name" IsChecked="{Binding FFName}"></CheckBox>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Enter Col Number" Margin="10,10,10,10"></Label>
+                <TextBox Name="txtNo" Width="150"  Margin="10,10,10,10" Text="{Binding FNo}"></TextBox>
+            </StackPanel>
+        </StackPanel>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Process File" Margin="10,10,10,10"></Label>
+        <Button Grid.Row="2" Grid.Column="1" Content="Process File" Name="bthProcess" Click="BthProcess_Click" Margin="10,10,10,10"></Button>
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="OR..."></Label>
         </StackPanel>
-        <Label Grid.Row="2" Grid.Column="0" Content="Alternately CREATE Layout" Margin="10,10,10,10"></Label>
-        <Button Grid.Row="2" Grid.Column="1" Content="Create Layout" Name="bthCreate" Click="BthCreate_Click" Margin="10,10,10,10"></Button>
+        <Label Grid.Row="4" Grid.Column="0" Content="Alternately CREATE Layout" Margin="10,10,10,10"></Label>
+        <Button Grid.Row="4" Grid.Column="1" Content="Create Layout" Name="bthCreate" Click="BthCreate_Click" Margin="10,10,10,10"></Button>
 
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <Label Grid.Row="5" Grid.Column="0" Content="AND then point a File" Margin="10,10,10,10"></Label>
+        <Button Grid.Row="5" Grid.Column="1" Content="Select File" Name="btnSelectF" Click="BtnSelectF_Click" Margin="10,10,10,10"></Button>
+        
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Name="btnExit" Content="Exit" Margin="10,10,10,10" Click="BtnExit_Click"></Button>
             <Button Name="btnValidate" Content="Validate" Margin="10,10,10,10" Click="BtnValidate_Click"></Button>
         </StackPanel>
-        <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2"  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+        <ScrollViewer Grid.Row="7" Grid.ColumnSpan="2"  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
             <Label Name="lblDesc" Content="Status:"></Label>
         </ScrollViewer>
     </Grid>

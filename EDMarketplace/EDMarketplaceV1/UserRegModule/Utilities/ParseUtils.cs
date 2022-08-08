@@ -11,6 +11,97 @@ namespace UserRegModule.Utilities
 {
     public class ServiceUtils
     {
+        public static List<DSLayoutModel> GetDSDet(string dsName)
+        {
+            List<DSLayoutModel> dsms = new List<DSLayoutModel>();
+            try
+            {
+                string uri = "net.tcp://localhost:6565/ObtainDSDet";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IObtainDSDetails>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                dsms = proxy.ObtainDSDetails(dsName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(Environment.NewLine + string.Format("Exception happend when calling Service for getting Data Set details from KG. Details {0}", ex.Message));
+
+            }
+            if (dsms.Count == 0)
+            {
+                Console.WriteLine(Environment.NewLine + string.Format("NO Data Set Results are obtained for Users from KG."));
+            }
+            else
+            {
+                //Update status
+                Console.WriteLine("Data Set Results obtained for Users from KG.");
+            }
+            return dsms;
+        }
+        public static List<string> GetDSForUI(string uName)
+        {
+            List<string> res = new List<string>();
+            try
+            {
+                string uri = "net.tcp://localhost:6565/ObtainDSets";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IObtainDSforUI>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                res = proxy.ObtainDataSets(uName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(Environment.NewLine + string.Format("Exception happend when calling Service for getting Data Set details from KG. Details {0}", ex.Message));
+
+            }
+            if (res.Count ==0 )
+            {
+                Console.WriteLine(Environment.NewLine + string.Format("NO Data Set Results are obtained for Users from KG."));
+            }
+            else
+            {
+                //Update status
+                Console.WriteLine("Data Set Results obtained for Users from KG.");
+            }
+            return res;
+        }
+        public static Dictionary<string, List<string>> GetSearchResults(string sstr)
+        {
+            Dictionary<string, List<string>> sResults = new Dictionary<string, List<string>>();
+            string sResult = string.Empty;
+            try
+            {
+                string uri = "net.tcp://localhost:6565/KGConsoleModel";
+                NetTcpBinding binding = new NetTcpBinding(SecurityMode.None);
+                binding.OpenTimeout = TimeSpan.FromMinutes(120);
+                var channel = new ChannelFactory<IObtainSearchResults>(binding);
+                var endPoint = new EndpointAddress(uri);
+                var proxy = channel.CreateChannel(endPoint);
+                sResult = proxy.GetSearchResults(sstr);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(Environment.NewLine + string.Format("Exception happend when calling Service for getting Serach details from KG. Details {0}", ex.Message));
+
+            }
+            if (string.IsNullOrEmpty(sResult))
+            {
+                Console.WriteLine(Environment.NewLine + string.Format("NO Search Results are obtained for Users from KG."));
+            }
+            else
+            {
+                //Update status
+                Console.WriteLine("Search Results obtained for Users from KG.");
+                //Parse string and construct an object.
+                sResults = ParseUtils.ParseSearchString(sResult);
+                
+            }
+            return sResults;
+        }
         public static List<string> GetUserRoles()
         {
             List<string> uRoles = new List<string>();
@@ -122,7 +213,8 @@ namespace UserRegModule.Utilities
         public static string DProps = "Data Properties";
         public static string SCls = "Sub Classes";
         public static string ORstr = "Object Restrictions";
-        public static string Inst = "Intsnaces";
+        public static string Inst = "Instances";
+        public static string DSets = "Datasets";
 
         public static List<string> GetStdStrings()
         {
@@ -134,6 +226,7 @@ namespace UserRegModule.Utilities
             StdStrings.Add(ParseUtils.SCls);
             StdStrings.Add(ParseUtils.ORstr);
             StdStrings.Add(ParseUtils.Inst);
+            StdStrings.Add(ParseUtils.DSets);
             return StdStrings;
         }
         public static Dictionary<string, List<string>> ParseSearchString(string result)

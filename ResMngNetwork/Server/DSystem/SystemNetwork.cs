@@ -41,6 +41,8 @@ namespace Server.DSystem
 
         public UInstEntry UIEntry { get; set; }
 
+        public VDSetModel VDSModel { get; set; }
+
         public bool DirectTransit { get; set; }
 
         public NodeMesaage()

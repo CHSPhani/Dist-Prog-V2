@@ -1,0 +1,5 @@
+﻿TimeSlot,Production,Unit,GenSource,CrossSectionTrade,UnitPrice
+10:00-10:30,2,kWh,PVPanel,TRUE,1
+10:30-11:00,3,kWh,PVPanel,TRUE,1
+11:00-11:30,5,kWh,PVPanel,TRUE,1
+11:30-12:00,7,kWh,PVPanel,TRUE,1
