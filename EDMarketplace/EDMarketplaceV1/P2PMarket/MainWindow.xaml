@@ -5,13 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P2PMarket"
         mc:Ignorable="d"
-        Title="P2P Marketting" Height="450" Width="800">
+        Title="EDMarketPlace DaskBoard - Main User Interface" Height="550" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="2" Content="Exit" Margin="10,10,10,10" HorizontalAlignment="Right" Name="btnExit" Click="BtnExit_Click"></Button>
+        <Label Grid.Row="0" Content="EDMarket place DashBoard" HorizontalContentAlignment="Center"></Label>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition  Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Peer-to-Peer Trading Section"></Label>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+                <TextBlock Grid.Row="0" Text="Current Trading Period      " Margin="5,5,5,5"></TextBlock>
+                <TextBlock Grid.Row="0" Text="{Binding TPeriod}" Margin="5,5,5,5"></TextBlock>
+            </StackPanel>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Available Prosumers for this Trading Period"></Label>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="1" ></TextBlock>
+
+            <Label  Grid.Row="3" Grid.Column="0" Content="Available Consumers for this Trading Period"></Label>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="1" ></TextBlock>
+
+            <Label  Grid.Row="4" Grid.Column="0" Content="Suitable Algorithms for this Trading Period"></Label>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="1" ></TextBlock>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
+                <Button Content="Send Results to Blockchain" Margin="10,10,10,10"></Button>
+                <Button Content="Execute Trade Algorithm" Margin="10,10,10,10"></Button>
+            </StackPanel>
+
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Battery Availability and Trading Section"></Label>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Electricity Storage device trading"></Label>
+        </Grid>
+        <Button Grid.Row="4" Content="Exit" Margin="10,10,10,10" HorizontalAlignment="Right" Name="btnExit" Click="BtnExit_Click"></Button>
     </Grid>
 </Window>
