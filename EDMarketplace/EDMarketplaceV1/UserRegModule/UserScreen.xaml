@@ -27,7 +27,7 @@
         <StackPanel Grid.Row="1" Orientation="Vertical" FlowDirection="LeftToRight">
             <CheckBox Content="First Row is Field Name" IsChecked="{Binding FFName}"></CheckBox>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Enter Col Number" Margin="10,10,10,10"></Label>
+                <Label Content="Enter ROW Number" Margin="10,10,10,10"></Label>
                 <TextBox Name="txtNo" Width="150"  Margin="10,10,10,10" Text="{Binding FNo}"></TextBox>
             </StackPanel>
         </StackPanel>

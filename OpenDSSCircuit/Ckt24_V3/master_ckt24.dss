@@ -26,7 +26,9 @@ Redirect  AllocationFactors_Base.Txt  !!! R=7 Vset=123
 Set voltagebases=[230,34.5,13.2,0.48,0.415,0.208]   ! Allowable voltage bases for this problem
 Calcvoltagebases
 !Define the monitors
-Redirect Monitors_06-08-2022.dss
+Redirect Monitors_20-08-2022.dss
+!Define the monitors
+!Define the monitors
 !Define the monitors
 !Define the monitors
 !Define the monitors
