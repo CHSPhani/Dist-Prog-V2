@@ -37,16 +37,16 @@
     </Reference>
     <Reference Include="DataSerailizer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DebugOuts\DataSerailizer.dll</HintPath>
+      <HintPath>..\..\..\vendor\DataSerailizer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.GLEE">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Research\GLEE\bin\Microsoft.GLEE.dll</HintPath>
+      <HintPath>..\..\..\vendor\Microsoft.GLEE.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.GLEE.Drawing">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Research\GLEE\bin\Microsoft.GLEE.Drawing.dll</HintPath>
+      <HintPath>..\..\..\vendor\Microsoft.GLEE.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.GLEE.GraphViewerGDI">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Research\GLEE\bin\Microsoft.GLEE.GraphViewerGDI.dll</HintPath>
+      <HintPath>..\..\..\vendor\Microsoft.GLEE.GraphViewerGDI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
